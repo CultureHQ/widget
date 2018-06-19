@@ -1,6 +1,16 @@
 const MONTH_NAMES = [
-  "January", "February", "March", "April", "May", "June", "July", "August",
-  "September", "October", "November", "December"
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
 ];
 
 const formatTimestamp = timestamp => {
@@ -13,8 +23,8 @@ const formatTimestamp = timestamp => {
   let hours = date.getHours();
   hours = hours > 12 ? hours - 12 : hours;
 
-  let minutes = date.getMinutes();
-  let minutesDisplay = minutes < 10 ? `0${minutes}` : minutes.toString();
+  const minutes = date.getMinutes();
+  const minutesDisplay = minutes < 10 ? `0${minutes}` : minutes.toString();
 
   const meridian = hours >= 12 ? "PM" : "AM";
 

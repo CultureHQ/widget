@@ -22,19 +22,26 @@ class App extends Component {
   componentDidMount() {
     this.componentIsMounted = true;
 
-    this.client.autoPaginate("events").listEvents(LIST_OPTIONS).then(({ events }) => {
-      this.mountedSetState({ events: events.map(event => new CHQEvent(event)), failure: false });
-    }).catch(failure => {
-      this.mountedSetState({ events: null, failure: true });
-    });
-  }
-
-  componentWillUnmount() {
-    this.componentIsMounted = false;
+    this.client
+      .autoPaginate("events")
+      .listEvents(LIST_OPTIONS)
+      .then(({ events }) => {
+        this.mountedSetState({
+          events: events.map(event => new CHQEvent(event)),
+          failure: false
+        });
+      })
+      .catch(() => {
+        this.mountedSetState({ events: null, failure: true });
+      });
   }
 
   componentDidCatch() {
     this.mountedSetState({ events: null, failure: true });
+  }
+
+  componentWillUnmount() {
+    this.componentIsMounted = false;
   }
 
   mountedSetState(newState) {

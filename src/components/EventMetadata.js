@@ -59,15 +59,21 @@ const EventMetadata = ({ event }) => {
   return (
     <Container>
       <EventValues>
-        {event.cancelledAt ?
-          <EventCancelled /> :
-          <EventTimestamps startsAt={event.startsAtDisplay} endsAt={event.endsAtDisplay} />
-        }
+        {event.cancelledAt ? (
+          <EventCancelled />
+        ) : (
+          <EventTimestamps
+            startsAt={event.startsAtDisplay}
+            endsAt={event.endsAtDisplay}
+          />
+        )}
 
         {event.location && <EventLocation location={event.location} />}
 
         <EventLabel>Host:</EventLabel>
-        <EventValue><UserName user={event.host} /></EventValue>
+        <EventValue>
+          <UserName user={event.host} />
+        </EventValue>
 
         {event.cap && <EventCap remainingSpots={event.remainingSpots} />}
       </EventValues>

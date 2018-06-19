@@ -19,8 +19,8 @@ const Link = styled.a`
 const NoEvents = () => (
   <Container>
     <strong>Uh oh!</strong> No events to show.{" "}
-    <Link href="https://platform.culturehq.com/events/create">Click here</Link>
-    {" "}to create an event.
+    <Link href="https://platform.culturehq.com/events/create">Click here</Link>{" "}
+    to create an event.
   </Container>
 );
 

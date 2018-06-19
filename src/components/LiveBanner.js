@@ -28,8 +28,7 @@ const LiveBanner = () => (
   <Container>
     <LiveSVG viewBox="0 0 1024 1024">
       <LivePath d="M512 928c229.8 0 416-186.2 416-416s-186.2-416-416-416c-229.8 0-416 186.2-416 416s186.2 416 416 416z" />
-    </LiveSVG>
-    {" "}
+    </LiveSVG>{" "}
     LIVE
   </Container>
 );

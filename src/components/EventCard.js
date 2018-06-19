@@ -1,9 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import EventImage from "./EventImage";
 import EventMetadata from "./EventMetadata";
 import Rsvps from "./Rsvps";
+import { EventContainer, EventHeader, EventFooter } from "./EventDisplay";
 
 const MoreInfo = styled.a`
   background-color: #79b17d;
@@ -15,13 +16,6 @@ const MoreInfo = styled.a`
   text-align: center;
   text-decoration: none;
 `;
-
-import {
-  EventContainer,
-  EventHeader,
-  EventRight,
-  EventFooter
-} from "./EventDisplay";
 
 const EventCard = ({ event }) => (
   <EventContainer>

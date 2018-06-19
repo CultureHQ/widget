@@ -71,7 +71,8 @@ class CHQEvent {
       return false;
     }
 
-    const firstDayEnd = new Date(this.event.startsAt).getTime() + DAY_IN_MILLISECONDS;
+    const firstDayEnd =
+      new Date(this.event.startsAt).getTime() + DAY_IN_MILLISECONDS;
     return currentDate < new Date(firstDayEnd);
   }
 
@@ -97,7 +98,10 @@ class CHQEvent {
   }
 
   get rsvpExtra() {
-    const displayedRsvps = Math.min(PREVIEW_LIMIT, this.event.rsvpPreview.length);
+    const displayedRsvps = Math.min(
+      PREVIEW_LIMIT,
+      this.event.rsvpPreview.length
+    );
     return this.event.acceptedCount - displayedRsvps;
   }
 }

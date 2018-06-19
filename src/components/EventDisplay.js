@@ -1,18 +1,17 @@
-import React from "react";
 import styled, { css } from "styled-components";
 
 import { font } from "../styles.json";
 
 const notSmallScreen = (...args) => css`
   @media (min-width: 768px) {
-    ${css(...args)}
+    ${css(...args)};
   }
 `;
 
 export const EventContainer = styled.div`
   background-color: white;
   border-radius: 3px;
-  box-shadow: .5px .5px 3px rgba(0, 0, 0, .2);
+  box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.2);
   color: #5c5f67;
   font-family: ${font};
   font-size: 16px;
@@ -24,7 +23,7 @@ export const EventHeader = styled.div`
   ${notSmallScreen`
     align-items: stretch;
     display: flex;
-  `}
+  `};
 `;
 
 export const EventFooter = styled.div`
@@ -44,12 +43,12 @@ export const EventLeft = styled.div`
   ${notSmallScreen`
     flex-grow: 1;
     width: 55%;
-  `}
+  `};
 `;
 
 const eventLeftStyles = css`
   border-top-left-radius: 3px;
-  background-color: rgba(0, 0, 0, .2);
+  background-color: rgba(0, 0, 0, 0.2);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -70,11 +69,11 @@ export const EventRight = styled.div`
   ${notSmallScreen`
     flex-direction: column;
     width: 45%;
-  `}
+  `};
 `;
 
 export const EventRightPlaceholder = styled.div`
-  background-color: rgba(0, 0, 0, .15);
+  background-color: rgba(0, 0, 0, 0.15);
   height: 1.5em;
   margin: 15px;
 `;
