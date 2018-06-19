@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { font } from "../styles.json";
+import { font, fontSize, maxWidth } from "../styles.json";
 
 const notSmallScreen = (...args) => css`
   @media (min-width: 768px) {
@@ -14,9 +14,9 @@ export const EventContainer = styled.div`
   box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.2);
   color: #5c5f67;
   font-family: ${font};
-  font-size: 16px;
+  font-size: ${fontSize};
   margin-bottom: 15px;
-  max-width: 900px;
+  max-width: ${maxWidth};
 `;
 
 export const EventHeader = styled.div`
