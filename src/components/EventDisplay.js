@@ -28,6 +28,8 @@ export const EventHeader = styled.div`
 
 export const EventFooter = styled.div`
   border-top: 1px solid #ddd;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
   background-color: #f5f5f5;
   min-height: 38px;
   padding: 10px 15px;
