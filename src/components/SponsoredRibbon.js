@@ -19,7 +19,7 @@ const Text = styled.span`
   display: block;
   font-size: 12px;
   left: -55px;
-  padding: 7px 0 7px 10px;
+  padding: 7px 0 7px 16px;
   position: relative;
   top: 20px;
   transform: rotate(-45deg);
