@@ -1,5 +1,7 @@
 # widget
 
+[![Build Status](https://travis-ci.com/CultureHQ/widget.svg?token=kQUiABmGkzyHdJdMnCnv&branch=master)](https://travis-ci.com/CultureHQ/widget)
+
 Embeds an upcoming events widget on the current page using the following JavaScript snippet:
 
 ```javascript
