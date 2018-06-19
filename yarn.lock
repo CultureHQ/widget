@@ -187,6 +187,10 @@ acorn@^5.0.0, acorn@^5.3.0, acorn@^5.6.2:
   version "5.7.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.1.tgz#f095829297706a7c9776958c0afc8930a9b9d9d8"
 
+actioncable@^5.1.5:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/actioncable/-/actioncable-5.2.0.tgz#97a4e06681c749a8af86e1ead8487bf5e87b59e4"
+
 ajv-keywords@^3.1.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-3.2.0.tgz#e86b819c602cf8821ad637413698f1dec021847a"
@@ -1624,6 +1628,15 @@ cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
   resolved "https://registry.yarnpkg.com/cssstyle/-/cssstyle-0.3.1.tgz#6da9b4cff1bc5d716e6e5fe8e04fcb1b50a49adf"
   dependencies:
     cssom "0.3.x"
+
+culturehq-client@CultureHQ/client#v0.0.88:
+  version "0.0.88"
+  resolved "git+ssh://git@github.com/CultureHQ/client.git#9c29c200ed4fb9534b45b5fae99ba367b8f5be98"
+  dependencies:
+    actioncable "^5.1.5"
+    isomorphic-fetch "^2.2.1"
+    store "^2.0.12"
+    url-polyfill "^1.0.11"
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
@@ -3112,7 +3125,7 @@ isobject@^3.0.0, isobject@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
 
-isomorphic-fetch@^2.1.1:
+isomorphic-fetch@^2.1.1, isomorphic-fetch@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/isomorphic-fetch/-/isomorphic-fetch-2.2.1.tgz#611ae1acf14f5e81f729507472819fe9733558a9"
   dependencies:
@@ -5325,6 +5338,10 @@ stealthy-require@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
 
+store@^2.0.12:
+  version "2.0.12"
+  resolved "https://registry.yarnpkg.com/store/-/store-2.0.12.tgz#8c534e2a0b831f72b75fc5f1119857c44ef5d593"
+
 stream-browserify@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/stream-browserify/-/stream-browserify-2.0.1.tgz#66266ee5f9bdb9940a4e4514cafb43bb71e5c9db"
@@ -5710,6 +5727,10 @@ url-parse@^1.1.8, url-parse@~1.4.0:
   dependencies:
     querystringify "^2.0.0"
     requires-port "^1.0.0"
+
+url-polyfill@^1.0.11:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/url-polyfill/-/url-polyfill-1.0.13.tgz#5324c5e6e3d3bafdc93a73c21def21e8b697c910"
 
 url@^0.11.0:
   version "0.11.0"
