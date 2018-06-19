@@ -9,7 +9,7 @@ Embeds an upcoming events widget on the current page using the following JavaScr
     q.src = "//assets.culturehq.com/widget.js";
     q.onload = function () { CHQ(c, h) };
     document.getElementsByTagName("head")[0].appendChild(q);
-  }("#main", "token")
+  }("#chq" /* your selector */, "token" /* your API token */)
 </script>
 ```
 
