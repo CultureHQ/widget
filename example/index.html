@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>CultureHQ Widget</title>
+    <link rel="stylesheet" type="text/css" href="app.css" />
+  </head>
+  <body>
+    <div id="main"></div>
+    <script type="text/javascript">
+      +function (c, h, q) {
+        (q = document.createElement("script")).type = "text/javascript";
+        q.src = "main.js";
+        q.onload = function () { CHQ(c, h) };
+        document.getElementsByTagName("head")[0].appendChild(q);
+      }("#main", "token")
+    </script>
+  </body>
+</html>
