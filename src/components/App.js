@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import CultureHQ from "culturehq-client";
+import client from "@culturehq/client";
+import styled from "styled-components";
 
-import { API_ROOT, LIST_OPTIONS } from "../config";
+import { LIST_OPTIONS } from "../config";
 import CHQEvent from "../lib/chq-event";
 
 import EventCard from "./EventCard";
@@ -9,12 +10,15 @@ import EventPlaceholder from "./EventPlaceholder";
 import Failure from "./Failure";
 import NoEvents from "./NoEvents";
 
+const Container = styled.section`
+  overflow: auto;
+`;
+
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.client = new CultureHQ({ apiHost: API_ROOT });
-    this.client.setToken(props.token);
+    client.setToken(props.token);
 
     this.state = { events: null, failure: false };
   }
@@ -22,7 +26,7 @@ class App extends Component {
   componentDidMount() {
     this.componentIsMounted = true;
 
-    this.client
+    client
       .autoPaginate("events")
       .listEvents(LIST_OPTIONS)
       .then(({ events }) => {
@@ -72,9 +76,9 @@ class App extends Component {
     }
 
     return (
-      <section>
+      <Container>
         {events.map(event => <EventCard key={event.id} event={event} />)}
-      </section>
+      </Container>
     );
   }
 }
