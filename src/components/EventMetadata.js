@@ -11,6 +11,7 @@ const EventCancelledContainer = EventRight.extend`
 const EventValues = styled.dl`
   margin: 0;
   padding: 15px;
+  width: 100%;
 `;
 
 const EventLabel = styled.dt`
@@ -21,37 +22,30 @@ const EventLabel = styled.dt`
 const EventValue = styled.dd`
   font-weight: 200;
   margin-bottom: 20px;
+  width: 100%;
 `;
 
-const EventTimestamps = ({ startsAt, endsAt }) => (
-  <section>
-    <EventLabel>Starts:</EventLabel>
-    <EventValue>{startsAt}</EventValue>
-    <EventLabel>Ends:</EventLabel>
-    <EventValue>{endsAt}</EventValue>
-  </section>
-);
+const EventTimestamps = ({ startsAt, endsAt }) => [
+  <EventLabel key="start-key">Starts:</EventLabel>,
+  <EventValue key="start-val">{startsAt}</EventValue>,
+  <EventLabel key="end-key">Ends:</EventLabel>,
+  <EventValue key="end-val">{endsAt}</EventValue>
+];
 
-const EventCancelled = () => (
-  <section>
-    <EventLabel>Status:</EventLabel>
-    <EventValue>Cancelled</EventValue>
-  </section>
-);
+const EventCancelled = () => [
+  <EventLabel key="stat-key">Status:</EventLabel>,
+  <EventValue key="stat-val">Cancelled</EventValue>
+];
 
-const EventCap = ({ remainingSpots }) => (
-  <section>
-    <EventLabel>Spots:</EventLabel>
-    <EventValue>{remainingSpots}</EventValue>
-  </section>
-);
+const EventCap = ({ remainingSpots }) => [
+  <EventLabel key="spots-key">Spots:</EventLabel>,
+  <EventValue key="spots-val">{remainingSpots}</EventValue>
+];
 
-const EventLocation = ({ location }) => (
-  <section>
-    <EventLabel>Where:</EventLabel>
-    <EventValue>{location}</EventValue>
-  </section>
-);
+const EventLocation = ({ location }) => [
+  <EventLabel key="where-key">Where:</EventLabel>,
+  <EventValue key="where-val">{location}</EventValue>
+];
 
 const EventMetadata = ({ event }) => {
   const Container = event.cancelledAt ? EventCancelledContainer : EventRight;

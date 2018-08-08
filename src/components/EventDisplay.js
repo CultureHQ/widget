@@ -2,12 +2,6 @@ import styled, { css } from "styled-components";
 
 import { font, fontSize, maxWidth } from "../styles.json";
 
-const notSmallScreen = (...args) => css`
-  @media (min-width: 768px) {
-    ${css(...args)};
-  }
-`;
-
 export const EventContainer = styled.div`
   background-color: white;
   border-radius: 3px;
@@ -15,15 +9,18 @@ export const EventContainer = styled.div`
   color: #5c5f67;
   font-family: ${font};
   font-size: ${fontSize};
-  margin-bottom: 15px;
+  margin: 8px;
   max-width: ${maxWidth};
+
+  & + & {
+    margin-top: 16px;
+  }
 `;
 
 export const EventHeader = styled.div`
-  ${notSmallScreen`
-    align-items: stretch;
-    display: flex;
-  `};
+  align-items: stretch;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export const EventFooter = styled.div`
@@ -42,10 +39,8 @@ export const EventFooter = styled.div`
 `;
 
 export const EventLeft = styled.div`
-  ${notSmallScreen`
-    flex-grow: 1;
-    width: 55%;
-  `};
+  flex-grow: 1;
+  flex-basis: 55%;
 `;
 
 const eventLeftStyles = css`
@@ -68,10 +63,8 @@ export const EventLeftLink = styled.a`
 `;
 
 export const EventRight = styled.div`
-  ${notSmallScreen`
-    flex-direction: column;
-    width: 45%;
-  `};
+  flex-basis: 45%;
+  min-width: 300px;
 `;
 
 export const EventRightPlaceholder = styled.div`

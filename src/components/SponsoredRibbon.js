@@ -18,7 +18,7 @@ const Text = styled.span`
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
   display: block;
   font-size: 12px;
-  left: -55px;
+  left: -60px;
   padding: 7px 0 7px 16px;
   position: relative;
   top: 20px;
