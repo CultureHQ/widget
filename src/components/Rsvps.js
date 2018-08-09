@@ -26,7 +26,9 @@ const Rsvps = ({ event }) => {
     <RsvpPreview>
       <RsvpPrefix>Who&#39;s coming: </RsvpPrefix>
       <Fragment>
-        {event.rsvps.map(rsvp => <UserLink user={rsvp.user} key={rsvp.id} />)}
+        {event.rsvps.map(rsvp => (
+          <UserLink user={rsvp.user} key={rsvp.id} />
+        ))}
       </Fragment>
       {event.rsvpExtra > 0 && <RsvpExtra>+{event.rsvpExtra}</RsvpExtra>}
     </RsvpPreview>

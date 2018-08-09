@@ -77,7 +77,9 @@ class App extends Component {
 
     return (
       <Container>
-        {events.map(event => <EventCard key={event.id} event={event} />)}
+        {events.map(event => (
+          <EventCard key={event.id} event={event} />
+        ))}
       </Container>
     );
   }

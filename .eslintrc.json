@@ -9,6 +9,7 @@
     "arrow-body-style": [2, "as-needed"],
     "arrow-parens": [2, "as-needed"],
     "comma-dangle": 0,
+    "operator-linebreak": 0,
     "quotes": [2, "double"],
     "react/jsx-filename-extension": 0,
     "react/jsx-one-expression-per-line": 0,
