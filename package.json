@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "prettier": "prettier --write '**/*.js'",
     "start": "webpack-dev-server --config webpack.config.babel.js --mode development --hot",
-    "test": "jest"
+    "test": "TZ=UTC jest"
   },
   "repository": {
     "type": "git",
