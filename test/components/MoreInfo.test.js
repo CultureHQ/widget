@@ -9,3 +9,11 @@ test("renders without crashing", () => {
   expect(component.find("a")).toHaveLength(1);
   expect(component.text()).toContain("More Info");
 });
+
+test("passes on props", () => {
+  const href = "https://platform.culturehq.com";
+
+  const component = mount(<MoreInfo href={href} />);
+
+  expect(component.find("a").props().href).toEqual(href);
+});
