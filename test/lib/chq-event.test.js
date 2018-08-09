@@ -1,11 +1,5 @@
 import CHQEvent from "../../src/lib/chq-event";
 
-const buildEvent = () => ({
-  id: 5,
-  name: "Summer BBQ",
-  startsAt: new Date()
-});
-
 test("isLive when the event has not started", () => {
   const startsAt = new Date();
   startsAt.setDate(new Date().getDate() + 5);

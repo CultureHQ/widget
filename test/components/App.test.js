@@ -12,7 +12,9 @@ jest.mock("@culturehq/client", () => {
   const mockClient = {
     autoPaginate: () => mockClient,
     listEvents: jest.fn(),
-    setToken: token => { mockClient.token = token },
+    setToken: token => {
+      mockClient.token = token;
+    },
     token: null
   };
 
@@ -43,7 +45,7 @@ test("sets the token in the constructor", () => {
     Promise.resolve({ events: [] })
   ));
 
-  const component = mount(<App token="special-token" />);
+  mount(<App token="special-token" />);
 
   expect(client.token).toEqual("special-token");
 });
