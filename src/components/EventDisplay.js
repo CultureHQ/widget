@@ -59,7 +59,7 @@ export const EventLeftPlaceholder = styled.span(eventLeftStyles);
 
 export const EventLeftLink = styled.a`
   ${eventLeftStyles}
-  background-image: url('${props => props.imageUrl}');
+  background-image: url('${({ imageUrl }) => imageUrl}');
 `;
 
 export const EventRight = styled.div`

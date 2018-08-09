@@ -40,12 +40,12 @@ class App extends Component {
       });
   }
 
-  componentDidCatch() {
-    this.mountedSetState({ events: null, failure: true });
-  }
-
   componentWillUnmount() {
     this.componentIsMounted = false;
+  }
+
+  componentDidCatch() {
+    this.mountedSetState({ events: null, failure: true });
   }
 
   mountedSetState(newState) {

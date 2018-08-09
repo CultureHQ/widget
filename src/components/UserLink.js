@@ -17,12 +17,12 @@ const sharedStyles = css`
 
 const Link = styled.a`
   ${sharedStyles}
-  background-image: url(${props => props.imageUrl});
+  background-image: url(${({ imageUrl }) => imageUrl});
 `;
 
 const Text = styled.span`
   ${sharedStyles}
-  background-image: url(${props => props.imageUrl});
+  background-image: url(${({ imageUrl }) => imageUrl});
 `;
 
 const UserLink = ({ user, children }) => {
