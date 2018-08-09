@@ -1,6 +1,7 @@
+import React from "react";
 import styled from "styled-components";
 
-const MoreInfo = styled.a`
+const Container = styled.a`
   background-color: #79b17d;
   border-radius: 5px;
   color: white;
@@ -10,5 +11,9 @@ const MoreInfo = styled.a`
   text-align: center;
   text-decoration: none;
 `;
+
+const MoreInfo = () => (
+  <Container>More Info</Container>
+);
 
 export default MoreInfo;

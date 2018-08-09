@@ -14,7 +14,7 @@ const EventCard = ({ event }) => (
     </EventHeader>
     <EventFooter>
       <Rsvps event={event} />
-      <MoreInfo href={event.href}>More Info</MoreInfo>
+      <MoreInfo href={event.href} />
     </EventFooter>
   </EventContainer>
 );
