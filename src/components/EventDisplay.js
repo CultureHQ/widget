@@ -65,6 +65,7 @@ export const EventLeftLink = styled.a`
 
 export const EventRight = styled.div`
   flex-basis: 45%;
+  flex-grow: 1;
   min-width: 300px;
 `;
 

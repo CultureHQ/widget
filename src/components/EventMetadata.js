@@ -9,20 +9,22 @@ const EventCancelledContainer = EventRight.extend`
 `;
 
 const EventValues = styled.dl`
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
   margin: 0;
   padding: 15px;
   width: 100%;
 `;
 
 const EventLabel = styled.dt`
-  float: left;
-  width: 70px;
+  flex-basis: 25%;
 `;
 
 const EventValue = styled.dd`
+  flex-basis: 75%;
   font-weight: 200;
-  margin-bottom: 20px;
-  width: 100%;
+  margin: 0 0 20px 0;
 `;
 
 const EventTimestamps = ({ startsAt, endsAt }) => [
