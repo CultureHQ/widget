@@ -26,7 +26,7 @@ class App extends Component {
   componentDidMount() {
     this.componentIsMounted = true;
 
-    client
+    return client
       .autoPaginate("events")
       .listEvents(LIST_OPTIONS)
       .then(({ events }) => {
