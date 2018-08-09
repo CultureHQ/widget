@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 
-import Rsvps from "../src/components/Rsvps";
+import Rsvps from "../../src/components/Rsvps";
 
 const buildUser = userId => ({
   id: userId, active: true, avatar: { thumbUrl: "https://example.com/avatar.png" }

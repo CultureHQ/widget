@@ -17,14 +17,6 @@ class CHQEvent {
     return this.event.name;
   }
 
-  get startsAt() {
-    return this.event.startsAt;
-  }
-
-  get endsAt() {
-    return this.event.endsAt;
-  }
-
   get sponsored() {
     return this.event.sponsored;
   }
@@ -37,20 +29,12 @@ class CHQEvent {
     return this.event.cap;
   }
 
-  get acceptedCount() {
-    return this.event.acceptedCount;
-  }
-
   get cancelledAt() {
     return this.event.cancelledAt;
   }
 
   get host() {
     return this.event.host;
-  }
-
-  get rsvpPreview() {
-    return this.event.rsvpPreview;
   }
 
   get image() {

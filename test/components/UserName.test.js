@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 
-import UserName from "../src/components/UserName";
+import UserName from "../../src/components/UserName";
 
 test("renders a link if the user is active", () => {
   const user = { active: true, id: 1, name: "Kevin" };

@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 
-import EventMetadata from "../src/components/EventMetadata";
+import EventMetadata from "../../src/components/EventMetadata";
 
 const buildEvent = ({ cancelledAt, location, cap, remainingSpots }) => ({
   cancelledAt,

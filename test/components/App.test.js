@@ -2,11 +2,11 @@ import React from "react";
 import { mount } from "enzyme";
 import client from "@culturehq/client";
 
-import App from "../src/components/App";
-import EventCard from "../src/components/EventCard";
-import EventPlaceholder from "../src/components/EventPlaceholder";
-import Failure from "../src/components/Failure";
-import NoEvents from "../src/components/NoEvents";
+import App from "../../src/components/App";
+import EventCard from "../../src/components/EventCard";
+import EventPlaceholder from "../../src/components/EventPlaceholder";
+import Failure from "../../src/components/Failure";
+import NoEvents from "../../src/components/NoEvents";
 
 jest.mock("@culturehq/client", () => {
   const mockClient = {
