@@ -11,6 +11,7 @@ export const EventContainer = styled.div`
   font-size: ${fontSize};
   margin: 8px;
   max-width: ${maxWidth};
+  overflow: hidden;
 
   & + & {
     margin-top: 16px;
