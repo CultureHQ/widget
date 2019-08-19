@@ -1,53 +1,42 @@
 {
   "name": "widget",
-  "description": "Embeds an upcoming events widget on the current page using the following JavaScript snippet:",
+  "description": "Embeds an upcoming events widget from CultureHQ",
   "version": "0.0.1",
   "main": "src/index.js",
-  "directories": {
-    "example": "example"
-  },
   "scripts": {
     "build": "webpack --config webpack.config.babel.js --mode production --progress",
-    "lint": "eslint .",
+    "lint": "chq-scripts lint",
     "prettier": "prettier --write '**/*.js'",
     "start": "webpack-dev-server --config webpack.config.babel.js --mode development --hot",
-    "test": "TZ=UTC jest"
+    "test": "TZ=UTC chq-scripts test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CultureHQ/widget.git"
   },
   "author": "Kevin Deisz",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/CultureHQ/widget/issues"
   },
   "homepage": "https://github.com/CultureHQ/widget#readme",
   "dependencies": {
-    "@culturehq/client": "^4.0.1",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "styled-components": "^3.4.2"
+    "@culturehq/client": "^9.7.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "styled-components": "^4.3.2"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "enzyme": "^3.4.1",
-    "enzyme-adapter-react-16": "^1.2.0",
-    "eslint": "^5.3.0",
-    "eslint-config-airbnb": "^17.0.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.10.0",
-    "jest": "^23.4.2",
-    "prettier": "^1.14.2",
-    "webpack": "^4.16.5",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5"
-  },
-  "jest": {
-    "setupTestFrameworkScriptFile": "./test/setup-tests.js"
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@culturehq/scripts": "^3.1.0",
+    "babel-loader": "^8.0.6",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "prettier": "^1.18.2",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0"
   }
 }

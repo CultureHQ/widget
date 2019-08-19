@@ -2,11 +2,11 @@ import React from "react";
 import { mount } from "enzyme";
 import client from "@culturehq/client";
 
-import App from "../../src/components/App";
-import EventCard from "../../src/components/EventCard";
-import EventPlaceholder from "../../src/components/EventPlaceholder";
-import Failure from "../../src/components/Failure";
-import NoEvents from "../../src/components/NoEvents";
+import App from "../App";
+import EventCard from "../EventCard";
+import EventPlaceholder from "../EventPlaceholder";
+import Failure from "../Failure";
+import NoEvents from "../NoEvents";
 
 jest.mock("@culturehq/client", () => {
   const mockClient = {
@@ -52,6 +52,7 @@ test("sets the token in the constructor", () => {
 
 test("renders a failure message if the fetch fails", async () => {
   client.listEvents.mockImplementation(() => (
+    // eslint-disable-next-line prefer-promise-reject-errors
     Promise.reject({ status: 403 })
   ));
 

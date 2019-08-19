@@ -3,7 +3,7 @@ import client from "@culturehq/client";
 import styled from "styled-components";
 
 import { LIST_OPTIONS } from "../config";
-import CHQEvent from "../lib/chq-event";
+import CHQEvent from "../lib/CHQEvent";
 
 import EventCard from "./EventCard";
 import EventPlaceholder from "./EventPlaceholder";

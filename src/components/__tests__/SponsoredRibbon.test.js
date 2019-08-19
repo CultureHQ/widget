@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 
-import SponsoredRibbon from "../../src/components/SponsoredRibbon";
+import SponsoredRibbon from "../SponsoredRibbon";
 
 test("renders without crashing", () => {
   const component = shallow(<SponsoredRibbon />);

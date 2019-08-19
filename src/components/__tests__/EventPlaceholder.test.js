@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 
-import EventPlaceholder from "../../src/components/EventPlaceholder";
+import EventPlaceholder from "../EventPlaceholder";
 
 test("renders without crashing", () => {
   const component = shallow(<EventPlaceholder />);

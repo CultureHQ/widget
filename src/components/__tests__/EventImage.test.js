@@ -1,9 +1,9 @@
 import React from "react";
 import { mount } from "enzyme";
 
-import EventImage from "../../src/components/EventImage";
-import SponsoredRibbon from "../../src/components/SponsoredRibbon";
-import LiveBanner from "../../src/components/LiveBanner";
+import EventImage from "../EventImage";
+import SponsoredRibbon from "../SponsoredRibbon";
+import LiveBanner from "../LiveBanner";
 
 const buildEvent = ({ sponsored, isLive }) => ({
   name: "Summer BBQ",
