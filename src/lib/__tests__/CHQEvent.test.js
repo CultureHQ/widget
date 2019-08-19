@@ -1,4 +1,4 @@
-import CHQEvent from "../../src/lib/chq-event";
+import CHQEvent from "../CHQEvent";
 
 test("isLive when the event has not started", () => {
   const startsAt = new Date();

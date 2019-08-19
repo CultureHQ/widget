@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 
-import UserLink from "../../src/components/UserLink";
+import UserLink from "../UserLink";
 
 test("renders a link if the user is active", () => {
   const message = "This is a user link";

@@ -1,6 +1,6 @@
 import { PLATFORM_ROOT, PREVIEW_LIMIT } from "../config";
 
-import formatTimestamp from "./format-timestamp";
+import formatTimestamp from "./formatTimestamp";
 
 const DAY_IN_MILLISECONDS = 86400000;
 
@@ -55,8 +55,7 @@ class CHQEvent {
       return false;
     }
 
-    const firstDayEnd =
-      new Date(this.event.startsAt).getTime() + DAY_IN_MILLISECONDS;
+    const firstDayEnd = new Date(this.event.startsAt).getTime() + DAY_IN_MILLISECONDS;
     return currentDate < new Date(firstDayEnd);
   }
 

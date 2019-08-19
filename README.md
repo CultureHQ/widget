@@ -1,5 +1,6 @@
 # widget
 
+[![Build Status](https://github.com/CultureHQ/widget/workflows/Push/badge.svg)](https://github.com/CultureHQ/widget/actions)
 [![Build Status](https://travis-ci.com/CultureHQ/widget.svg?token=kQUiABmGkzyHdJdMnCnv&branch=master)](https://travis-ci.com/CultureHQ/widget)
 
 Embeds an upcoming events widget on the current page through a combination of:
@@ -21,10 +22,6 @@ and the following JavaScript snippet:
 </script>
 ```
 
-## Getting started
-
-Ensure you have `node` and `yarn` installed. Run `yarn install` in the root of the repository to get the dependencies. Edit [`example/index.html`](example/index.html) and [`src/config.js`](src/config.js) as appropriate to get it to point to your local API using a valid bot token. Then, run `yarn start` to start the local server. You can view the widget at `http://localhost:8081`.
-
 ## Content Security Policy
 
 Note that in order for this to be embedded on a page, the following additions to the hosting webpage's CSP will need to be made:
@@ -35,6 +32,10 @@ script-src 'unsafe-inline' https://assets.culturehq.com;
 connect-src https://api.culturehq.com;
 img-src https://uploads.culturehq.com;
 ```
+
+## Development
+
+Ensure you have `node` and `yarn` installed. Run `yarn install` in the root of the repository to get the dependencies. Edit [`index.html`](index.html) and [`src/config.js`](src/config.js) as appropriate to get it to point to your local API using a valid bot token. Then, run `yarn start` to start the local server. You can view the widget at `http://localhost:8081`.
 
 ## Contributing
 

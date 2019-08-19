@@ -10,7 +10,7 @@ const Link = styled.a`
 
 const UserName = ({ user }) => {
   if (user.active) {
-    return <Link href={`${PLATFORM_ROOT}/people/${user.id}`}>{user.name}</Link>;
+    return <Link href={`${PLATFORM_ROOT}/community/${user.id}`}>{user.name}</Link>;
   }
   return user.name;
 };

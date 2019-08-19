@@ -1,4 +1,4 @@
-import formatTimestamp from "../../src/lib/format-timestamp";
+import formatTimestamp from "../formatTimestamp";
 
 const format = delta => formatTimestamp(Date.UTC(0) + delta);
 
