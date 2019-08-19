@@ -2,7 +2,7 @@
   "name": "widget",
   "description": "Embeds an upcoming events widget from CultureHQ",
   "version": "0.0.1",
-  "main": "src/index.js",
+  "main": "src/widget.js",
   "scripts": {
     "build": "webpack --config webpack.config.babel.js --mode production --progress",
     "lint": "chq-scripts lint",

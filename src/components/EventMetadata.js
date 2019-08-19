@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { EventRight } from "./EventDisplay";
 import UserName from "./UserName";
 
-const EventCancelledContainer = EventRight.extend`
+const EventCancelledContainer = styled(EventRight)`
   opacity: 0.55;
 `;
 

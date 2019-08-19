@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import UserLink from "./UserLink";
@@ -25,11 +25,11 @@ const Rsvps = ({ event }) => {
   return (
     <RsvpPreview>
       <RsvpPrefix>Who&#39;s coming: </RsvpPrefix>
-      <Fragment>
+      <>
         {event.rsvps.map(rsvp => (
           <UserLink user={rsvp.user} key={rsvp.id} />
         ))}
-      </Fragment>
+      </>
       {event.rsvpExtra > 0 && <RsvpExtra>+{event.rsvpExtra}</RsvpExtra>}
     </RsvpPreview>
   );
