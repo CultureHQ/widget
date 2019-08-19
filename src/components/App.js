@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import client from "@culturehq/client";
+import { makePaginatedGet, setToken } from "@culturehq/client";
 import styled from "styled-components";
 
 import { LIST_OPTIONS } from "../config";
@@ -18,7 +18,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    client.setToken(props.token);
+    setToken(props.token);
 
     this.state = { events: null, failure: false };
   }
@@ -26,9 +26,7 @@ class App extends Component {
   componentDidMount() {
     this.componentIsMounted = true;
 
-    return client
-      .autoPaginate("events")
-      .listEvents(LIST_OPTIONS)
+    return makePaginatedGet("events", "/events", LIST_OPTIONS)
       .then(({ events }) => {
         this.mountedSetState({
           events: events.map(event => new CHQEvent(event)),

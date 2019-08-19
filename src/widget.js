@@ -1,7 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom";
+const React = require("react");
+const ReactDOM = require("react-dom");
 
-import App from "./components/App";
+const App = require("./components/App").default;
 
 // This is purposefully `module.exports`, because if you use `export default`
 // you end up having to use `CHQ.default` instead of just `CHQ`.

@@ -30,7 +30,7 @@ const UserLink = ({ user, children }) => {
 
   if (user.active) {
     return (
-      <Link href={`${PLATFORM_ROOT}/people/${user.id}`} imageUrl={imageUrl}>
+      <Link href={`${PLATFORM_ROOT}/community/${user.id}`} imageUrl={imageUrl}>
         {children}
       </Link>
     );
