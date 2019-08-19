@@ -10,8 +10,7 @@ import NoEvents from "../NoEvents";
 
 jest.mock("@culturehq/client", () => {
   const mockClient = {
-    autoPaginate: () => mockClient,
-    listEvents: jest.fn(),
+    makePaginatedGet: jest.fn(),
     setToken: token => {
       mockClient.token = token;
     },
@@ -41,7 +40,7 @@ const buildEvent = eventId => ({
 });
 
 test("sets the token in the constructor", () => {
-  client.listEvents.mockImplementation(() => (
+  client.makePaginatedGet.mockImplementation(() => (
     Promise.resolve({ events: [] })
   ));
 
@@ -51,7 +50,7 @@ test("sets the token in the constructor", () => {
 });
 
 test("renders a failure message if the fetch fails", async () => {
-  client.listEvents.mockImplementation(() => (
+  client.makePaginatedGet.mockImplementation(() => (
     // eslint-disable-next-line prefer-promise-reject-errors
     Promise.reject({ status: 403 })
   ));
@@ -65,7 +64,7 @@ test("renders a failure message if the fetch fails", async () => {
 });
 
 test("renders placeholders when the component is fetching", () => {
-  client.listEvents.mockImplementation(() => (
+  client.makePaginatedGet.mockImplementation(() => (
     Promise.resolve({ events: [] })
   ));
 
@@ -75,7 +74,7 @@ test("renders placeholders when the component is fetching", () => {
 });
 
 test("renders a no events message when none are fetched", async () => {
-  client.listEvents.mockImplementation(() => (
+  client.makePaginatedGet.mockImplementation(() => (
     Promise.resolve({ events: [] })
   ));
 
@@ -90,7 +89,7 @@ test("renders a no events message when none are fetched", async () => {
 test("renders a card for each event when successfully fetched", async () => {
   const events = [buildEvent(1), buildEvent(2), buildEvent(3)];
 
-  client.listEvents.mockImplementation(() => (
+  client.makePaginatedGet.mockImplementation(() => (
     Promise.resolve({ events })
   ));
 
@@ -103,7 +102,7 @@ test("renders a card for each event when successfully fetched", async () => {
 });
 
 test("unmounts gracefully", () => {
-  client.listEvents.mockImplementation(() => (
+  client.makePaginatedGet.mockImplementation(() => (
     Promise.resolve({ events: [] })
   ));
 
