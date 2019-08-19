@@ -8,5 +8,5 @@ test("renders without crashing", () => {
 
   const component = shallow(<EventCard event={event} />);
 
-  expect(component.dive().type()).toEqual("div");
+  expect(component.find("div")).toBeTruthy();
 });
