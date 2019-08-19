@@ -35,3 +35,11 @@ script-src 'unsafe-inline' https://assets.culturehq.com;
 connect-src https://api.culturehq.com;
 img-src https://uploads.culturehq.com;
 ```
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/CultureHQ/widget.
+
+## License
+
+The code is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
