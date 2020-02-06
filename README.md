@@ -1,6 +1,6 @@
 # widget
 
-[![Build Status](https://github.com/CultureHQ/widget/workflows/Push/badge.svg)](https://github.com/CultureHQ/widget/actions)
+[![Build Status](https://github.com/CultureHQ/widget/workflows/Main/badge.svg)](https://github.com/CultureHQ/widget/actions)
 [![Build Status](https://travis-ci.com/CultureHQ/widget.svg?token=kQUiABmGkzyHdJdMnCnv&branch=master)](https://travis-ci.com/CultureHQ/widget)
 
 Embeds an upcoming events widget on the current page through a combination of:
