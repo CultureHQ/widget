@@ -5,23 +5,23 @@ import BlockGroup from "./output/BlockGroup";
 import getBlockGroups from "./output/getBlockGroups";
 
 const tagsContainer = {
-  "alignItems": "center",
-  "display": "flex"
-}
+  alignItems: "center",
+  display: "flex"
+};
 
 const tag = {
-  "color": "#fff",
-  "fontSize": "18px",
-  "fontWeight": "300",
-  "marginLeft": "5px",
-  "marginTop": "0",
-  "padding": "0"
+  color: "#fff",
+  fontSize: "18px",
+  fontWeight: "300",
+  marginLeft: "5px",
+  marginTop: "0",
+  padding: "0"
 };
 
 const badge = {
-  "alignItems": "center",
-  "display": "flex",
-  "marginRight": "10px"
+  alignItems: "center",
+  display: "flex",
+  marginRight: "10px"
 };
 
 export const SEGMENTED_VALUE = "SEGMENTED";
@@ -120,13 +120,13 @@ const EditorOutput = ({
                     <span style={tag}>{entity.data.name}</span>
                   </span>
                 )
-                : (<div key={index} />)
+                : (<div key={index} />) // eslint-disable-line react/no-array-index-key
             ))}
             {showDefaultTag && showTags && tags && Object.values(tags).length === 0 && (
               <span style={badge}>
                 <Icon icon="global" color="#FFFFFF" />
                 <span style={tag}>Everyone</span>
-                </span>
+              </span>
             )}
           </div>
         </div>

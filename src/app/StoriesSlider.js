@@ -71,120 +71,120 @@ const RightArrow = styled.button`
 `;
 
 const emptyContainer = {
-  "height": "0",
-  "margin": "0 auto",
-  "padding": "0",
-  "width": "100%"
-}
+  height: "0",
+  margin: "0 auto",
+  padding: "0",
+  width: "100%"
+};
 
 const container = {
-  "height": "400px",
-  "overflowX": "scroll",
-  "overflowY": "hidden",
-  "position": "relative",
-  "whiteSpace": "nowrap",
-  "width": "100%"
+  height: "400px",
+  overflowX: "scroll",
+  overflowY: "hidden",
+  position: "relative",
+  whiteSpace: "nowrap",
+  width: "100%"
 };
 
 const noScrollbar = {
-  "msOverflowStyle": "none",
-  "overflow": "-moz-scrollbars-none"
-}
+  msOverflowStyle: "none",
+  overflow: "-moz-scrollbars-none"
+};
 
 const slider = {
-  "backgroundColor": "transparent",
-  "borderRadius": "6px",
-  "display": "flex",
-  "marginBottom": "15px",
-  "position": "absolute",
-  "transition": "transform 300ms cubic-bezier(.455, .03, .515, .955)"
+  backgroundColor: "transparent",
+  borderRadius: "6px",
+  display: "flex",
+  marginBottom: "15px",
+  position: "absolute",
+  transition: "transform 300ms cubic-bezier(.455, .03, .515, .955)"
 };
 
 const sliderEmpty = {
-  "justifyContent": "center",
-  "left": "0",
-  "right": "0"
-}
+  justifyContent: "center",
+  left: "0",
+  right: "0"
+};
 
 const card = {
-  "backgroundColor": "#f3f3f3",
-  "backgroundSize": "cover",
-  "borderRadius": "6px",
-  "border": "0",
-  "cursor": "pointer",
-  "display": "inline-block",
-  "height": "400px",
-  "marginRight": "15px",
-  "padding": "0",
-  "position": "relative",
-  "textAlign": "left",
-  "width": "300px"
-}
+  backgroundColor: "#f3f3f3",
+  backgroundSize: "cover",
+  borderRadius: "6px",
+  border: "0",
+  cursor: "pointer",
+  display: "inline-block",
+  height: "400px",
+  marginRight: "15px",
+  padding: "0",
+  position: "relative",
+  textAlign: "left",
+  width: "300px"
+};
 
 const chqTmb = {
-  "backgroundPosition": "50%",
-  "backgroundRepeat": "no-repeat",
-  "backgroundSize": "cover",
-  "borderRadius": "25px",
-  "display": "inline-block",
-  "height": "40px",
-  "marginRight": "10px",
-  "width": "40px"
-}
+  backgroundPosition: "50%",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  borderRadius: "25px",
+  display: "inline-block",
+  height: "40px",
+  marginRight: "10px",
+  width: "40px"
+};
 
 const creatorName = {
-  "fontSize": "16px",
-  "marginBottom": "5px",
-  "overflow": "hidden",
-  "overflowWrap": "break-word",
-  "textOverflow": "ellipsis",
-  "whiteSpace": "nowrap",
-  "wordBreak": "break-all"
-}
+  fontSize: "16px",
+  marginBottom: "5px",
+  overflow: "hidden",
+  overflowWrap: "break-word",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+  wordBreak: "break-all"
+};
 
 const creatorContainer = {
-  "alignItems": "center",
-  "color": "#fff",
-  "display": "flex",
-  "fontSize": "16px",
-  "fontWeight": "300"
-}
+  alignItems: "center",
+  color: "#fff",
+  display: "flex",
+  fontSize: "16px",
+  fontWeight: "300"
+};
 
 const storyBadge = {
-  "alignItems": "center",
-  "backgroundColor": "hsla(0,0%,53.3%,.8)",
-  "borderRadius": "6px",
-  "bottom": "15px",
-  "color": "#FFFFFF",
-  "display": "flex",
-  "fontSize": "16px",
-  "padding": "5px 10px",
-  "position": "absolute",
-  "right": "15px"
-}
+  alignItems: "center",
+  backgroundColor: "hsla(0,0%,53.3%,.8)",
+  borderRadius: "6px",
+  bottom: "15px",
+  color: "#FFFFFF",
+  display: "flex",
+  fontSize: "16px",
+  padding: "5px 10px",
+  position: "absolute",
+  right: "15px"
+};
 
 const storyBadgeIcon = {
-  "marginRight": "5px"
-}
+  marginRight: "5px"
+};
 
 const backgroundEffect = {
-  "background": "linear-gradient(0deg, rgba(0,0,0,.3), rgba(0,0,0,.7))",
+  background: "linear-gradient(0deg, rgba(0,0,0,.3), rgba(0,0,0,.7))",
   borderRadius: "6px",
-  "height": "100%",
-  "padding": "15px"
-}
+  height: "100%",
+  padding: "15px"
+};
 
 const cardTitle = {
-  "WebkitBoxOrient": "vertical",
-  "WebkitLineClamp": "2",
-  "color": "#FFFFFF",
-  "display": "-webkit-box",
-  "fontSize": "24px",
-  "fontWeight": "600",
-  "margin": "15px 0 10px",
-  "overflow": "hidden",
-  "textOverflow": "ellipsis",
-  "whiteSpace": "initial"
+  WebkitBoxOrient: "vertical",
+  WebkitLineClamp: "2",
+  color: "#FFFFFF",
+  display: "-webkit-box",
+  fontSize: "24px",
+  fontWeight: "600",
+  margin: "15px 0 10px",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "initial"
 };
 
 const getDuration = seconds => {
@@ -271,32 +271,37 @@ const StoriesSlider = ({ stories = [] }) => {
         >
           <Icon icon="chevron-right" />
         </RightArrow>
-        <div ref={containerRef} style={{ ...noScrollbar, ...stories.length === 0 ? emptyContainer : container }}>
+        <div
+          ref={containerRef}
+          style={{ ...noScrollbar, ...stories.length === 0 ? emptyContainer : container }}
+        >
           <div
             ref={sliderRef}
-            style={{ ...slider, ...stories.length === 0 ? sliderEmpty : {}, transform: `translateX(-${slideLayout.percent}%)`}}
+            style={{ ...slider, ...stories.length === 0 ? sliderEmpty : {}, transform: `translateX(-${slideLayout.percent}%)` }}
           >
-            {stories.map((story, index) => (
+            {stories.map((story, storyIndex) => (
               <PlainButton
                 aria-labelledby={story.id}
                 key={story.id}
                 style={{ ...card, backgroundImage: `url(${story.thumbUrl})` }}
-                onClick={() => handleStoryClick(index)}
+                onClick={() => handleStoryClick(storyIndex)}
               >
                 <div id={story.id} style={{ display: "none" }}>{story.question.question}</div>
                 <div style={{ ...backgroundEffect, height: "calc(100% - 30px)" }}>
                   <div style={creatorContainer}>
-                    <div style={{ ...chqTmb, "backgroundImage": `url(${story.creator.avatar.thumbUrl})` }} />
+                    <div style={{ ...chqTmb, backgroundImage: `url(${story.creator.avatar.thumbUrl})` }} />
                     <div>
-                      <p style={{ "margin": "0", ...creatorName }}>{story.creator.name}</p>
-                      <p style={{ "margin": "0" }}>{story.creator.title}</p>
+                      <p style={{ margin: "0", ...creatorName }}>{story.creator.name}</p>
+                      <p style={{ margin: "0" }}>{story.creator.title}</p>
                     </div>
                   </div>
                   <p style={cardTitle}>{story.question.question}</p>
                   <LazyEditorOutput output={story.body} showDefaultTag hideBody />
                   {story.media.mediaType === "video" && (
                     <span style={storyBadge}>
-                      <svg style={storyBadgeIcon} aria-hidden="true" role="presentation" width="14px" height="14px" viewBox="0 0 264 264"><path transform="translate(0 0)" style={{ "fill": "#FFFFFF" }} d="M238.163,115.57l-68.127-39.741c-15.201-8.899-40.064-23.393-55.296-32.256L44.115,3.831 C28.919-5.067,13.974,2.07,13.974,19.698v224c0,17.567,14.945,24.735,30.147,15.872l69.376-39.741 c15.232-8.863,40.735-23.357,55.936-32.256l68.449-39.741C253.047,138.933,253.334,124.433,238.163,115.57z"></path></svg>
+                      <svg style={storyBadgeIcon} aria-hidden="true" role="presentation" width="14px" height="14px" viewBox="0 0 264 264">
+                        <path transform="translate(0 0)" style={{ fill: "#FFFFFF" }} d="M238.163,115.57l-68.127-39.741c-15.201-8.899-40.064-23.393-55.296-32.256L44.115,3.831 C28.919-5.067,13.974,2.07,13.974,19.698v224c0,17.567,14.945,24.735,30.147,15.872l69.376-39.741 c15.232-8.863,40.735-23.357,55.936-32.256l68.449-39.741C253.047,138.933,253.334,124.433,238.163,115.57z" />
+                      </svg>
                       {getDuration(story.media.lenght)}
                     </span>
                   )}

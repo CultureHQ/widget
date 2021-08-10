@@ -1,49 +1,33 @@
-import React, { PureComponent, useLayoutEffect, useState } from "react";
+import React, { PureComponent, useState } from "react";
 import styled from "styled-components";
-import { font } from "../styles.json";
 import { useSwipeable } from "react-swipeable";
 
 import { classnames, Icon, ModalDialog, PlainButton } from "@culturehq/components";
 import LightboxStoryPhoto from "./LightboxStoryPhoto";
 import ChqModal from "./ChqModal";
-
-const queryToOptions = queryString => {
-  const { i, d, l, s, co, cy, m, r, v } = queryString;
-
-  return {
-    interestIds: i || null,
-    departmentIds: d || null,
-    locationIds: l || null,
-    skillIds: s || null,
-    courseIds: co || null,
-    classYearIds: cy || null,
-    majorIds: m || null,
-    residentIds: r || null,
-    organizationValueIds: v || null
-  };
-};
+import { font } from "../styles.json";
 
 const mobileModal = {
   overlay: {
     backgroundColor: "rgba(0, 0, 0, 0.7)",
     opacity: "1",
-    "overflowX": "hidden",
-    "overflowY": "auto",
+    overflowX: "hidden",
+    overflowY: "auto",
     zIndex: "99000000000"
   },
   content: {
-    "animation": "chqMdlZoomIn 300ms ease-out forwards",
-    "backgroundColor": "white",
-    "borderRadius": "6px",
-    "boxShadow": "0 5px 15px rgb(0 0 0 / 50%)",
-    "display": "grid",
-    "fontFamily": `${font}`,
-    "height": "100%",
-    "margin": "0",
-    "maxWidth": "100%",
-    "opacity": "1",
-    "minHeight": "initial",
-    "width": "100%"
+    animation: "chqMdlZoomIn 300ms ease-out forwards",
+    backgroundColor: "white",
+    borderRadius: "6px",
+    boxShadow: "0 5px 15px rgb(0 0 0 / 50%)",
+    display: "grid",
+    fontFamily: `${font}`,
+    height: "100%",
+    margin: "0",
+    maxWidth: "100%",
+    opacity: "1",
+    minHeight: "initial",
+    width: "100%"
   }
 };
 
@@ -114,7 +98,7 @@ const chqPbn = {
   lineHeight: "inherit",
   margin: "0",
   padding: "1px 1px 0"
-}
+};
 
 const CloseIcon = styled.svg`
   height: 25px;
@@ -164,12 +148,12 @@ const LightboxArrows = ({ onSwipeLeft, onSwipeRight }) => (
   <>
     <GalleryLighboxChevron aria-label="Go to previous" type="button" className="gallery-lightbox__chevron-left" onClick={onSwipeLeft} style={{ left: "-50px" }}>
       <ChevronSvg aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 1024 1024">
-        <path fill="#FFFFFF" transform="translate(0 0)" d="M427.4 512v0 0l334.4-348.2c8.4-8.6 8.2-22.8-0.4-31.6l-59.8-61.2c-8.6-8.8-22.6-9-31-0.4l-408.4 425.2c-4.4 4.4-6.4 10.4-6 16.2-0.2 6 1.8 11.8 6 16.2l408.4 425.4c8.4 8.6 22.4 8.4 31-0.4l59.8-61.2c8.6-8.8 8.8-23 0.4-31.6l-334.4-348.4z"></path>
+        <path fill="#FFFFFF" transform="translate(0 0)" d="M427.4 512v0 0l334.4-348.2c8.4-8.6 8.2-22.8-0.4-31.6l-59.8-61.2c-8.6-8.8-22.6-9-31-0.4l-408.4 425.2c-4.4 4.4-6.4 10.4-6 16.2-0.2 6 1.8 11.8 6 16.2l408.4 425.4c8.4 8.6 22.4 8.4 31-0.4l59.8-61.2c8.6-8.8 8.8-23 0.4-31.6l-334.4-348.4z" />
       </ChevronSvg>
     </GalleryLighboxChevron>
     <GalleryLighboxChevron aria-label="Go to next" type="button" className="gallery-lightbox__chevron-right" onClick={onSwipeRight} style={{ right: "-50px" }}>
       <ChevronSvg aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 1024 1024">
-        <path transform="translate(0 0)" d="M596.6 512v0 0l-334.4-348.2c-8.4-8.6-8.2-22.8 0.4-31.6l59.8-61.2c8.6-8.8 22.6-9 31-0.4l408.4 425.4c4.4 4.4 6.4 10.4 6 16.2 0.2 6-1.8 11.8-6 16.2l-408.4 425.2c-8.4 8.6-22.4 8.4-31-0.4l-59.8-61.2c-8.6-8.8-8.8-23-0.4-31.6l334.4-348.4z"></path>
+        <path transform="translate(0 0)" d="M596.6 512v0 0l-334.4-348.2c-8.4-8.6-8.2-22.8 0.4-31.6l59.8-61.2c8.6-8.8 22.6-9 31-0.4l408.4 425.4c4.4 4.4 6.4 10.4 6 16.2 0.2 6-1.8 11.8-6 16.2l-408.4 425.2c-8.4 8.6-22.4 8.4-31-0.4l-59.8-61.2c-8.6-8.8-8.8-23-0.4-31.6l334.4-348.4z" />
       </ChevronSvg>
     </GalleryLighboxChevron>
   </>
@@ -180,10 +164,10 @@ const LightboxActions = ({
 }) => (
   <GalleryLightboxActions className="gallery-lightbox--actions">
     <Navigation className="navigation">
-      <PlainButton className="left-arrow" aria-label="Go to previous" onClick={onSwipeLeft} style={{...chqPbn, marginRight: "20p"}}>
+      <PlainButton className="left-arrow" aria-label="Go to previous" onClick={onSwipeLeft} style={{ ...chqPbn, marginRight: "20p" }}>
         <Icon icon="chevron-left" />
       </PlainButton>
-      <PlainButton className="right-arrow" aria-label="Go to next" onClick={onSwipeRight} style={{...chqPbn, marginRight: "20p"}}>
+      <PlainButton className="right-arrow" aria-label="Go to next" onClick={onSwipeRight} style={{ ...chqPbn, marginRight: "20p" }}>
         <Icon icon="chevron-right" />
       </PlainButton>
     </Navigation>
@@ -211,14 +195,6 @@ class LightboxStoriesWrapper extends PureComponent {
     modalStyle: window.innerWidth >= 768 ? modal : mobileModal,
     modalBodyStyle: window.innerWidth >= 768 ? modalBody : mobileModalBody
   };
-
-  updateModalStyle = () => {
-    if (window.innerWidth >= 768) {
-      this.setState({ modalStyle: modal, modalBodyStyle: modalBody });
-    } else {
-      this.setState({ modalStyle: mobileModal, modalBodyStyle: mobileModalBody });
-    }
-  }
 
   componentDidMount() {
     window.addEventListener("resize", this.updateModalStyle);
@@ -258,6 +234,14 @@ class LightboxStoriesWrapper extends PureComponent {
     window.removeEventListener("keydown", this.handleKeyDown);
     document.body.style.overflow = "unset";
   }
+
+  updateModalStyle = () => {
+    if (window.innerWidth >= 768) {
+      this.setState({ modalStyle: modal, modalBodyStyle: modalBody });
+    } else {
+      this.setState({ modalStyle: mobileModal, modalBodyStyle: mobileModalBody });
+    }
+  };
 
   handleClose = () => {
     const { onClose, setChanging } = this.props;
@@ -375,12 +359,6 @@ class LightboxStoriesWrapper extends PureComponent {
 
 const LightboxStories = ({ activeStory, onStoryChange, stories, ...props }) => {
   const [changing, setChanging] = useState(false);
-  const handlers = useSwipeable({
-    onSwipedLeft: () => handleSwipeRight(),
-    onSwipedRight: () => handleSwipeLeft(),
-    preventDefaultTouchmoveEvent: true,
-    trackMouse: true
-  });
 
   const handleSwipeLeft = () => {
     setChanging(true);
@@ -392,6 +370,12 @@ const LightboxStories = ({ activeStory, onStoryChange, stories, ...props }) => {
     onStoryChange(stories.findIndex(story => story.id === activeStory.id) + 1);
   };
 
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleSwipeRight(),
+    onSwipedRight: () => handleSwipeLeft(),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true
+  });
 
   return (
     <LightboxStoriesWrapper

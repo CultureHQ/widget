@@ -1,4 +1,4 @@
-import { PLATFORM_ROOT, PREVIEW_LIMIT } from "../config";
+import { PLATFORM_ROOT } from "../config";
 
 class CHQStory {
   constructor(story) {

@@ -34,7 +34,11 @@ const BlockSegment = ({ block, offset, length }) => {
   return (
     <Fragment key={block.key}>
       {contents.map(({ text, styles }, index) => (
-        <BlockSegmentContent key={index} text={text} styles={styles} />
+        <BlockSegmentContent
+          key={index} // eslint-disable-line react/no-array-index-key
+          text={text}
+          styles={styles}
+        />
       ))}
     </Fragment>
   );
@@ -43,7 +47,8 @@ const BlockSegment = ({ block, offset, length }) => {
 const LinkEntity = ({ entity: { data: { url } }, tabIndex, children }) => {
   const internalLink = base => {
     const to = url.replace(base, "");
-    return <Link to={to} className="chq-edi--lk" tabIndex={tabIndex || 0}>{children}</Link>;
+    // return <Link to={to} className="chq-edi--lk" tabIndex={tabIndex || 0}>{children}</Link>;
+    return <a href={to} className="chq-edi--lk" tabIndex={tabIndex || 0} target="_blank" rel="noopener noreferrer">{children}</a>;
   };
 
   const externalLink = prefix => {
@@ -77,14 +82,14 @@ const BlockEntity = ({ entity, children, tabIndex }) => {
   }
 };
 
-const AtomicBlock = ({ block, entityMap }) => {
+const AtomicBlock = ({ block, _entityMap }) => {
   if (!block.entityRanges[0]) {
     // A weird case that can occur when the image gets deleted but the block
     // hasn't been deleted.
     return null;
   }
 
-  const { originalSrc, src, alt } = entityMap[block.entityRanges[0].key].data;
+  // const { originalSrc, src, alt } = entityMap[block.entityRanges[0].key].data;
 
   return <></>;
   /*

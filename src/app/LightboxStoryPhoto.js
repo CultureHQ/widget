@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Icon } from "@culturehq/components";
 
-import getImageFromStory from "./utils/getImageFromStory";
+import imageFromStory from "./utils/getImageFromStory";
 import imagesSizes from "./utils/imagesSizes";
 import { TimeDiff } from "./utils/Time";
 import LazyEditorOutput from "./LazyEditorOutput";
@@ -40,17 +40,17 @@ const GalleryLightboxPhoto = styled.div`
 `;
 
 const galleryLightboxVideoPlay = {
-  "alignItems": "center",
-  "bottom": "0",
-  "display": "flex",
-  "height": "100%",
-  "justifyContent": "center",
-  "left": "0",
-  "position": "absolute",
-  "right": "0",
-  "top": "0",
-  "width": "100%",
-  "zIndex": "10"
+  alignItems: "center",
+  bottom: "0",
+  display: "flex",
+  height: "100%",
+  justifyContent: "center",
+  left: "0",
+  position: "absolute",
+  right: "0",
+  top: "0",
+  width: "100%",
+  zIndex: "10"
 };
 
 const Video = styled.video`
@@ -321,7 +321,7 @@ const LightboxStoryPhoto = ({
   };
 
   const { body, creator, createdAt, question } = activeStory;
-  const imageUrl = activeStory.media.mediaType === "image" ? getImageFromStory(imagesSizes.FULL, activeStory) : activeStory.media.thumbnail;
+  const imageUrl = activeStory.media.mediaType === "image" ? imageFromStory(imagesSizes.FULL, activeStory) : activeStory.media.thumbnail;
   return (
     <GalleryLightboxWrapper
       className="gallery-lightbox__wrapper"
@@ -344,11 +344,14 @@ const LightboxStoryPhoto = ({
             {showVideoInfo && (
               <div
                 className="gallery-lightbox__video-play"
-                onClick={handlePlay} 
+                onClick={handlePlay}
+                onKeyPress={() => {}}
                 style={galleryLightboxVideoPlay}
+                role="button"
+                tabIndex={0}
               >
                 <VideoPlaySvg aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 512 512">
-                  <path fill="#FFFFFF" transform="translate(0 0)" d="M238.933,0C106.974,0,0,106.974,0,238.933s106.974,238.933,238.933,238.933s238.933-106.974,238.933-238.933 C477.726,107.033,370.834,0.141,238.933,0z M339.557,246.546c-1.654,3.318-4.343,6.008-7.662,7.662v0.085L195.362,322.56 c-8.432,4.213-18.682,0.794-22.896-7.638c-1.198-2.397-1.815-5.043-1.8-7.722V170.667c-0.004-9.426,7.633-17.07,17.059-17.075 c2.651-0.001,5.266,0.615,7.637,1.8l136.533,68.267C340.331,227.863,343.762,238.11,339.557,246.546z"></path>
+                  <path fill="#FFFFFF" transform="translate(0 0)" d="M238.933,0C106.974,0,0,106.974,0,238.933s106.974,238.933,238.933,238.933s238.933-106.974,238.933-238.933 C477.726,107.033,370.834,0.141,238.933,0z M339.557,246.546c-1.654,3.318-4.343,6.008-7.662,7.662v0.085L195.362,322.56 c-8.432,4.213-18.682,0.794-22.896-7.638c-1.198-2.397-1.815-5.043-1.8-7.722V170.667c-0.004-9.426,7.633-17.07,17.059-17.075 c2.651-0.001,5.266,0.615,7.637,1.8l136.533,68.267C340.331,227.863,343.762,238.11,339.557,246.546z" />
                 </VideoPlaySvg>
               </div>
             )}
@@ -369,9 +372,9 @@ const LightboxStoryPhoto = ({
           <ChqLdr>
             <ChqSpn aria-hidden="false">
               <ChqCir viewBox="0 0 300 300">
-                <circle r="72" cx="98" cy="134" fill="#76a6d6" fillOpacity="0.85"></circle>
-                <circle r="72" cx="202" cy="96" fill="#fbce49" fillOpacity="0.85"></circle>
-                <circle r="72" cx="186" cy="200" fill="#77ae7b" fillOpacity="0.85"></circle>
+                <circle r="72" cx="98" cy="134" fill="#76a6d6" fillOpacity="0.85" />
+                <circle r="72" cx="202" cy="96" fill="#fbce49" fillOpacity="0.85" />
+                <circle r="72" cx="186" cy="200" fill="#77ae7b" fillOpacity="0.85" />
               </ChqCir>
             </ChqSpn>
           </ChqLdr>
@@ -380,7 +383,7 @@ const LightboxStoryPhoto = ({
           <span className="Story__Trendsetter">
             <span className="Story__Trendsetter-text">
               <Icon icon="thunder-filled" />
-              <Trans>Trendsetter</Trans>
+              Trendsetter
             </span>
           </span>
         )}

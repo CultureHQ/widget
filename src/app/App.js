@@ -74,19 +74,18 @@ class App extends Component {
     this.componentIsMounted = true;
     const { getStories } = this.state;
     const { filters } = this.props;
-    console.log(filters);
 
     if (getStories) {
       return makePaginatedGet("stories", "/landing_pages/stories", queryToOptions(filters))
-      .then(({ stories }) => {
-        this.mountedSetState({
-          stories: stories.map(story => new CHQStory(story)),
-          failure: false
+        .then(({ stories }) => {
+          this.mountedSetState({
+            stories: stories.map(story => new CHQStory(story)),
+            failure: false
+          });
+        })
+        .catch(() => {
+          this.mountedSetState({ stories: null, failure: true });
         });
-      })
-      .catch(() => {
-        this.mountedSetState({ stories: null, failure: true });
-      });
     }
 
     return makePaginatedGet("events", "/events", LIST_OPTIONS)
