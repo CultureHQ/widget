@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { makePaginatedGet, setToken, configure, skipPreflightChecks } from "@culturehq/client";
+import { makePaginatedGet, setToken } from "@culturehq/client";
 import styled from "styled-components";
 
 import { LIST_OPTIONS } from "../config";
@@ -31,30 +31,6 @@ const queryToOptions = queryString => {
     organizationValueIds: v || null
   };
 };
-
-switch (process.env.NODE_ENV) { // eslint-disable-line default-case
-  case "development":
-    configure({
-      apiHost: "http://localhost:3000",
-      awsAccessKeyId: "access-key-id",
-      signerURL: "http://localhost:3001",
-      uploadBucket: "http://localhost:3001"
-    });
-
-    break;
-  case "test":
-    configure({
-      apiHost: "http://localhost:8080",
-      awsAccessKeyId: "access-key-id",
-      signerURL: "http://localhost:8081",
-      uploadBucket: "http://localhost:8082"
-    });
-
-    break;
-  case "production":
-    skipPreflightChecks();
-    break;
-}
 
 class App extends Component {
   constructor(props) {
