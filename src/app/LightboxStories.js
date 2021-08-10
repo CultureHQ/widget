@@ -2,10 +2,10 @@ import React, { PureComponent, useState } from "react";
 import styled from "styled-components";
 import { useSwipeable } from "react-swipeable";
 
-import { classnames, Icon, ModalDialog, PlainButton } from "@culturehq/components";
 import LightboxStoryPhoto from "./LightboxStoryPhoto";
 import ChqModal from "./ChqModal";
 import { font } from "../styles.json";
+import ModalDialog from "./ModalDialog";
 
 const mobileModal = {
   overlay: {
@@ -18,14 +18,19 @@ const mobileModal = {
   content: {
     animation: "chqMdlZoomIn 300ms ease-out forwards",
     backgroundColor: "white",
+    border: "0",
     borderRadius: "6px",
     boxShadow: "0 5px 15px rgb(0 0 0 / 50%)",
     display: "grid",
     fontFamily: `${font}`,
     height: "100%",
+    inset: "0",
     margin: "0",
     maxWidth: "100%",
     opacity: "1",
+    overflow: "visbile",
+    padding: "0",
+    position: "initial",
     minHeight: "initial",
     width: "100%"
   }
@@ -164,19 +169,23 @@ const LightboxActions = ({
 }) => (
   <GalleryLightboxActions className="gallery-lightbox--actions">
     <Navigation className="navigation">
-      <PlainButton className="left-arrow" aria-label="Go to previous" onClick={onSwipeLeft} style={{ ...chqPbn, marginRight: "20p" }}>
-        <Icon icon="chevron-left" />
-      </PlainButton>
-      <PlainButton className="right-arrow" aria-label="Go to next" onClick={onSwipeRight} style={{ ...chqPbn, marginRight: "20p" }}>
-        <Icon icon="chevron-right" />
-      </PlainButton>
+      <button className="left-arrow" aria-label="Go to previous" onClick={onSwipeLeft} style={{ ...chqPbn, marginRight: "20p" }} type="button">
+        <svg aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 1024 1024">
+          <path transform="translate(0 0)" d="M427.4 512v0 0l334.4-348.2c8.4-8.6 8.2-22.8-0.4-31.6l-59.8-61.2c-8.6-8.8-22.6-9-31-0.4l-408.4 425.2c-4.4 4.4-6.4 10.4-6 16.2-0.2 6 1.8 11.8 6 16.2l408.4 425.4c8.4 8.6 22.4 8.4 31-0.4l59.8-61.2c8.6-8.8 8.8-23 0.4-31.6l-334.4-348.4z" />
+        </svg>
+      </button>
+      <button className="right-arrow" aria-label="Go to next" onClick={onSwipeRight} style={{ ...chqPbn, marginRight: "20p" }} type="button">
+        <svg aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 1024 1024">
+          <path transform="translate(0 0)" d="M596.6 512v0 0l-334.4-348.2c-8.4-8.6-8.2-22.8 0.4-31.6l59.8-61.2c8.6-8.8 22.6-9 31-0.4l408.4 425.4c4.4 4.4 6.4 10.4 6 16.2 0.2 6-1.8 11.8-6 16.2l-408.4 425.2c-8.4 8.6-22.4 8.4-31-0.4l-59.8-61.2c-8.6-8.8-8.8-23-0.4-31.6l334.4-348.4z" />
+        </svg>
+      </button>
     </Navigation>
     <div className="actions">
-      <PlainButton aria-label="Close" onClick={onClose} style={chqPbn}>
+      <button aria-label="Close" onClick={onClose} style={chqPbn} type="button">
         <CloseIcon aria-hidden="true" role="presentation" width="35px" height="35px" viewBox="0 0 1024 1024">
           <Path fill="#FFFFFF" transform="translate(0 0)" d="M887.2 774.2l-262.4-263.4 263-260c10.8-10.8 10.8-28.4 0-39.2l-74.8-75.2c-5.2-5.2-12.2-8-19.6-8s-14.4 3-19.6 8l-261.8 259.2-262.2-259c-5.2-5.2-12.2-8-19.6-8s-14.4 3-19.6 8l-74.6 75.2c-10.8 10.8-10.8 28.4 0 39.2l263 260-262.2 263.2c-5.2 5.2-8.2 12.2-8.2 19.6s2.8 14.4 8.2 19.6l74.8 75.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2l261.2-262.4 261.4 262.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2l74.8-75.2c5.2-5.2 8.2-12.2 8.2-19.6-0.2-7.2-3.2-14.2-8.4-19.4z" />
         </CloseIcon>
-      </PlainButton>
+      </button>
     </div>
   </GalleryLightboxActions>
 );
@@ -299,7 +308,6 @@ class LightboxStoriesWrapper extends PureComponent {
     return (
       <>
         <ChqModal
-          className={classnames("gallery-lightbox", "gallery-lightbox--Story")}
           entrance="zoomIn"
           onClose={this.handleClose}
           style={modalStyle}

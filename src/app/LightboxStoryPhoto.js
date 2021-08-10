@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Icon } from "@culturehq/components";
 
 import imageFromStory from "./utils/getImageFromStory";
 import imagesSizes from "./utils/imagesSizes";
@@ -257,7 +256,6 @@ const BottomShadow = styled.div`
 const LightboxStoryPhoto = ({
   activeStory,
   containerRef,
-  isTrendsetter,
   fullSize = true,
   landingPage = false,
   changing,
@@ -378,14 +376,6 @@ const LightboxStoryPhoto = ({
               </ChqCir>
             </ChqSpn>
           </ChqLdr>
-        )}
-        {isTrendsetter && (
-          <span className="Story__Trendsetter">
-            <span className="Story__Trendsetter-text">
-              <Icon icon="thunder-filled" />
-              Trendsetter
-            </span>
-          </span>
         )}
       </GalleryLightboxPhoto>
 

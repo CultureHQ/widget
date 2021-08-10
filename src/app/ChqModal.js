@@ -1,5 +1,5 @@
 import React from "react";
-import { ModalDialog } from "@culturehq/components";
+import ModalDialog from "./ModalDialog";
 
 const ChqModal = ({ children, ...props }) => {
   const rootRef = document.getElementById("root");

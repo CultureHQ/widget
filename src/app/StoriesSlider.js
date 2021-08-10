@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { Icon, PlainButton } from "@culturehq/components";
 import styled from "styled-components";
 import LazyEditorOutput from "./LazyEditorOutput";
 import LightboxStories from "./LightboxStories";
@@ -261,7 +260,9 @@ const StoriesSlider = ({ stories = [] }) => {
           onClick={onPrev}
           disabled={!slideLayout.left}
         >
-          <Icon icon="chevron-left" />
+          <svg aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 1024 1024">
+            <path transform="translate(0 0)" d="M427.4 512v0 0l334.4-348.2c8.4-8.6 8.2-22.8-0.4-31.6l-59.8-61.2c-8.6-8.8-22.6-9-31-0.4l-408.4 425.2c-4.4 4.4-6.4 10.4-6 16.2-0.2 6 1.8 11.8 6 16.2l408.4 425.4c8.4 8.6 22.4 8.4 31-0.4l59.8-61.2c8.6-8.8 8.8-23 0.4-31.6l-334.4-348.4z" />
+          </svg>
         </LeftArrow>
         <RightArrow
           aria-label="Next"
@@ -269,7 +270,9 @@ const StoriesSlider = ({ stories = [] }) => {
           onClick={onNext}
           disabled={!slideLayout.right}
         >
-          <Icon icon="chevron-right" />
+          <svg aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 1024 1024">
+            <path transform="translate(0 0)" d="M596.6 512v0 0l-334.4-348.2c-8.4-8.6-8.2-22.8 0.4-31.6l59.8-61.2c8.6-8.8 22.6-9 31-0.4l408.4 425.4c4.4 4.4 6.4 10.4 6 16.2 0.2 6-1.8 11.8-6 16.2l-408.4 425.2c-8.4 8.6-22.4 8.4-31-0.4l-59.8-61.2c-8.6-8.8-8.8-23-0.4-31.6l334.4-348.4z" />
+          </svg>
         </RightArrow>
         <div
           ref={containerRef}
@@ -280,11 +283,12 @@ const StoriesSlider = ({ stories = [] }) => {
             style={{ ...slider, ...stories.length === 0 ? sliderEmpty : {}, transform: `translateX(-${slideLayout.percent}%)` }}
           >
             {stories.map((story, storyIndex) => (
-              <PlainButton
+              <button
                 aria-labelledby={story.id}
                 key={story.id}
                 style={{ ...card, backgroundImage: `url(${story.thumbUrl})` }}
                 onClick={() => handleStoryClick(storyIndex)}
+                type="button"
               >
                 <div id={story.id} style={{ display: "none" }}>{story.question.question}</div>
                 <div style={{ ...backgroundEffect, height: "calc(100% - 30px)" }}>
@@ -306,7 +310,7 @@ const StoriesSlider = ({ stories = [] }) => {
                     </span>
                   )}
                 </div>
-              </PlainButton>
+              </button>
             ))}
           </div>
         </div>
