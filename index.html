@@ -12,11 +12,9 @@ body {
 }
 
 #main {
-  border: #aaa solid 1px;
   margin: 20px auto;
   max-width: 90%;
   min-width: 10%;
-  overflow: auto;
   resize: both;
 }
     </style>
@@ -24,12 +22,13 @@ body {
   <body>
     <div id="main"></div>
     <script type="text/javascript">
-      +function (c, h, q) {
-        (q = document.createElement("script")).type = "text/javascript";
-        q.src = "main.js";
-        q.onload = function () { CHQ(c, h) };
-        document.getElementsByTagName("head")[0].appendChild(q);
-      }("#main", "chqbot-token")
+      +function (c, h, q, z, y) {
+        (y = document.createElement("script")).type = "text/javascript";
+        y.src = "main.js";
+        y.onload = function () { CHQ(c, h, q, z) };
+        document.getElementsByTagName("head")[0].appendChild(y);
+      }("#main", "uc7LSJstK446j3SCVUVcuWrR", {})
+      // filters example:  {i: [948961998], s: [1004640656]}
     </script>
   </body>
 </html>
