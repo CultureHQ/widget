@@ -43,18 +43,16 @@ const ChqCir = styled.svg`
   }
 `;
 
-const Loader = () => {
-  return (
-    <ChqLdr>
-      <ChqSpn aria-hidden="false">
-        <ChqCir viewBox="0 0 300 300">
-          <circle r="72" cx="98" cy="134" fill="#76a6d6" fillOpacity="0.85" />
-          <circle r="72" cx="202" cy="96" fill="#fbce49" fillOpacity="0.85" />
-          <circle r="72" cx="186" cy="200" fill="#77ae7b" fillOpacity="0.85" />
-        </ChqCir>
-      </ChqSpn>
-    </ChqLdr>
-  );
-}
+const Loader = () => (
+  <ChqLdr>
+    <ChqSpn aria-hidden="false">
+      <ChqCir viewBox="0 0 300 300">
+        <circle r="72" cx="98" cy="134" fill="#76a6d6" fillOpacity="0.85" />
+        <circle r="72" cx="202" cy="96" fill="#fbce49" fillOpacity="0.85" />
+        <circle r="72" cx="186" cy="200" fill="#77ae7b" fillOpacity="0.85" />
+      </ChqCir>
+    </ChqSpn>
+  </ChqLdr>
+);
 
 export default Loader;

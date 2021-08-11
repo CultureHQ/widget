@@ -6,7 +6,7 @@ import imageFromStory from "./utils/getImageFromStory";
 import imagesSizes from "./utils/imagesSizes";
 import { TimeDiff } from "./utils/Time";
 import EditorOutput from "./EditorOutput";
-import Loader from "./ChqLdr";
+import Loader from "./Loader";
 
 const GalleryLightboxWrapper = styled.div`
   border-radius: 0;

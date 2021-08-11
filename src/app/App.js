@@ -11,6 +11,7 @@ import Failure from "./Failure";
 import NoEvents from "./NoEvents";
 import CHQStory from "../lib/CHQStory";
 import StoriesSlider from "./StoriesSlider";
+import Loader from "./Loader";
 
 const Container = styled.section`
   overflow: visible;
