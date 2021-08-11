@@ -14,7 +14,8 @@ const blockStyle = {
   fontFamily: font,
   fontSize: "16px",
   fontWeight: "200",
-  lineHeight: "1.42857143"
+  lineHeight: "1.42857143",
+  WebkitFontSmoothing: "initial"
 };
 
 const BlockSegment = ({ block, offset, length }) => {

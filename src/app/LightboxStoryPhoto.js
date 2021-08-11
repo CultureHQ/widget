@@ -141,6 +141,7 @@ const GalleryLightboxUploaderDate = styled.div`
   font-size: 16px;
   font-weight: 200;
   line-height: 1.42857143;
+  -webkit-font-smoothing: initial;
 `;
 
 const QuoteIcon = styled.svg`
