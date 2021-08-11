@@ -118,6 +118,7 @@ const Title = styled.h1`
   font-family: ${font};
   font-size: 20px;
   font-weight: 500;
+  line-height: 1.1;
   margin: 0 0 0 12px;
 
   @media (min-width: 768px) {
@@ -135,8 +136,9 @@ const GalleryLightBoxCreatorContainer = styled.div`
 const GalleryLightboxUploaderDate = styled.div`
   color: #c9c9c9;
   font-family: ${font};
-  margin-top: 5px;
-  top: 5px;
+  font-size: 16px;
+  font-weight: 200;
+  line-height: 1.42857143;
 `;
 
 const QuoteIcon = styled.svg`
@@ -168,7 +170,10 @@ const Thumbnail = styled.div`
 const GalleryLightboxUploaderName = styled.span`
   color: #6a89af;
   font-family: ${font};
+  font-size: 16px;
   font-weight: 600;
+  line-height: 1.42857143;
+  padding-bottom: 5px;
 `;
 
 const VideoPlaySvg = styled.svg`

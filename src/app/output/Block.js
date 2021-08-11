@@ -9,6 +9,14 @@ const PLATFORM_NO_PREFIX = "platform.culturehq.com";
 const HTTPS_PREFIX = "https://";
 const HTTP_PREFIX = "http://";
 
+const blockStyle = {
+  color: "#5c5f67",
+  fontFamily: font,
+  fontSize: "16px",
+  fontWeight: "200",
+  lineHeight: "1.42857143"
+};
+
 const BlockSegment = ({ block, offset, length }) => {
   const characters = block.text.slice(offset, offset + length).split("");
   const contents = [];
@@ -110,19 +118,19 @@ const AtomicBlock = ({ block, _entityMap }) => {
 const Block = ({ block, Element, entityMap, tabIndex }) => {
   if (block.type === "atomic") {
     return (
-      <Element style={{ fontFamily: font }}>
+      <Element style={blockStyle}>
         <AtomicBlock block={block} entityMap={entityMap} />
       </Element>
     );
   }
 
   if (block.text === "") {
-    return <Element style={{ fontFamily: font }}>&nbsp;</Element>;
+    return <Element style={blockStyle}>&nbsp;</Element>;
   }
 
   if (block.entityRanges.length === 0) {
     return (
-      <Element style={{ fontFamily: font }}>
+      <Element style={blockStyle}>
         <BlockSegment block={block} offset={0} length={block.text.length} />
       </Element>
     );
@@ -144,7 +152,7 @@ const Block = ({ block, Element, entityMap, tabIndex }) => {
   }
 
   return (
-    <Element style={{ fontFamily: font }}>
+    <Element style={blockStyle}>
       {segments.map(({ offset, length, entity }) => {
         const segment = (
           <BlockSegment key={offset} block={block} offset={offset} length={length} />
