@@ -3,6 +3,8 @@ import styled from "styled-components";
 import EditorOutput from "./EditorOutput";
 import LightboxStories from "./LightboxStories";
 
+import { font } from "../styles.json";
+
 const getSlideLayout = (
   index,
   containerRef,
@@ -107,6 +109,7 @@ const sliderEmpty = {
 
 const card = {
   backgroundColor: "#f3f3f3",
+  backgroundPosition: "center",
   backgroundSize: "cover",
   borderRadius: "6px",
   border: "0",
@@ -132,6 +135,7 @@ const chqTmb = {
 };
 
 const creatorName = {
+  fontFamily: font,
   fontSize: "16px",
   marginBottom: "5px",
   overflow: "hidden",
@@ -156,6 +160,7 @@ const storyBadge = {
   bottom: "15px",
   color: "#FFFFFF",
   display: "flex",
+  fontFamily: font,
   fontSize: "16px",
   padding: "5px 10px",
   position: "absolute",
@@ -178,6 +183,7 @@ const cardTitle = {
   WebkitLineClamp: "2",
   color: "#FFFFFF",
   display: "-webkit-box",
+  fontFamily: font,
   fontSize: "24px",
   fontWeight: "600",
   margin: "15px 0 10px",
@@ -258,7 +264,7 @@ const StoriesSlider = ({ stories = [] }) => {
           aria-label="Previous"
           type="button"
           onClick={onPrev}
-          disabled={!slideLayout.left}
+          style={{ display: slideLayout.left ? "block" : "none" }}
         >
           <svg aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 1024 1024">
             <path transform="translate(0 0)" d="M427.4 512v0 0l334.4-348.2c8.4-8.6 8.2-22.8-0.4-31.6l-59.8-61.2c-8.6-8.8-22.6-9-31-0.4l-408.4 425.2c-4.4 4.4-6.4 10.4-6 16.2-0.2 6 1.8 11.8 6 16.2l408.4 425.4c8.4 8.6 22.4 8.4 31-0.4l59.8-61.2c8.6-8.8 8.8-23 0.4-31.6l-334.4-348.4z" />
@@ -268,7 +274,7 @@ const StoriesSlider = ({ stories = [] }) => {
           aria-label="Next"
           type="button"
           onClick={onNext}
-          disabled={!slideLayout.right}
+          style={{ display: slideLayout.right ? "block" : "none" }}
         >
           <svg aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 1024 1024">
             <path transform="translate(0 0)" d="M596.6 512v0 0l-334.4-348.2c-8.4-8.6-8.2-22.8 0.4-31.6l59.8-61.2c8.6-8.8 22.6-9 31-0.4l408.4 425.4c4.4 4.4 6.4 10.4 6 16.2 0.2 6-1.8 11.8-6 16.2l-408.4 425.2c-8.4 8.6-22.4 8.4-31-0.4l-59.8-61.2c-8.6-8.8-8.8-23-0.4-31.6l334.4-348.4z" />
@@ -296,7 +302,7 @@ const StoriesSlider = ({ stories = [] }) => {
                     <div style={{ ...chqTmb, backgroundImage: `url(${story.creator.avatar.thumbUrl})` }} />
                     <div>
                       <p style={{ margin: "0", ...creatorName }}>{story.creator.name}</p>
-                      <p style={{ margin: "0" }}>{story.creator.title}</p>
+                      <p style={{ margin: "0", fontFamily: font }}>{story.creator.title}</p>
                     </div>
                   </div>
                   <p style={cardTitle}>{story.question.question}</p>

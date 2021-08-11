@@ -8,6 +8,8 @@ import { TimeDiff } from "./utils/Time";
 import EditorOutput from "./EditorOutput";
 import Loader from "./Loader";
 
+import { font } from "../styles.json";
+
 const GalleryLightboxWrapper = styled.div`
   border-radius: 0;
   display: flex;
@@ -106,6 +108,7 @@ const GalleryLightboxTitleContainer = styled.div`
 
 const Title = styled.h1`
   color: #5c5f67;
+  font-family: ${font};
   font-size: 20px;
   font-weight: 500;
   margin: 0 0 0 12px;
@@ -124,6 +127,7 @@ const GalleryLightBoxCreatorContainer = styled.div`
 
 const GalleryLightboxUploaderDate = styled.div`
   color: #c9c9c9;
+  font-family: ${font};
   margin-top: 5px;
   top: 5px;
 `;
@@ -156,6 +160,7 @@ const Thumbnail = styled.div`
 
 const GalleryLightboxUploaderName = styled.span`
   color: #6a89af;
+  font-family: ${font};
   font-weight: 600;
 `;
 

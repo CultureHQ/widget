@@ -2,6 +2,8 @@ import React, { Fragment } from "react";
 
 import BlockSegmentContent from "./BlockSegmentContent";
 
+import { font } from "../../styles.json";
+
 const PLATFORM_BASE = "https://platform.culturehq.com";
 const PLATFORM_NO_PREFIX = "platform.culturehq.com";
 const HTTPS_PREFIX = "https://";
@@ -107,16 +109,16 @@ const AtomicBlock = ({ block, _entityMap }) => {
 
 const Block = ({ block, Element, entityMap, tabIndex }) => {
   if (block.type === "atomic") {
-    return <Element><AtomicBlock block={block} entityMap={entityMap} /></Element>;
+    return <Element style={{ fontFamily: font }}><AtomicBlock block={block} entityMap={entityMap} /></Element>;
   }
 
   if (block.text === "") {
-    return <Element>&nbsp;</Element>;
+    return <Element style={{ fontFamily: font }}>&nbsp;</Element>;
   }
 
   if (block.entityRanges.length === 0) {
     return (
-      <Element>
+      <Element style={{ fontFamily: font }}>
         <BlockSegment block={block} offset={0} length={block.text.length} />
       </Element>
     );
@@ -138,7 +140,7 @@ const Block = ({ block, Element, entityMap, tabIndex }) => {
   }
 
   return (
-    <Element>
+    <Element style={{ fontFamily: font }}>
       {segments.map(({ offset, length, entity }) => {
         const segment = (
           <BlockSegment key={offset} block={block} offset={offset} length={length} />

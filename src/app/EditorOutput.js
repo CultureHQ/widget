@@ -3,6 +3,8 @@ import React from "react";
 import BlockGroup from "./output/BlockGroup";
 import getBlockGroups from "./output/getBlockGroups";
 
+import { font } from "../styles.json";
+
 const tagsContainer = {
   alignItems: "center",
   display: "flex"
@@ -10,6 +12,7 @@ const tagsContainer = {
 
 const tag = {
   color: "#fff",
+  fontFamily: font,
   fontSize: "18px",
   fontWeight: "300",
   marginLeft: "5px",
@@ -95,6 +98,16 @@ const EditorOutput = ({
     }
   };
 
+  const getIconViewbox = ({ data }) => {
+    switch (data.type) {
+      case tagsTypes.INTERESTS:
+      case tagsTypes.LOCATIONS:
+        return "0 0 1024 1024";
+      default:
+        return "0 0 512 512";
+    }
+  };
+
   const tags = entityMap && Object.values(entityMap).filter(entity => entity.type === MENTION_VALUE && entity.mutability === SEGMENTED_VALUE && entity.data.type && entity.data.type !== "organizations");
 
   switch (type) {
@@ -115,7 +128,7 @@ const EditorOutput = ({
                 && entity.data.type)
                 ? (
                   <span style={badge} key={`${entity.data.type}-${entity.data.entityId}`}>
-                    <svg aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 512 512">
+                    <svg aria-hidden="true" role="presentation" width="22px" height="22px" viewBox={getIconViewbox(entity)}>
                       <path transform="translate(0 0)" d={getIconPath(entity)} fill="#FFFFFF" />
                     </svg>
                     <span style={tag}>{entity.data.name}</span>

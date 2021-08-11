@@ -26,7 +26,7 @@ class CHQStory {
   }
 
   get thumbUrl() {
-    return this.story.media.thumbnail || this.story.media.url;
+    return this.story.media.smallUrl || this.story.media.thumbnail || this.story.media.url;
   }
 
   get createdAt() {
