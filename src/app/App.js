@@ -101,9 +101,7 @@ class App extends Component {
       if (stories === null) {
         return (
           <section>
-            <EventPlaceholder />
-            <EventPlaceholder />
-            <EventPlaceholder />
+            <Loader />
           </section>
         );
       }
