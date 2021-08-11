@@ -5,7 +5,7 @@ import styled from "styled-components";
 import imageFromStory from "./utils/getImageFromStory";
 import imagesSizes from "./utils/imagesSizes";
 import { TimeDiff } from "./utils/Time";
-import LazyEditorOutput from "./LazyEditorOutput";
+import EditorOutput from "./EditorOutput";
 
 const GalleryLightboxWrapper = styled.div`
   border-radius: 0;
@@ -401,7 +401,7 @@ const LightboxStoryPhoto = ({
             </GalleryLightBoxCreatorContainer>
           )}
 
-          <LazyEditorOutput output={body} />
+          <EditorOutput output={body} />
           <BottomShadow />
         </ScrollableContainer>
       </GalleryLightboxDetailsContainer>

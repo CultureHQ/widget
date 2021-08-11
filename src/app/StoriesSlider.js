@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import LazyEditorOutput from "./LazyEditorOutput";
+import EditorOutput from "./EditorOutput";
 import LightboxStories from "./LightboxStories";
 
 const getSlideLayout = (
@@ -300,7 +300,7 @@ const StoriesSlider = ({ stories = [] }) => {
                     </div>
                   </div>
                   <p style={cardTitle}>{story.question.question}</p>
-                  <LazyEditorOutput output={story.body} showDefaultTag hideBody />
+                  <EditorOutput output={story.body} showDefaultTag hideBody />
                   {story.media.mediaType === "video" && (
                     <span style={storyBadge}>
                       <svg style={storyBadgeIcon} aria-hidden="true" role="presentation" width="14px" height="14px" viewBox="0 0 264 264">
