@@ -109,7 +109,11 @@ const AtomicBlock = ({ block, _entityMap }) => {
 
 const Block = ({ block, Element, entityMap, tabIndex }) => {
   if (block.type === "atomic") {
-    return <Element style={{ fontFamily: font }}><AtomicBlock block={block} entityMap={entityMap} /></Element>;
+    return (
+      <Element style={{ fontFamily: font }}>
+        <AtomicBlock block={block} entityMap={entityMap} />
+      </Element>
+    );
   }
 
   if (block.text === "") {
