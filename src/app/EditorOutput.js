@@ -7,14 +7,15 @@ import { font } from "../styles.json";
 
 const tagsContainer = {
   alignItems: "center",
-  display: "flex"
+  display: "flex",
+  marginTop: "10px"
 };
 
 const tag = {
   color: "#fff",
   fontFamily: font,
-  fontSize: "18px",
-  fontWeight: "300",
+  fontSize: "1em",
+  fontWeight: "500",
   marginLeft: "5px",
   marginTop: "0",
   padding: "0"
