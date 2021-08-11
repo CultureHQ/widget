@@ -357,7 +357,7 @@ const LightboxStoryPhoto = ({
             </GalleryLightBoxCreatorContainer>
           )}
 
-          <EditorOutput output={body} />
+          <EditorOutput output={body} showDefaultTag showTags />
           <BottomShadow />
         </ScrollableContainer>
       </GalleryLightboxDetailsContainer>
