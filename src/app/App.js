@@ -15,6 +15,8 @@ import Loader from "./Loader";
 
 const Container = styled.section`
   overflow: visible;
+  letter-spacing: normal;
+  line-height: normal;
 `;
 
 const queryToOptions = queryString => {
