@@ -186,6 +186,7 @@ const cardTitle = {
   fontFamily: font,
   fontSize: "24px",
   fontWeight: "600",
+  lineHeight: "normal",
   margin: "15px 0 10px",
   overflow: "hidden",
   textOverflow: "ellipsis",
