@@ -36,8 +36,11 @@ const getSlideLayout = (
 const SliderContainer = styled.section`
   position: relative;
 
+  -ms-overflow-style: none; // IE 10+
+  overflow: -moz-scrollbars-none; // Firefox
+
   &::-webkit-scrollbar {
-    display: none;
+    display: none; // Safari and Chrome
   }
 `;
 
@@ -79,26 +82,21 @@ const RightArrow = styled.button`
   }
 `;
 
-const emptyContainer = {
-  height: "0",
-  margin: "0 auto",
-  padding: "0",
-  width: "100%"
-};
+const ScrollbarContainer = styled.div`
+  height: 400px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  position: relative;
+  white-space: nowrap;
+  width: 100%;
 
-const container = {
-  height: "400px",
-  overflowX: "scroll",
-  overflowY: "hidden",
-  position: "relative",
-  whiteSpace: "nowrap",
-  width: "100%"
-};
+  -ms-overflow-style: none; // IE 10+
+  overflow: -moz-scrollbars-none; // Firefox
 
-const noScrollbar = {
-  msOverflowStyle: "none",
-  overflow: "-moz-scrollbars-none"
-};
+  &::-webkit-scrollbar {
+    display: none; // Safari and Chrome
+  }
+`;
 
 const slider = {
   backgroundColor: "transparent",
@@ -290,9 +288,8 @@ const StoriesSlider = ({ stories = [] }) => {
             <path transform="translate(0 0)" d="M596.6 512v0 0l-334.4-348.2c-8.4-8.6-8.2-22.8 0.4-31.6l59.8-61.2c8.6-8.8 22.6-9 31-0.4l408.4 425.4c4.4 4.4 6.4 10.4 6 16.2 0.2 6-1.8 11.8-6 16.2l-408.4 425.2c-8.4 8.6-22.4 8.4-31-0.4l-59.8-61.2c-8.6-8.8-8.8-23-0.4-31.6l334.4-348.4z" />
           </svg>
         </RightArrow>
-        <div
+        <ScrollbarContainer
           ref={containerRef}
-          style={{ ...noScrollbar, ...stories.length === 0 ? emptyContainer : container }}
         >
           <div
             ref={sliderRef}
@@ -329,7 +326,7 @@ const StoriesSlider = ({ stories = [] }) => {
               </Card>
             ))}
           </div>
-        </div>
+        </ScrollbarContainer>
       </SliderContainer>
     </>
   );

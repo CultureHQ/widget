@@ -18,9 +18,11 @@ const Container = styled.section`
   letter-spacing: normal;
   line-height: normal;
 
+  -ms-overflow-style: none; // IE 10+
+  overflow: -moz-scrollbars-none; // Firefox
 
   &::-webkit-scrollbar {
-    display: none;
+    display: none; // Safari and Chrome
   }
 `;
 
