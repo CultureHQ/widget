@@ -33,6 +33,14 @@ const getSlideLayout = (
   return { percent, left, right };
 };
 
+const SliderContainer = styled.section`
+  position: relative;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 const LeftArrow = styled.button`
   background: #fff;
   border: 0;
@@ -107,21 +115,22 @@ const sliderEmpty = {
   right: "0"
 };
 
-const card = {
-  backgroundColor: "#f3f3f3",
-  backgroundPosition: "center",
-  backgroundSize: "cover",
-  borderRadius: "6px",
-  border: "0",
-  cursor: "pointer",
-  display: "inline-block",
-  height: "400px",
-  marginRight: "15px",
-  padding: "0",
-  position: "relative",
-  textAlign: "left",
-  width: "300px"
-};
+const Card = styled.button`
+  background-color: #f3f3f3;
+  background-position: center;
+  background-size: cover;
+  border-radius: 6px;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  height: 400px;
+  margin-right: 15px;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  text-align: left;
+  width: 300px;
+`;
 
 const chqTmb = {
   backgroundPosition: "50%",
@@ -260,7 +269,7 @@ const StoriesSlider = ({ stories = [] }) => {
           landingPage
         />
       )}
-      <div style={{ position: "relative" }}>
+      <SliderContainer>
         <LeftArrow
           aria-label="Previous"
           type="button"
@@ -290,10 +299,10 @@ const StoriesSlider = ({ stories = [] }) => {
             style={{ ...slider, ...stories.length === 0 ? sliderEmpty : {}, transform: `translateX(-${slideLayout.percent}%)` }}
           >
             {stories.map((story, storyIndex) => (
-              <button
+              <Card
                 aria-labelledby={story.id}
                 key={story.id}
-                style={{ ...card, backgroundImage: `url(${story.thumbUrl})` }}
+                style={{ backgroundImage: `url(${story.thumbUrl})` }}
                 onClick={() => handleStoryClick(storyIndex)}
                 type="button"
               >
@@ -317,11 +326,11 @@ const StoriesSlider = ({ stories = [] }) => {
                     </span>
                   )}
                 </div>
-              </button>
+              </Card>
             ))}
           </div>
         </div>
-      </div>
+      </SliderContainer>
     </>
   );
 };

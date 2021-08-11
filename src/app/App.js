@@ -17,6 +17,11 @@ const Container = styled.section`
   overflow: visible;
   letter-spacing: normal;
   line-height: normal;
+
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const queryToOptions = queryString => {
