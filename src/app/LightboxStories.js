@@ -25,6 +25,8 @@ const mobileModal = {
     fontFamily: `${font}`,
     height: "100%",
     inset: "0",
+    letterSpacing: "normal",
+    lineHeight: "normal",
     margin: "0",
     maxWidth: "100%",
     opacity: "1",
