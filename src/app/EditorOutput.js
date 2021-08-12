@@ -16,6 +16,7 @@ const tag = {
   fontFamily: font,
   fontSize: "1em",
   fontWeight: "500",
+  lineHeight: "22.8571px",
   marginLeft: "5px",
   marginTop: "0",
   padding: "0"

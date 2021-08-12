@@ -34,7 +34,8 @@ const mobileModal = {
     padding: "0",
     position: "initial",
     minHeight: "initial",
-    width: "100%"
+    width: "100%",
+    WebkitFontSmoothing: "initial"
   }
 };
 
