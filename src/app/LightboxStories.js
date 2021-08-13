@@ -123,6 +123,7 @@ const CloseIcon = styled.svg`
 const GalleryLighboxChevron = styled.button`
   background: none;
   border: 0;
+  cursor: pointer;
   display: none;
   opacity: .75;
   outline: none;
