@@ -29,6 +29,10 @@ class CHQStory {
     return this.story.media.smallUrl || this.story.media.thumbnail || this.story.media.url;
   }
 
+  get thumbFullUrl() {
+    return this.story.media.fullUrl || this.story.media.thumbnail || this.story.media.url;
+  }
+
   get createdAt() {
     return this.story.createdAt;
   }

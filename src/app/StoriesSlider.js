@@ -102,10 +102,9 @@ const slider = {
   backgroundColor: "transparent",
   borderRadius: "6px",
   display: "flex",
-  left: "0",
   marginBottom: "15px",
+  minWidth: "100%",
   position: "absolute",
-  right: "0",
   transition: "transform 300ms cubic-bezier(.455, .03, .515, .955)"
 };
 
@@ -267,6 +266,14 @@ const StoriesSlider = ({ stories = [] }) => {
     return "100%";
   };
 
+  const backgroundImage = story => {
+    if (stories.length >= 2) {
+      return story.thumbUrl;
+    }
+
+    return story.thumbFullUrl;
+  };
+
   return (
     <>
       {activeStory && (
@@ -313,7 +320,7 @@ const StoriesSlider = ({ stories = [] }) => {
               <Card
                 aria-labelledby={story.id}
                 key={story.id}
-                style={{ backgroundImage: `url(${story.thumbUrl})`, width: cardWidth() }}
+                style={{ backgroundImage: `url(${backgroundImage(story)})`, width: cardWidth() }}
                 onClick={() => handleStoryClick(storyIndex)}
                 type="button"
               >
