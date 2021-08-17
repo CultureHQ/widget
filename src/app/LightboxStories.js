@@ -2,6 +2,7 @@ import React, { PureComponent, useState } from "react";
 import styled from "styled-components";
 import { useSwipeable } from "react-swipeable";
 
+import mobileAndTabletCheck from "./utils/mobileAndTabletCheck";
 import LightboxStoryPhoto from "./LightboxStoryPhoto";
 import ChqModal from "./ChqModal";
 import { font } from "../styles.json";
@@ -392,7 +393,7 @@ const LightboxStories = ({ activeStory, onStoryChange, stories, ...props }) => {
   return (
     <LightboxStoriesWrapper
       {...props}
-      handlers={handlers}
+      handlers={mobileAndTabletCheck() ? handlers : {}}
       activeStory={activeStory}
       onStoryChange={onStoryChange}
       stories={stories}
