@@ -27,7 +27,7 @@ const Container = styled.section`
 `;
 
 const queryToOptions = queryString => {
-  const { i, d, l, s, co, cy, m, r, v } = queryString;
+  const { i, d, l, s, co, cy, m, r, v, sp } = queryString;
 
   return {
     interestIds: i || null,
@@ -38,7 +38,8 @@ const queryToOptions = queryString => {
     classYearIds: cy || null,
     majorIds: m || null,
     residentIds: r || null,
-    organizationValueIds: v || null
+    organizationValueIds: v || null,
+    storyPromptIds: sp || null
   };
 };
 
