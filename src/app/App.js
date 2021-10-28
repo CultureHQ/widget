@@ -13,6 +13,34 @@ import CHQStory from "../lib/CHQStory";
 import StoriesSlider from "./StoriesSlider";
 import Loader from "./Loader";
 
+/*
+import { configure, skipPreflightChecks } from "@culturehq/client";
+
+switch (process.env.NODE_ENV) { // eslint-disable-line default-case
+  case "development":
+    configure({
+      apiHost: "http://localhost:3000",
+      awsAccessKeyId: "access-key-id",
+      signerURL: "http://localhost:3001",
+      uploadBucket: "http://localhost:3001"
+    });
+
+    break;
+  case "test":
+    configure({
+      apiHost: "http://localhost:8080",
+      awsAccessKeyId: "access-key-id",
+      signerURL: "http://localhost:8081",
+      uploadBucket: "http://localhost:8082"
+    });
+
+    break;
+  case "production":
+    skipPreflightChecks();
+    break;
+}
+*/
+
 const Container = styled.section`
   overflow: visible;
   letter-spacing: normal;
@@ -27,7 +55,7 @@ const Container = styled.section`
 `;
 
 const queryToOptions = queryString => {
-  const { i, d, l, s, co, cy, m, r, v, sp, u } = queryString;
+  const { i, d, l, s, co, cy, m, r, v, sp, u, org } = queryString;
 
   return {
     interestIds: i || null,
@@ -40,7 +68,8 @@ const queryToOptions = queryString => {
     residentIds: r || null,
     organizationValueIds: v || null,
     storyPromptIds: sp || null,
-    userIds: u || null
+    userIds: u || null,
+    orgId: org || null
   };
 };
 
