@@ -8,6 +8,7 @@ import { font } from "../styles.json";
 const tagsContainer = {
   alignItems: "center",
   display: "flex",
+  flexWrap: "wrap",
   marginTop: "10px",
   overflow: "hidden"
 };
