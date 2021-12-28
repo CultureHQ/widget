@@ -334,7 +334,7 @@ const StoriesSlider = ({ stories = [] }) => {
                     </div>
                   </div>
                   <p style={cardTitle}>{story.question.question}</p>
-                  <EditorOutput output={story.body} showDefaultTag hideBody />
+                  <EditorOutput output={story.body} hideBody />
                   {story.media.mediaType === "video" && (
                     <span style={storyBadge}>
                       <svg style={storyBadgeIcon} aria-hidden="true" role="presentation" width="14px" height="14px" viewBox="0 0 264 264">
