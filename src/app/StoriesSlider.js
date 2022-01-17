@@ -216,7 +216,9 @@ const StoriesSlider = ({ organizationId, stories = [] }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const trackData = (eventAction, storyId = undefined) => (
-    makePost("/stories/track", { organizationId, storyId, eventAction, url: window.location.href })
+    makePost("/stories/track", {
+      organizationId, storyId, eventAction, url: window.location.href, type: "carousel"
+    })
       .then(_ => {})
       .catch(_ => {})
   );
