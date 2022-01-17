@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { makePost } from "@culturehq/client";
 import styled from "styled-components";
 import EditorOutput from "./EditorOutput";
 import LightboxStories from "./LightboxStories";
@@ -209,31 +210,29 @@ const getDuration = seconds => {
   return "0:00";
 };
 
-const StoriesSlider = ({ stories = [] }) => {
+const StoriesSlider = ({ organizationId, stories = [] }) => {
   const [index, setIndex] = useState(0);
   const [activeStory, setActiveStory] = useState(undefined);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const onNext = () => setIndex(value => value + 1);
-  const onPrev = () => setIndex(value => value - 1);
+
+  const trackData = (eventAction, storyId = undefined) => (
+    makePost("/stories/track", { organizationId, storyId, eventAction, url: window.location.href })
+      .then(_ => {})
+      .catch(_ => {})
+  );
+
+  const onNext = () => {
+    setIndex(value => value + 1);
+    trackData("Viewing stories");
+  };
+  const onPrev = () => {
+    setIndex(value => value - 1);
+    trackData("Viewing stories");
+  };
 
   const containerRef = useRef(null);
   const sliderRef = useRef(null);
   const slideLayout = getSlideLayout(index, containerRef, sliderRef, stories);
-
-  const handleStoryClick = goToIndex => {
-    let target = goToIndex;
-
-    if (goToIndex === -1) {
-      target = stories.length - 1;
-    }
-
-    if (goToIndex > stories.length - 1) {
-      target = 0;
-    }
-
-    setActiveStory(stories[target]);
-    setModalIsOpen(true);
-  };
 
   const handleThumbnailClick = goToIndex => {
     let target = goToIndex;
@@ -245,6 +244,8 @@ const StoriesSlider = ({ stories = [] }) => {
     if (goToIndex > stories.length - 1) {
       target = 0;
     }
+
+    trackData("Opening a story", stories[target].story.id);
 
     setActiveStory(stories[target]);
     setModalIsOpen(true);
@@ -321,7 +322,7 @@ const StoriesSlider = ({ stories = [] }) => {
                 aria-labelledby={story.id}
                 key={story.id}
                 style={{ backgroundImage: `url(${backgroundImage(story)})`, width: cardWidth() }}
-                onClick={() => handleStoryClick(storyIndex)}
+                onClick={() => handleThumbnailClick(storyIndex)}
                 type="button"
               >
                 <div id={story.id} style={{ display: "none" }}>{story.question.question}</div>

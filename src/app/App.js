@@ -133,6 +133,7 @@ class App extends Component {
 
   render() {
     const { getStories, events, failure, stories } = this.state;
+    const { filters } = this.props;
 
     if (failure) {
       return <Failure />;
@@ -153,7 +154,7 @@ class App extends Component {
 
       return (
         <Container>
-          <StoriesSlider stories={stories} />
+          <StoriesSlider stories={stories} organizationId={filters.org} />
         </Container>
       );
     }
