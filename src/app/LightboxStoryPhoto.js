@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 import imageFromStory from "./utils/getImageFromStory";
 import imagesSizes from "./utils/imagesSizes";
-import { TimeDiff } from "./utils/Time";
 import EditorOutput from "./EditorOutput";
 import Loader from "./Loader";
 
@@ -297,7 +296,7 @@ const LightboxStoryPhoto = ({
     mediaRef.current.play();
   };
 
-  const { body, creator, createdAt, question } = activeStory;
+  const { body, creator, question } = activeStory;
   const imageUrl = activeStory.media.mediaType === "image" ? imageFromStory(imagesSizes.FULL, activeStory) : activeStory.media.thumbnail;
   return (
     <GalleryLightboxWrapper
