@@ -366,7 +366,7 @@ const LightboxStoryPhoto = ({
               <div className="gallery-lightbox__creator-information" style={{ marginLeft: "10px" }}>
                 <GalleryLightboxUploaderName>{creator.name}</GalleryLightboxUploaderName>
                 <GalleryLightboxUploaderDate className="gallery-lightbox__uploader-date">
-                  <TimeDiff time={createdAt} />
+                  {creator.title}
                 </GalleryLightboxUploaderDate>
               </div>
             </GalleryLightBoxCreatorContainer>
