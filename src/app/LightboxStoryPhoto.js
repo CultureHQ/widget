@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 import imageFromStory from "./utils/getImageFromStory";
 import imagesSizes from "./utils/imagesSizes";
-import { TimeDiff } from "./utils/Time";
 import EditorOutput from "./EditorOutput";
 import Loader from "./Loader";
 
@@ -544,7 +543,7 @@ const LightboxStoryPhoto = ({
                   {creator.name}
                 </GalleryLightboxUploaderName>
                 <GalleryLightboxUploaderDate className="gallery-lightbox__uploader-date">
-                  <TimeDiff time={createdAt} />
+                  {creator.title}
                 </GalleryLightboxUploaderDate>
               </div>
             </GalleryLightBoxCreatorContainer>

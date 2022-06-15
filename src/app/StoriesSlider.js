@@ -272,7 +272,15 @@ const StoriesSlider = ({ organizationId, stories = [] }) => {
     return "100%";
   };
 
-  const backgroundImage = (story) => {
+  const maxCardWidth = () => {
+    if (stories.length === 1) {
+      return "750px";
+    }
+
+    return "100%";
+  };
+
+  const backgroundImage = story => {
     if (stories.length >= 2) {
       return story.thumbUrl;
     }
@@ -346,10 +354,7 @@ const StoriesSlider = ({ organizationId, stories = [] }) => {
               <Card
                 aria-labelledby={story.id}
                 key={story.id}
-                style={{
-                  backgroundImage: `url(${backgroundImage(story)})`,
-                  width: cardWidth(),
-                }}
+                style={{ backgroundImage: `url(${backgroundImage(story)})`, width: cardWidth(), maxWidth: maxCardWidth() }}
                 onClick={() => handleThumbnailClick(storyIndex)}
                 type="button"
               >
