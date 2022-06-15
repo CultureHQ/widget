@@ -25,17 +25,17 @@ const ChqCir = styled.svg`
     0% {
       transform: rotate(0deg);
     }
-  
+
     13%,
     33% {
       transform: rotate(240deg);
     }
-  
+
     47%,
     67% {
       transform: rotate(480deg);
     }
-  
+
     81%,
     100% {
       transform: rotate(720deg);

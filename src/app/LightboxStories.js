@@ -14,7 +14,7 @@ const mobileModal = {
     opacity: "1",
     overflowX: "hidden",
     overflowY: "auto",
-    zIndex: "99000000000"
+    zIndex: "99000000000",
   },
   content: {
     animation: "chqMdlZoomIn 300ms ease-out forwards",
@@ -36,13 +36,19 @@ const mobileModal = {
     position: "initial",
     minHeight: "initial",
     width: "100%",
-    WebkitFontSmoothing: "initial"
-  }
+    WebkitFontSmoothing: "initial",
+  },
 };
 
 const modal = {
   overlay: mobileModal.overlay,
-  content: { ...mobileModal.content, height: "initial", margin: "5% auto", maxWidth: "90vw", with: "90vw" }
+  content: {
+    ...mobileModal.content,
+    height: "initial",
+    margin: "5% auto",
+    maxWidth: "90vw",
+    with: "90vw",
+  },
 };
 
 const mobileModalBody = {
@@ -50,7 +56,7 @@ const mobileModalBody = {
   fontWeight: "200",
   overflow: "scroll",
   padding: "61px 0 0",
-  position: "relative"
+  position: "relative",
 };
 
 const modalBody = {
@@ -58,7 +64,7 @@ const modalBody = {
   backgroundColor: "#000",
   borderRadius: "6px",
   overflow: "initial",
-  padding: "0"
+  padding: "0",
 };
 
 const GalleryLightboxActions = styled.div`
@@ -90,7 +96,7 @@ const Navigation = styled.div`
   display: block;
 
   @media (min-width: 768px) {
-    display:none;
+    display: none;
   }
 `;
 
@@ -106,12 +112,12 @@ const chqPbn = {
   fontSize: "inherit",
   lineHeight: "inherit",
   margin: "0",
-  padding: "1px 1px 0"
+  padding: "1px 1px 0",
 };
 
 const CloseIcon = styled.svg`
   height: 25px;
-  opacity: .9;
+  opacity: 0.9;
   transition: opacity 300ms ease-in-out;
   width: 25px;
 
@@ -126,7 +132,7 @@ const GalleryLighboxChevron = styled.button`
   border: 0;
   cursor: pointer;
   display: none;
-  opacity: .75;
+  opacity: 0.75;
   outline: none;
   padding: 6px;
   position: absolute;
@@ -156,39 +162,108 @@ const Path = styled.path`
 
 const LightboxArrows = ({ onSwipeLeft, onSwipeRight }) => (
   <>
-    <GalleryLighboxChevron aria-label="Go to previous" type="button" className="gallery-lightbox__chevron-left" onClick={onSwipeLeft} style={{ left: "-50px" }}>
-      <ChevronSvg aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 1024 1024">
-        <path fill="#FFFFFF" transform="translate(0 0)" d="M427.4 512v0 0l334.4-348.2c8.4-8.6 8.2-22.8-0.4-31.6l-59.8-61.2c-8.6-8.8-22.6-9-31-0.4l-408.4 425.2c-4.4 4.4-6.4 10.4-6 16.2-0.2 6 1.8 11.8 6 16.2l408.4 425.4c8.4 8.6 22.4 8.4 31-0.4l59.8-61.2c8.6-8.8 8.8-23 0.4-31.6l-334.4-348.4z" />
+    <GalleryLighboxChevron
+      aria-label="Go to previous"
+      type="button"
+      className="gallery-lightbox__chevron-left"
+      onClick={onSwipeLeft}
+      style={{ left: "-50px" }}
+    >
+      <ChevronSvg
+        aria-hidden="true"
+        role="presentation"
+        width="22px"
+        height="22px"
+        viewBox="0 0 1024 1024"
+      >
+        <path
+          fill="#FFFFFF"
+          transform="translate(0 0)"
+          d="M427.4 512v0 0l334.4-348.2c8.4-8.6 8.2-22.8-0.4-31.6l-59.8-61.2c-8.6-8.8-22.6-9-31-0.4l-408.4 425.2c-4.4 4.4-6.4 10.4-6 16.2-0.2 6 1.8 11.8 6 16.2l408.4 425.4c8.4 8.6 22.4 8.4 31-0.4l59.8-61.2c8.6-8.8 8.8-23 0.4-31.6l-334.4-348.4z"
+        />
       </ChevronSvg>
     </GalleryLighboxChevron>
-    <GalleryLighboxChevron aria-label="Go to next" type="button" className="gallery-lightbox__chevron-right" onClick={onSwipeRight} style={{ right: "-50px" }}>
-      <ChevronSvg aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 1024 1024">
-        <path transform="translate(0 0)" d="M596.6 512v0 0l-334.4-348.2c-8.4-8.6-8.2-22.8 0.4-31.6l59.8-61.2c8.6-8.8 22.6-9 31-0.4l408.4 425.4c4.4 4.4 6.4 10.4 6 16.2 0.2 6-1.8 11.8-6 16.2l-408.4 425.2c-8.4 8.6-22.4 8.4-31-0.4l-59.8-61.2c-8.6-8.8-8.8-23-0.4-31.6l334.4-348.4z" />
+    <GalleryLighboxChevron
+      aria-label="Go to next"
+      type="button"
+      className="gallery-lightbox__chevron-right"
+      onClick={onSwipeRight}
+      style={{ right: "-50px" }}
+    >
+      <ChevronSvg
+        aria-hidden="true"
+        role="presentation"
+        width="22px"
+        height="22px"
+        viewBox="0 0 1024 1024"
+      >
+        <path
+          transform="translate(0 0)"
+          d="M596.6 512v0 0l-334.4-348.2c-8.4-8.6-8.2-22.8 0.4-31.6l59.8-61.2c8.6-8.8 22.6-9 31-0.4l408.4 425.4c4.4 4.4 6.4 10.4 6 16.2 0.2 6-1.8 11.8-6 16.2l-408.4 425.2c-8.4 8.6-22.4 8.4-31-0.4l-59.8-61.2c-8.6-8.8-8.8-23-0.4-31.6l334.4-348.4z"
+        />
       </ChevronSvg>
     </GalleryLighboxChevron>
   </>
 );
 
-const LightboxActions = ({
-  onClose, onSwipeLeft, onSwipeRight
-}) => (
+const LightboxActions = ({ onClose, onSwipeLeft, onSwipeRight }) => (
   <GalleryLightboxActions className="gallery-lightbox--actions">
     <Navigation className="navigation">
-      <button className="left-arrow" aria-label="Go to previous" onClick={onSwipeLeft} style={{ ...chqPbn, marginRight: "20p" }} type="button">
-        <svg aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 1024 1024">
-          <path transform="translate(0 0)" d="M427.4 512v0 0l334.4-348.2c8.4-8.6 8.2-22.8-0.4-31.6l-59.8-61.2c-8.6-8.8-22.6-9-31-0.4l-408.4 425.2c-4.4 4.4-6.4 10.4-6 16.2-0.2 6 1.8 11.8 6 16.2l408.4 425.4c8.4 8.6 22.4 8.4 31-0.4l59.8-61.2c8.6-8.8 8.8-23 0.4-31.6l-334.4-348.4z" />
+      <button
+        className="left-arrow"
+        aria-label="Go to previous"
+        onClick={onSwipeLeft}
+        style={{ ...chqPbn, marginRight: "20p" }}
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          role="presentation"
+          width="22px"
+          height="22px"
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            transform="translate(0 0)"
+            d="M427.4 512v0 0l334.4-348.2c8.4-8.6 8.2-22.8-0.4-31.6l-59.8-61.2c-8.6-8.8-22.6-9-31-0.4l-408.4 425.2c-4.4 4.4-6.4 10.4-6 16.2-0.2 6 1.8 11.8 6 16.2l408.4 425.4c8.4 8.6 22.4 8.4 31-0.4l59.8-61.2c8.6-8.8 8.8-23 0.4-31.6l-334.4-348.4z"
+          />
         </svg>
       </button>
-      <button className="right-arrow" aria-label="Go to next" onClick={onSwipeRight} style={{ ...chqPbn, marginRight: "20p" }} type="button">
-        <svg aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 1024 1024">
-          <path transform="translate(0 0)" d="M596.6 512v0 0l-334.4-348.2c-8.4-8.6-8.2-22.8 0.4-31.6l59.8-61.2c8.6-8.8 22.6-9 31-0.4l408.4 425.4c4.4 4.4 6.4 10.4 6 16.2 0.2 6-1.8 11.8-6 16.2l-408.4 425.2c-8.4 8.6-22.4 8.4-31-0.4l-59.8-61.2c-8.6-8.8-8.8-23-0.4-31.6l334.4-348.4z" />
+      <button
+        className="right-arrow"
+        aria-label="Go to next"
+        onClick={onSwipeRight}
+        style={{ ...chqPbn, marginRight: "20p" }}
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          role="presentation"
+          width="22px"
+          height="22px"
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            transform="translate(0 0)"
+            d="M596.6 512v0 0l-334.4-348.2c-8.4-8.6-8.2-22.8 0.4-31.6l59.8-61.2c8.6-8.8 22.6-9 31-0.4l408.4 425.4c4.4 4.4 6.4 10.4 6 16.2 0.2 6-1.8 11.8-6 16.2l-408.4 425.2c-8.4 8.6-22.4 8.4-31-0.4l-59.8-61.2c-8.6-8.8-8.8-23-0.4-31.6l334.4-348.4z"
+          />
         </svg>
       </button>
     </Navigation>
     <div className="actions">
       <button aria-label="Close" onClick={onClose} style={chqPbn} type="button">
-        <CloseIcon aria-hidden="true" role="presentation" width="35px" height="35px" viewBox="0 0 1024 1024">
-          <Path fill="#FFFFFF" transform="translate(0 0)" d="M887.2 774.2l-262.4-263.4 263-260c10.8-10.8 10.8-28.4 0-39.2l-74.8-75.2c-5.2-5.2-12.2-8-19.6-8s-14.4 3-19.6 8l-261.8 259.2-262.2-259c-5.2-5.2-12.2-8-19.6-8s-14.4 3-19.6 8l-74.6 75.2c-10.8 10.8-10.8 28.4 0 39.2l263 260-262.2 263.2c-5.2 5.2-8.2 12.2-8.2 19.6s2.8 14.4 8.2 19.6l74.8 75.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2l261.2-262.4 261.4 262.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2l74.8-75.2c5.2-5.2 8.2-12.2 8.2-19.6-0.2-7.2-3.2-14.2-8.4-19.4z" />
+        <CloseIcon
+          aria-hidden="true"
+          role="presentation"
+          width="35px"
+          height="35px"
+          viewBox="0 0 1024 1024"
+        >
+          <Path
+            fill="#FFFFFF"
+            transform="translate(0 0)"
+            d="M887.2 774.2l-262.4-263.4 263-260c10.8-10.8 10.8-28.4 0-39.2l-74.8-75.2c-5.2-5.2-12.2-8-19.6-8s-14.4 3-19.6 8l-261.8 259.2-262.2-259c-5.2-5.2-12.2-8-19.6-8s-14.4 3-19.6 8l-74.6 75.2c-10.8 10.8-10.8 28.4 0 39.2l263 260-262.2 263.2c-5.2 5.2-8.2 12.2-8.2 19.6s2.8 14.4 8.2 19.6l74.8 75.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2l261.2-262.4 261.4 262.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2l74.8-75.2c5.2-5.2 8.2-12.2 8.2-19.6-0.2-7.2-3.2-14.2-8.4-19.4z"
+          />
         </CloseIcon>
       </button>
     </div>
@@ -201,13 +276,13 @@ class LightboxStoriesWrapper extends PureComponent {
   timeout = 0;
 
   static defaultProps = {
-    onStoryChange: () => {}
+    onStoryChange: () => {},
   };
 
   state = {
     fullSize: false,
     modalStyle: window.innerWidth >= 768 ? modal : mobileModal,
-    modalBodyStyle: window.innerWidth >= 768 ? modalBody : mobileModalBody
+    modalBodyStyle: window.innerWidth >= 768 ? modalBody : mobileModalBody,
   };
 
   componentDidMount() {
@@ -253,7 +328,10 @@ class LightboxStoriesWrapper extends PureComponent {
     if (window.innerWidth >= 768) {
       this.setState({ modalStyle: modal, modalBodyStyle: modalBody });
     } else {
-      this.setState({ modalStyle: mobileModal, modalBodyStyle: mobileModalBody });
+      this.setState({
+        modalStyle: mobileModal,
+        modalBodyStyle: mobileModalBody,
+      });
     }
   };
 
@@ -267,7 +345,7 @@ class LightboxStoriesWrapper extends PureComponent {
     onClose();
   };
 
-  handleKeyDown = event => {
+  handleKeyDown = (event) => {
     const { handleSwipeLeft, handleSwipeRight } = this.props;
     switch (event.key) {
       case "ArrowLeft":
@@ -302,7 +380,7 @@ class LightboxStoriesWrapper extends PureComponent {
       changing,
       setChanging,
       handleSwipeLeft,
-      handleSwipeRight
+      handleSwipeRight,
     } = this.props;
     const { fullSize, modalBodyStyle, modalStyle } = this.state;
 
@@ -375,19 +453,23 @@ const LightboxStories = ({ activeStory, onStoryChange, stories, ...props }) => {
 
   const handleSwipeLeft = () => {
     setChanging(true);
-    onStoryChange(stories.findIndex(story => story.id === activeStory.id) - 1);
+    onStoryChange(
+      stories.findIndex((story) => story.id === activeStory.id) - 1
+    );
   };
 
   const handleSwipeRight = () => {
     setChanging(true);
-    onStoryChange(stories.findIndex(story => story.id === activeStory.id) + 1);
+    onStoryChange(
+      stories.findIndex((story) => story.id === activeStory.id) + 1
+    );
   };
 
   const handlers = useSwipeable({
     onSwipedLeft: () => handleSwipeRight(),
     onSwipedRight: () => handleSwipeLeft(),
     preventDefaultTouchmoveEvent: true,
-    trackMouse: true
+    trackMouse: true,
   });
 
   return (

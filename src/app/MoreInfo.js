@@ -12,8 +12,6 @@ const Container = styled.a`
   text-decoration: none;
 `;
 
-const MoreInfo = props => (
-  <Container {...props}>More Info</Container>
-);
+const MoreInfo = (props) => <Container {...props}>More Info</Container>;
 
 export default MoreInfo;

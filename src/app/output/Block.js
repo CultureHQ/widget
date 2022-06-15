@@ -15,7 +15,7 @@ const blockStyle = {
   fontSize: "16px",
   fontWeight: "200",
   lineHeight: "1.42857143",
-  WebkitFontSmoothing: "initial"
+  WebkitFontSmoothing: "initial",
 };
 
 const BlockSegment = ({ block, offset, length }) => {
@@ -28,8 +28,11 @@ const BlockSegment = ({ block, offset, length }) => {
     const index = innerIndex + offset;
     let styles = [];
 
-    block.inlineStyleRanges.forEach(styleRange => {
-      if (index >= styleRange.offset && index < styleRange.offset + styleRange.length) {
+    block.inlineStyleRanges.forEach((styleRange) => {
+      if (
+        index >= styleRange.offset &&
+        index < styleRange.offset + styleRange.length
+      ) {
         styles = [...styles, styleRange.style].sort();
       }
     });
@@ -55,16 +58,42 @@ const BlockSegment = ({ block, offset, length }) => {
   );
 };
 
-const LinkEntity = ({ entity: { data: { url } }, tabIndex, children }) => {
-  const internalLink = base => {
+const LinkEntity = ({
+  entity: {
+    data: { url },
+  },
+  tabIndex,
+  children,
+}) => {
+  const internalLink = (base) => {
     const to = url.replace(base, "");
     // return <Link to={to} className="chq-edi--lk" tabIndex={tabIndex || 0}>{children}</Link>;
-    return <a href={to} className="chq-edi--lk" tabIndex={tabIndex || 0} target="_blank" rel="noopener noreferrer">{children}</a>;
+    return (
+      <a
+        href={to}
+        className="chq-edi--lk"
+        tabIndex={tabIndex || 0}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {children}
+      </a>
+    );
   };
 
-  const externalLink = prefix => {
+  const externalLink = (prefix) => {
     const to = prefix.concat("", url);
-    return <a href={to} className="chq-edi--lk" tabIndex={tabIndex || 0} target="_blank" rel="noopener noreferrer">{children}</a>;
+    return (
+      <a
+        href={to}
+        className="chq-edi--lk"
+        tabIndex={tabIndex || 0}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {children}
+      </a>
+    );
   };
 
   if (url.startsWith(PLATFORM_BASE)) {
@@ -79,13 +108,27 @@ const LinkEntity = ({ entity: { data: { url } }, tabIndex, children }) => {
     return externalLink(HTTPS_PREFIX);
   }
 
-  return <a href={url} className="chq-edi--lk" tabIndex={tabIndex || 0} target="_blank" rel="noopener noreferrer">{children}</a>;
+  return (
+    <a
+      href={url}
+      className="chq-edi--lk"
+      tabIndex={tabIndex || 0}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {children}
+    </a>
+  );
 };
 
 const BlockEntity = ({ entity, children, tabIndex }) => {
   switch (entity.type) {
     case "LINK":
-      return <LinkEntity entity={entity} tabIndex={tabIndex}>{children}</LinkEntity>;
+      return (
+        <LinkEntity entity={entity} tabIndex={tabIndex}>
+          {children}
+        </LinkEntity>
+      );
     case "MENTION":
       return <></>;
     default:
@@ -156,7 +199,12 @@ const Block = ({ block, Element, entityMap, tabIndex }) => {
     <Element style={blockStyle}>
       {segments.map(({ offset, length, entity }) => {
         const segment = (
-          <BlockSegment key={offset} block={block} offset={offset} length={length} />
+          <BlockSegment
+            key={offset}
+            block={block}
+            offset={offset}
+            length={length}
+          />
         );
 
         if (entity) {

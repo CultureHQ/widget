@@ -1,14 +1,9 @@
 import React, { Component } from "react";
 import { makePaginatedGet, setToken } from "@culturehq/client";
 import styled from "styled-components";
+import NoStories from "./NoStories";
 
-import { LIST_OPTIONS } from "../config";
-import CHQEvent from "../lib/CHQEvent";
-
-import EventCard from "./EventCard";
-import EventPlaceholder from "./EventPlaceholder";
 import Failure from "./Failure";
-import NoEvents from "./NoEvents";
 import CHQStory from "../lib/CHQStory";
 import StoriesSlider from "./StoriesSlider";
 import Loader from "./Loader";
@@ -54,7 +49,7 @@ const Container = styled.section`
   }
 `;
 
-const queryToOptions = queryString => {
+const queryToOptions = (queryString) => {
   const { i, d, l, s, co, cy, m, r, v, sp, u, org } = queryString;
 
   return {
@@ -69,7 +64,7 @@ const queryToOptions = queryString => {
     organizationValueIds: v || null,
     storyPromptIds: sp || null,
     userIds: u || null,
-    orgId: org || null
+    orgId: org || null,
   };
 };
 
@@ -80,10 +75,9 @@ class App extends Component {
     setToken(props.token);
 
     this.state = {
-      events: null,
       failure: false,
       getStories: props.stories,
-      stories: null
+      stories: null,
     };
   }
 
@@ -92,29 +86,19 @@ class App extends Component {
     const { getStories } = this.state;
     const { filters } = this.props;
 
-    if (getStories) {
-      return makePaginatedGet("stories", "/landing_pages/stories", queryToOptions(filters))
-        .then(({ stories }) => {
-          this.mountedSetState({
-            stories: stories.map(story => new CHQStory(story)),
-            failure: false
-          });
-        })
-        .catch(() => {
-          this.mountedSetState({ stories: null, failure: true });
-        });
-    }
-
-    return makePaginatedGet("events", "/events", LIST_OPTIONS)
-      .then(({ events }) => {
-        this.mountedSetState({
-          events: events.map(event => new CHQEvent(event)),
-          failure: false
-        });
-      })
-      .catch(() => {
-        this.mountedSetState({ events: null, failure: true });
+    return makePaginatedGet(
+      "stories",
+      "/landing_pages/stories",
+      queryToOptions(filters)
+    ).then(({ stories }) => {
+      this.mountedSetState({
+        stories: stories.map((story) => new CHQStory(story)),
+        failure: false,
       });
+    })
+    .catch(() => {
+      this.mountedSetState({ stories: null, failure: true });
+    });
   }
 
   componentWillUnmount() {
@@ -132,52 +116,28 @@ class App extends Component {
   }
 
   render() {
-    const { getStories, events, failure, stories } = this.state;
+    const { getStories, failure, stories } = this.state;
     const { filters } = this.props;
 
     if (failure) {
       return <Failure />;
     }
 
-    if (getStories) {
-      if (stories === null) {
-        return (
-          <section>
-            <Loader />
-          </section>
-        );
-      }
-
-      if (stories.length === 0) {
-        return <NoEvents />;
-      }
-
-      return (
-        <Container>
-          <StoriesSlider stories={stories} organizationId={filters.org} />
-        </Container>
-      );
-    }
-
-    if (events === null) {
+    if (stories === null) {
       return (
         <section>
-          <EventPlaceholder />
-          <EventPlaceholder />
-          <EventPlaceholder />
+          <Loader />
         </section>
       );
     }
 
-    if (events.length === 0) {
-      return <NoEvents />;
+    if (stories.length === 0) {
+      return <NoStories />;
     }
 
     return (
       <Container>
-        {events.map(event => (
-          <EventCard key={event.id} event={event} />
-        ))}
+        <StoriesSlider stories={stories} organizationId={filters.org} />
       </Container>
     );
   }

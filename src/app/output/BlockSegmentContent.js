@@ -6,10 +6,10 @@ const INLINE_STYLES = {
   ITALIC: "em",
   BOLD: "strong",
   UNDERLINE: "u",
-  CODE: "code"
+  CODE: "code",
 };
 
-const linkifiedText = text => {
+const linkifiedText = (text) => {
   // const links = linkify.match(text);
   const links = undefined;
 

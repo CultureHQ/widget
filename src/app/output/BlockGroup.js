@@ -8,7 +8,7 @@ const BLOCK_TYPES = {
   html_text: { element: "section", wrapper: null },
   section: { element: "section", wrapper: null },
   "unordered-list-item": { element: "li", wrapper: "ul" },
-  "ordered-list-item": { element: "li", wrapper: "ol" }
+  "ordered-list-item": { element: "li", wrapper: "ol" },
 };
 
 const BlockGroupWrapper = ({ blockGroup, children, Wrapper }) => {
@@ -31,7 +31,7 @@ const BlockGroup = ({ blockGroup, entityMap, tabIndex }) => {
 
   return (
     <BlockGroupWrapper blockGroup={blockGroup} Wrapper={Wrapper}>
-      {blockGroup.blocks.map(block => (
+      {blockGroup.blocks.map((block) => (
         <Fragment key={block.key}>
           <Block
             block={block}
@@ -39,13 +39,14 @@ const BlockGroup = ({ blockGroup, entityMap, tabIndex }) => {
             entityMap={entityMap}
             tabIndex={tabIndex}
           />
-          {block.childGroups && block.childGroups.map(childBlockGroup => (
-            <BlockGroup
-              key={childBlockGroup.key}
-              blockGroup={childBlockGroup}
-              entityMap={entityMap}
-            />
-          ))}
+          {block.childGroups &&
+            block.childGroups.map((childBlockGroup) => (
+              <BlockGroup
+                key={childBlockGroup.key}
+                blockGroup={childBlockGroup}
+                entityMap={entityMap}
+              />
+            ))}
         </Fragment>
       ))}
     </BlockGroupWrapper>

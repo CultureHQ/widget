@@ -1,26 +1,52 @@
 const locales = {
   en_US: {
     dayNames: [
-      "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
-      "Saturday", "Sunday"
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
     ],
     monthAbbrs: [
-      "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
-      "Nov", "Dec"
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
     ],
     monthNames: [
-      "January", "February", "March", "April", "May", "June", "July", "August",
-      "September", "October", "November", "December"
-    ]
-  }
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ],
+  },
 };
 
-const padLeft = value => `0${value}`.slice(-2);
+const padLeft = (value) => `0${value}`.slice(-2);
 
 const strftime = (timestamp, format) => {
   const date = new Date(timestamp);
 
-  const segments = format.split(/(%\w)/).map(segment => {
+  const segments = format.split(/(%\w)/).map((segment) => {
     switch (segment) {
       case "%b":
         return locales.en_US.monthAbbrs[date.getMonth()];
@@ -29,7 +55,7 @@ const strftime = (timestamp, format) => {
       case "%e":
         return date.getDate();
       case "%l":
-        return (date.getHours() % 12) || 12;
+        return date.getHours() % 12 || 12;
       case "%m":
         return padLeft(date.getMonth() + 1);
       case "%p":

@@ -28,15 +28,18 @@ const formatTime = (time, format, keepYear = false) => {
 
 const formatYearsUnitDiff = (years, months) => {
   const suffix = Math.abs(years) !== 1 ? "s" : "";
-  const monthsCurrentYear = months - (years * 12);
+  const monthsCurrentYear = months - years * 12;
   const monthSuffix = monthsCurrentYear !== 1 ? "s" : "";
 
   if (years < 0) {
     return `in ${years * -1} year${suffix}`;
   }
-  const monthsLabel = monthsCurrentYear > 0 ? `${monthsCurrentYear} month${monthSuffix}` : "";
+  const monthsLabel =
+    monthsCurrentYear > 0 ? `${monthsCurrentYear} month${monthSuffix}` : "";
 
-  return `${years} year${suffix}${monthsCurrentYear > 0 ? `, ${monthsLabel}` : ""}`;
+  return `${years} year${suffix}${
+    monthsCurrentYear > 0 ? `, ${monthsLabel}` : ""
+  }`;
 };
 
 const formatUnitDiff = (number, unit) => {
@@ -71,7 +74,7 @@ const formatTimeDiff = (time, format) => {
   return formatTime(time, format);
 };
 
-export const getTimeDiff = time => {
+export const getTimeDiff = (time) => {
   if (!time) {
     return null;
   }
@@ -117,6 +120,4 @@ export const TimeDiff = ({ time, format = defaultFormat }) => (
   <>{formatTimeDiff(time, format)}</>
 );
 
-export const TimeDiffYears = ({ time }) => (
-  <>{getTimeDiff(time)}</>
-);
+export const TimeDiffYears = ({ time }) => <>{getTimeDiff(time)}</>;
