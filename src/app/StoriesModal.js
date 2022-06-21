@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makePost } from "@culturehq/client";
 import LightboxStories from "./LightboxStories";
 
-const StoriesModal = ({ organizationId, stories = [], triggerSelectorId }) => {
+const StoriesModal = ({ organizationId, stories = [], triggerHref }) => {
   const [activeStory, setActiveStory] = useState(undefined);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -13,7 +13,7 @@ const StoriesModal = ({ organizationId, stories = [], triggerSelectorId }) => {
       }
 
       // Find element
-      const trigger = document.querySelector(triggerSelectorId);
+      const trigger = document.querySelector(`a[href="${triggerHref}"]`);
       trigger?.removeEventListener('click', openStory);
       // Add event listener
       trigger?.addEventListener('click', openStory);
@@ -26,7 +26,7 @@ const StoriesModal = ({ organizationId, stories = [], triggerSelectorId }) => {
       storyId,
       eventAction,
       url: window.location.href,
-      type: "carousel",
+      type: "story_modal",
     })
       .then((_) => {})
       .catch((_) => {});

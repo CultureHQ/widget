@@ -5,7 +5,6 @@ import styled from "styled-components";
 import Failure from "./Failure";
 import CHQStory from "../lib/CHQStory";
 import StoriesModal from "./StoriesModal";
-import Loader from "./Loader";
 
 /*
 import { configure, skipPreflightChecks } from "@culturehq/client";
@@ -114,27 +113,19 @@ class App extends Component {
 
   render() {
     const { failure, stories } = this.state;
-    const { filters, triggerSelectorId } = this.props;
+    const { filters, triggerHref } = this.props;
 
     if (failure) {
       return <Failure />;
     }
 
-    if (stories === null) {
-      return (
-        <section>
-          <Loader />
-        </section>
-      );
-    }
-
-    if (stories.length === 0) {
+    if (stories === null || stories.length === 0) {
       return <></>;
     }
 
     return (
       <Container>
-        <StoriesModal stories={stories} organizationId={filters.org} triggerSelectorId={triggerSelectorId} />
+        <StoriesModal stories={stories} organizationId={filters.org} triggerHref={triggerHref} />
       </Container>
     );
   }
