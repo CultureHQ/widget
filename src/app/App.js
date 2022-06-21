@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { makePaginatedGet, setToken } from "@culturehq/client";
 import styled from "styled-components";
-import NoStories from "./NoStories";
 
 import Failure from "./Failure";
 import CHQStory from "../lib/CHQStory";
-import StoriesSlider from "./StoriesSlider";
+import StoriesModal from "./StoriesModal";
 import Loader from "./Loader";
 
 /*
@@ -76,14 +75,12 @@ class App extends Component {
 
     this.state = {
       failure: false,
-      getStories: props.stories,
       stories: null,
     };
   }
 
   componentDidMount() {
     this.componentIsMounted = true;
-    const { getStories } = this.state;
     const { filters } = this.props;
 
     return makePaginatedGet(
@@ -116,8 +113,8 @@ class App extends Component {
   }
 
   render() {
-    const { getStories, failure, stories } = this.state;
-    const { filters } = this.props;
+    const { failure, stories } = this.state;
+    const { filters, triggerSelectorId } = this.props;
 
     if (failure) {
       return <Failure />;
@@ -132,12 +129,12 @@ class App extends Component {
     }
 
     if (stories.length === 0) {
-      return <NoStories />;
+      return <></>;
     }
 
     return (
       <Container>
-        <StoriesSlider stories={stories} organizationId={filters.org} />
+        <StoriesModal stories={stories} organizationId={filters.org} triggerSelectorId={triggerSelectorId} />
       </Container>
     );
   }
