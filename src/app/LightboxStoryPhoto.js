@@ -26,6 +26,7 @@ const GalleryLightboxWrapper = styled.div`
 `;
 
 const GalleryLightboxPhoto = styled.div`
+  animation: none;
   margin: 0 auto;
   overflow: hidden;
   padding: 0;

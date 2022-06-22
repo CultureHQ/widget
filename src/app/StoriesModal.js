@@ -12,11 +12,16 @@ const StoriesModal = ({ organizationId, stories = [], triggerHref }) => {
         handleThumbnailClick(0);
       }
 
-      // Find element
-      const trigger = document.querySelector(`a[href="${triggerHref}"]`);
-      trigger?.removeEventListener('click', openStory);
+      // Find elements
+      const trigger = document.querySelectorAll(`a[href="${triggerHref}"]`);
+
       // Add event listener
-      trigger?.addEventListener('click', openStory);
+      trigger?.forEach(element => element.addEventListener('click', openStory));
+
+      // 👇️ remove the event listener when component unmounts
+      return () => {
+        trigger?.each(element => element.removeEventListener('click', openStory));
+      };
     }, []
   );
 
