@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { makePost } from "@culturehq/client";
 import styled from "styled-components";
-import EditorOutput from "./EditorOutput";
 import LightboxStories from "./LightboxStories";
 
 import { font } from "../styles.json";
@@ -30,6 +29,11 @@ const getSlideLayout = (index, containerRef, sliderRef, stories) => {
   }
 
   return { percent, left, right };
+};
+
+const playIcon = {
+  height: "40px",
+  width: "40px"
 };
 
 const SliderContainer = styled.section`
@@ -138,28 +142,35 @@ const chqTmb = {
   backgroundSize: "cover",
   borderRadius: "25px",
   display: "inline-block",
-  height: "40px",
+  height: "45px",
   marginRight: "10px",
-  width: "40px",
+  width: "45px"
 };
 
 const creatorName = {
   fontFamily: font,
   fontSize: "16px",
-  marginBottom: "5px",
+  fontWeight: "600",
+  marginBottom: "3px",
   overflow: "hidden",
   overflowWrap: "break-word",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
-  wordBreak: "break-all",
+  wordBreak: "break-all"
 };
 
 const creatorContainer = {
   alignItems: "center",
+  background: "linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0))",
   color: "#fff",
   display: "flex",
   fontSize: "16px",
   fontWeight: "300",
+  left: 0,
+  padding: "15px 15px 30px",
+  position: "absolute",
+  right: 0,
+  top: 0
 };
 
 const storyBadge = {
@@ -176,15 +187,22 @@ const storyBadge = {
   right: "15px",
 };
 
-const storyBadgeIcon = {
-  marginRight: "5px",
+const backgroundEffect = {
+  alignItems: "center",
+  borderRadius: "6px",
+  display: "flex",
+  flexDirection: "column",
+  height: "100%",
+  justifyContent: "center"
 };
 
-const backgroundEffect = {
-  background: "linear-gradient(0deg, rgba(0,0,0,.3), rgba(0,0,0,.7))",
-  borderRadius: "6px",
-  height: "100%",
-  padding: "15px",
+const cardTitleContainer = {
+  background: "linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0))",
+  bottom: 0,
+  left: 0,
+  padding: "30px 15px 15px",
+  position: "absolute",
+  right: 0
 };
 
 const cardTitle = {
@@ -196,18 +214,10 @@ const cardTitle = {
   fontSize: "24px",
   fontWeight: "600",
   lineHeight: "normal",
-  margin: "15px 0 10px",
+  margin: "0",
   overflow: "hidden",
   textOverflow: "ellipsis",
-  whiteSpace: "initial",
-};
-
-const getDuration = (seconds) => {
-  if (seconds) {
-    return new Date(1000 * seconds).toISOString().substr(14, 5);
-  }
-
-  return "0:00";
+  whiteSpace: "initial"
 };
 
 const StoriesSlider = ({ organizationId, stories = [] }) => {
@@ -380,30 +390,17 @@ const StoriesSlider = ({ organizationId, stories = [] }) => {
                       </p>
                     </div>
                   </div>
-                  <p style={cardTitle}>
-                    {story.question.parentStoryQuestion
-                      ? story.question.parentStoryQuestion.question
-                      : story.question.question}
-                  </p>
-                  <EditorOutput output={story.body} hideBody />
+                  <div style={cardTitleContainer}>
+                    <p style={cardTitle}>
+                      {story.question.parentStoryQuestion
+                        ? story.question.parentStoryQuestion.question
+                        : story.question.question}
+                    </p>
+                  </div>
                   {story.media.mediaType === "video" && (
-                    <span style={storyBadge}>
-                      <svg
-                        style={storyBadgeIcon}
-                        aria-hidden="true"
-                        role="presentation"
-                        width="14px"
-                        height="14px"
-                        viewBox="0 0 264 264"
-                      >
-                        <path
-                          transform="translate(0 0)"
-                          style={{ fill: "#FFFFFF" }}
-                          d="M238.163,115.57l-68.127-39.741c-15.201-8.899-40.064-23.393-55.296-32.256L44.115,3.831 C28.919-5.067,13.974,2.07,13.974,19.698v224c0,17.567,14.945,24.735,30.147,15.872l69.376-39.741 c15.232-8.863,40.735-23.357,55.936-32.256l68.449-39.741C253.047,138.933,253.334,124.433,238.163,115.57z"
-                        />
-                      </svg>
-                      {getDuration(story.media.lenght)}
-                    </span>
+                    <svg style={playIcon} aria-hidden="true" role="presentation" width="14px" height="14px" viewBox="0 0 264 264">
+                      <path transform="translate(0 0)" style={{ fill: "#FFFFFF" }} d="M238.163,115.57l-68.127-39.741c-15.201-8.899-40.064-23.393-55.296-32.256L44.115,3.831 C28.919-5.067,13.974,2.07,13.974,19.698v224c0,17.567,14.945,24.735,30.147,15.872l69.376-39.741 c15.232-8.863,40.735-23.357,55.936-32.256l68.449-39.741C253.047,138.933,253.334,124.433,238.163,115.57z" />
+                    </svg>
                   )}
                 </div>
               </Card>

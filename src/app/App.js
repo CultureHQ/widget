@@ -6,7 +6,7 @@ import NoStories from "./NoStories";
 import Failure from "./Failure";
 import CHQStory from "../lib/CHQStory";
 import StoriesSlider from "./StoriesSlider";
-import Loader from "./Loader";
+import EmptySlider from "./EmptySlider";
 
 /*
 import { configure, skipPreflightChecks } from "@culturehq/client";
@@ -76,14 +76,12 @@ class App extends Component {
 
     this.state = {
       failure: false,
-      getStories: props.stories,
       stories: null,
     };
   }
 
   componentDidMount() {
     this.componentIsMounted = true;
-    const { getStories } = this.state;
     const { filters } = this.props;
 
     return makePaginatedGet(
@@ -116,7 +114,7 @@ class App extends Component {
   }
 
   render() {
-    const { getStories, failure, stories } = this.state;
+    const { failure, stories } = this.state;
     const { filters } = this.props;
 
     if (failure) {
@@ -125,9 +123,7 @@ class App extends Component {
 
     if (stories === null) {
       return (
-        <section>
-          <Loader />
-        </section>
+        <EmptySlider />
       );
     }
 
