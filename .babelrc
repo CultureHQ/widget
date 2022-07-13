@@ -1,4 +1,9 @@
 {
+  "plugins": [
+    ["babel-plugin-styled-components", {
+      "namespace": "STBC" // Stories Trigger By Click
+    }]
+  ],
   "presets": [
     "@babel/env",
     "@babel/react"
