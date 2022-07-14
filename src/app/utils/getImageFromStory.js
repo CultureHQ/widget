@@ -1,6 +1,10 @@
 import imagesSizes from "./imagesSizes";
 
 export const getImageFromStory = (size, story) => {
+  if (story.media.mediaType === "video") {
+    return story?.media?.thumbnail;
+  }
+
   switch (size) {
     case imagesSizes.THUMB:
       return story?.media?.thumbnail || story?.media?.url;

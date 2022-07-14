@@ -4,6 +4,7 @@ import styled from "styled-components";
 import LightboxStories from "./LightboxStories";
 import getImageFromStory from "./utils/getImageFromStory";
 import imagesSizes from "./utils/imagesSizes";
+import { font } from "../styles.json";
 
 const getSlideLayout = (
   index,
@@ -67,6 +68,10 @@ const LeftArrow = styled.button`
   @media screen and (max-width: 480px) {
     display: none;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const RightArrow = styled.button`
@@ -85,6 +90,10 @@ const RightArrow = styled.button`
 
   @media screen and (max-width: 480px) {
     display: none;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 
@@ -204,6 +213,7 @@ const sublabel = {
   alignItems: "center",
   color: "#fff",
   display: "flex",
+  fontFamily: font,
   fontSize: "18px",
   fontWeight: ",400",
   margin: "0",
@@ -214,6 +224,7 @@ const sublabel = {
 };
 
 const sublabelIcon = {
+  fontFamily: font,
   height: "18px",
   width: "18px",
   marginRight: "5px"
@@ -221,6 +232,7 @@ const sublabelIcon = {
 
 const label = {
   color: "#fff",
+  fontFamily: font,
   fontSize: "26px",
   fontWeight: "600",
   marginBottom: "0",
@@ -242,7 +254,7 @@ const StoryTrendChildImage = ({
     <TrendsSliderStoriesImage style={{ backgroundImage: `url(${getImageFromStory(imagesSizes.SMALL, childAnswer)})` }}>
       {index === 1 && (
         <TrendsSliderStoriesImageOverlay>
-          <p>View stories</p>
+          <p style={{ fontFamily: font }}>View stories</p>
         </TrendsSliderStoriesImageOverlay>
       )}
     </TrendsSliderStoriesImage>
@@ -254,10 +266,11 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
   const [cardWidth, setCardWidth] = useState(0);
   const [activeStory, setActiveStory] = useState(undefined);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [stories, setStories] = useState([]);
 
   const containerRef = useRef(null);
   const sliderRef = useRef(null);
-  const slideLayout = getSlideLayout(index, containerRef, sliderRef, storyTrends);
+  const slideLayout = getSlideLayout(index, containerRef, sliderRef, storyTrends.length);
 
   useLayoutEffect(() => {
     const adjustCardSize = () => {
@@ -286,14 +299,14 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
     let target = goToIndex;
 
     if (goToIndex === -1) {
-      target = storyTrends.length - 1;
+      target = stories.length - 1;
     }
 
-    if (goToIndex > storyTrends.length - 1) {
+    if (goToIndex > stories.length - 1) {
       target = 0;
     }
 
-    setActiveStory(storyTrends[target]);
+    setActiveStory(stories[target]);
     setModalIsOpen(true);
   };
 
@@ -302,10 +315,10 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
   };
 
   const handleTrendClick = trend => {
-    // handle this
+    setStories(trend.childApprovedAnswers);
+    setActiveStory(trend.childApprovedAnswers[0]);
+    setModalIsOpen(true);
   };
-
-  console.log(storyTrends);
 
   return (
     <>
