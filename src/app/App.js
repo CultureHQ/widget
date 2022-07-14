@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import { makePaginatedGet, setToken } from "@culturehq/client";
 import styled from "styled-components";
-import NoStories from "./NoStories";
+import NoTrends from "./NoTrends";
 
 import Failure from "./Failure";
-import CHQStory from "../lib/CHQStory";
-import StoriesSlider from "./StoriesSlider";
+import StoryTrendSlider from "./StoryTrendSlider";
 import EmptySlider from "./EmptySlider";
 
-/*
 import { configure, skipPreflightChecks } from "@culturehq/client";
 
 switch (process.env.NODE_ENV) { // eslint-disable-line default-case
@@ -34,7 +32,6 @@ switch (process.env.NODE_ENV) { // eslint-disable-line default-case
     skipPreflightChecks();
     break;
 }
-*/
 
 const Container = styled.section`
   overflow: visible;
@@ -85,17 +82,17 @@ class App extends Component {
     const { filters } = this.props;
 
     return makePaginatedGet(
-      "stories",
-      "/landing_pages/stories",
+      "trends",
+      "/landing_pages/story_trends",
       queryToOptions(filters)
-    ).then(({ stories }) => {
+    ).then(({ storyTrends }) => {
       this.mountedSetState({
-        stories: stories.map((story) => new CHQStory(story)),
+        storyTrends,
         failure: false,
       });
     })
     .catch(() => {
-      this.mountedSetState({ stories: null, failure: true });
+      this.mountedSetState({ storyTrends: null, failure: true });
     });
   }
 
@@ -104,7 +101,7 @@ class App extends Component {
   }
 
   componentDidCatch() {
-    this.mountedSetState({ stories: null, failure: true });
+    this.mountedSetState({ storyTrends: null, failure: true });
   }
 
   mountedSetState(newState) {
@@ -114,26 +111,26 @@ class App extends Component {
   }
 
   render() {
-    const { failure, stories } = this.state;
+    const { failure, storyTrends } = this.state;
     const { filters } = this.props;
 
     if (failure) {
       return <Failure />;
     }
 
-    if (stories === null) {
+    if (!storyTrends) {
       return (
         <EmptySlider />
       );
     }
 
-    if (stories.length === 0) {
-      return <NoStories />;
+    if (storyTrends.length === 0) {
+      return <NoTrends />;
     }
 
     return (
       <Container>
-        <StoriesSlider stories={stories} organizationId={filters.org} />
+        <StoryTrendSlider storyTrends={storyTrends} organizationId={filters.org} />
       </Container>
     );
   }

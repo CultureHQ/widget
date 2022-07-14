@@ -16,7 +16,7 @@ const SliderContainer = styled.section`
 `;
 
 const ScrollbarContainer = styled.div`
-  height: 400px;
+  height: 360px;
   overflow-x: scroll;
   overflow-y: hidden;
   position: relative;
@@ -50,9 +50,8 @@ const Card = styled.button`
   border: 0;
   cursor: pointer;
   display: inline-block;
-  height: 400px;
+  height: 360px;
   margin-right: 15px;
-  max-width: 750px;
   overflow: hidden;
   padding: 0;
   position: relative;
@@ -82,28 +81,8 @@ const backgroundEffect = {
   padding: "15px"
 };
 
-const EmptySlider = ({ stories = [0, 1, 2, 3] }) => {
+const EmptySlider = ({ stories = [0] }) => {
   const containerRef = useRef(null);
-
-  const cardWidth = () => {
-    if (stories.length >= 3) {
-      return "300px";
-    }
-
-    if (stories.length === 2) {
-      return "50%";
-    }
-
-    return "100%";
-  };
-
-  const maxCardWidth = () => {
-    if (stories.length === 1) {
-      return "750px";
-    }
-
-    return "100%";
-  };
 
   return (
     <>
@@ -113,10 +92,10 @@ const EmptySlider = ({ stories = [0, 1, 2, 3] }) => {
             {stories.map(index => (
               <Card
                 key={index}
-                style={{ width: cardWidth(), maxWidth: maxCardWidth() }}
+                style={{ width: "100%" }}
                 type="button"
               >
-                <div style={{ ...backgroundEffect, height: "400px" }}>
+                <div style={{ ...backgroundEffect, height: "360px" }}>
                   <UserPreview />
                   <TextPreview />
                   <TextPreview />

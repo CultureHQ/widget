@@ -17,10 +17,10 @@ const Link = styled.a`
   color: #8a6d3b;
 `;
 
-const NoStories = () => (
+const NoTrends = () => (
   <Container>
-    <strong>Uh oh!</strong> No stories to show.{" "}
+    <strong>Uh oh!</strong> No story trends to show.{" "}
   </Container>
 );
 
-export default NoStories;
+export default NoTrends;

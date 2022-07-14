@@ -19,7 +19,7 @@ const Link = styled.a`
 
 const Failure = () => (
   <Container>
-    <strong>Oh no!</strong> We failed to fetch the stories from CultureHQ. Please
+    <strong>Oh no!</strong> We failed to fetch the story trends from CultureHQ. Please
     refresh to try again. If this continues to happen, please contact{" "}
     <Link href="mailto:support@culturehq.com">support@culturehq.com</Link>.
   </Container>
