@@ -272,6 +272,18 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
   const sliderRef = useRef(null);
   const slideLayout = getSlideLayout(index, containerRef, sliderRef, storyTrends.length);
 
+  const trackData = (eventAction, storyId = undefined) =>
+    makePost("/stories/track", {
+      organizationId,
+      storyId,
+      eventAction,
+      url: window.location.href,
+      type: "carousel",
+    })
+      .then((_) => {})
+      .catch((_) => {});
+
+
   useLayoutEffect(() => {
     const adjustCardSize = () => {
       setCardWidth(containerRef.current?.offsetWidth);
@@ -290,9 +302,11 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
 
   const onNext = () => {
     setIndex((value) => value + 1);
+    trackData("Viewing stories");
   };
   const onPrev = () => {
     setIndex((value) => value - 1);
+    trackData("Viewing stories");
   };
 
   const handleThumbnailClick = (goToIndex) => {
@@ -306,6 +320,7 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
       target = 0;
     }
 
+    trackData("Opening a story", stories[target].id);
     setActiveStory(stories[target]);
     setModalIsOpen(true);
   };
@@ -316,6 +331,7 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
 
   const handleTrendClick = trend => {
     setStories(trend.childApprovedAnswers);
+    trackData("Opening a story", trend.childApprovedAnswers[0].id);
     setActiveStory(trend.childApprovedAnswers[0]);
     setModalIsOpen(true);
   };
