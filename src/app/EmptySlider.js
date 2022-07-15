@@ -1,8 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
-
-import { font } from "../styles.json";
-
 
 const SliderContainer = styled.section`
   position: relative;

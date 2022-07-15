@@ -1,4 +1,9 @@
 {
+  "plugins": [
+    ["babel-plugin-styled-components", {
+      "namespace": "STS" // Stories Trend Slider
+    }]
+  ],
   "presets": [
     "@babel/env",
     "@babel/react"
