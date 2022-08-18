@@ -50,7 +50,7 @@ const Container = styled.section`
 `;
 
 const queryToOptions = (queryString) => {
-  const { i, d, l, s, co, cy, m, r, v, sp, u, org } = queryString;
+  const { i, d, l, s, co, cy, m, r, v, sp, t, u, org } = queryString;
 
   return {
     interestIds: i || null,
@@ -63,6 +63,7 @@ const queryToOptions = (queryString) => {
     residentIds: r || null,
     organizationValueIds: v || null,
     storyPromptIds: sp || null,
+    trendIds: t || null,
     userIds: u || null,
     orgId: org || null,
   };
