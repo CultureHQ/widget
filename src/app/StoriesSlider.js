@@ -64,6 +64,10 @@ const LeftArrow = styled.button`
   @media screen and (max-width: 480px) {
     display: none;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const RightArrow = styled.button`
@@ -82,6 +86,10 @@ const RightArrow = styled.button`
 
   @media screen and (max-width: 480px) {
     display: none;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 
@@ -369,9 +377,7 @@ const StoriesSlider = ({ organizationId, stories = [] }) => {
                 type="button"
               >
                 <div id={story.id} style={{ display: "none" }}>
-                  {story.question.parentStoryQuestion
-                    ? story.question.parentStoryQuestion.question
-                    : story.question.question}
+                  {story.question.question}
                 </div>
                 <div style={{ ...backgroundEffect, height: "400px" }}>
                   <div style={creatorContainer}>
@@ -391,11 +397,7 @@ const StoriesSlider = ({ organizationId, stories = [] }) => {
                     </div>
                   </div>
                   <div style={cardTitleContainer}>
-                    <p style={cardTitle}>
-                      {story.question.parentStoryQuestion
-                        ? story.question.parentStoryQuestion.question
-                        : story.question.question}
-                    </p>
+                    <p style={cardTitle}>{story.question.question}</p>
                   </div>
                   {story.media.mediaType === "video" && (
                     <svg style={playIcon} aria-hidden="true" role="presentation" width="14px" height="14px" viewBox="0 0 264 264">
