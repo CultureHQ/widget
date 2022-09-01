@@ -126,16 +126,7 @@ class App extends Component {
 
     if (stories === null) {
       return (
-        <EmptySlider
-          orgName={
-            organization?.name
-              ?.replace(/\s+/g, "-")
-              ?.replaceAll("'", "")
-              ?.replaceAll("-+-", "and")
-              ?.replaceAll("Activision-Blizzard", "activisionblizzard")
-              ?.toLowerCase()
-          }
-        />
+        <EmptySlider />
       );
     }
 
@@ -146,18 +137,7 @@ class App extends Component {
     return (
       <Container>
         <GlobalFonts />
-        <StoriesSlider
-          orgName={
-            organization.name
-              .replace(/\s+/g, "-")
-              .replaceAll("'", "")
-              .replaceAll("-+-", "and")
-              .replaceAll("Activision-Blizzard", "activisionblizzard")
-              .toLowerCase()
-          }
-          stories={stories}
-          organizationId={filters.org}
-        />
+        <StoriesSlider stories={stories} organizationId={filters.org} />
       </Container>
     );
   }

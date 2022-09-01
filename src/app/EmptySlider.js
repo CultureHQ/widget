@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
 
-const ACTIVISION = "activisionblizzard";
+import { backgroundColor, placeholderBackgroundColor } from "../styles.json";
 
 const SliderContainer = styled.section`
   background-color: ${props => props.backgroundColor || "transparent"};
@@ -82,7 +82,7 @@ const backgroundEffect = {
   padding: "15px"
 };
 
-const EmptySlider = ({ orgName, stories = [0, 1, 2, 3] }) => {
+const EmptySlider = ({ stories = [0, 1, 2, 3] }) => {
   const containerRef = useRef(null);
 
   const cardWidth = () => {
@@ -107,20 +107,20 @@ const EmptySlider = ({ orgName, stories = [0, 1, 2, 3] }) => {
 
   return (
     <>
-      <SliderContainer>
+      <SliderContainer backgroundColor={backgroundColor}>
         <ScrollbarContainer ref={containerRef}>
           <Slider>
             {stories.map(index => (
               <Card
-                backgroundColor={orgName === ACTIVISION && "#2c2c2c"}
+                backgroundColor={backgroundColor}
                 key={index}
                 style={{ width: cardWidth(), maxWidth: maxCardWidth() }}
                 type="button"
               >
                 <div style={{ ...backgroundEffect, height: "400px" }}>
-                  <UserPreview backgroundColor={orgName === ACTIVISION && "rgba(0, 0, 0, .2)"} />
-                  <TextPreview backgroundColor={orgName === ACTIVISION && "rgba(0, 0, 0, .2)"} />
-                  <TextPreview backgroundColor={orgName === ACTIVISION && "rgba(0, 0, 0, .2)"} />
+                  <UserPreview backgroundColor={placeholderBackgroundColor} />
+                  <TextPreview backgroundColor={placeholderBackgroundColor} />
+                  <TextPreview backgroundColor={placeholderBackgroundColor} />
                 </div>
               </Card>
             ))}

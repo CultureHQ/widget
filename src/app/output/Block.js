@@ -6,7 +6,6 @@ const PLATFORM_BASE = "https://platform.culturehq.com";
 const PLATFORM_NO_PREFIX = "platform.culturehq.com";
 const HTTPS_PREFIX = "https://";
 const HTTP_PREFIX = "http://";
-const ACTIVISION = "activisionblizzard";
 
 const blockStyle = {
   color: "#5c5f67",
@@ -152,13 +151,13 @@ const AtomicBlock = ({ block, _entityMap }) => {
   */
 };
 
-const Block = ({ block, Element, entityMap, orgName, tabIndex }) => {
+const Block = ({ block, Element, entityMap, tabIndex }) => {
   if (block.type === "atomic") {
     return (
       <Element
         style={{
           ...blockStyle,
-          color: orgName === ACTIVISION ? "#FFF" : "#5c5f67"
+          color: "#FFF"
         }}
       >
         <AtomicBlock block={block} entityMap={entityMap} />
@@ -167,7 +166,7 @@ const Block = ({ block, Element, entityMap, orgName, tabIndex }) => {
   }
 
   if (block.text === "") {
-    return <Element style={{ ...blockStyle, color: orgName === ACTIVISION ? "#FFF" : "#5c5f67" }}>&nbsp;</Element>;
+    return <Element style={{ ...blockStyle, color: "#FFF" }}>&nbsp;</Element>;
   }
 
   if (block.entityRanges.length === 0) {
@@ -175,7 +174,7 @@ const Block = ({ block, Element, entityMap, orgName, tabIndex }) => {
       <Element
         style={{
           ...blockStyle,
-          color: orgName === ACTIVISION ? "#FFF" : "#5c5f67"
+          color: "#FFF"
         }}
       >
         <BlockSegment block={block} offset={0} length={block.text.length} />
@@ -202,7 +201,7 @@ const Block = ({ block, Element, entityMap, orgName, tabIndex }) => {
     <Element
       style={{
         ...blockStyle,
-        color: orgName === ACTIVISION ? "#FFF" : "#5c5f67"
+        color: "#FFF"
       }}
     >
       {segments.map(({ offset, length, entity }) => {

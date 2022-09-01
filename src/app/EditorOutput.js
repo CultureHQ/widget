@@ -3,7 +3,7 @@ import React from "react";
 import BlockGroup from "./output/BlockGroup";
 import getBlockGroups from "./output/getBlockGroups";
 
-const ACTIVISION = "activisionblizzard";
+import { fontColor } from "../styles.json";
 
 const tagsContainer = {
   alignItems: "center",
@@ -96,7 +96,6 @@ const parseOutput = output => {
 };
 
 const EditorOutput = ({
-  orgName,
   output,
   showTags = true,
   showDefaultTag = false,
@@ -154,7 +153,6 @@ const EditorOutput = ({
               key={blockGroup.key}
               blockGroup={blockGroup}
               entityMap={entityMap}
-              orgName={orgName}
               tabIndex={tabIndex}
             />
           ))}
@@ -163,8 +161,7 @@ const EditorOutput = ({
               entity.type === MENTION_VALUE && entity.mutability === SEGMENTED_VALUE
                 && entity.data.type ? (
                   <span
-                    style={orgName === ACTIVISION // eslint-disable-line no-nested-ternary
-                      ? activisonBadge : (darkTags ? darkBadge : badge)}
+                    style={activisonBadge}
                     key={`${entity.data.type}-${entity.data.entityId}`}
                   >
                     <svg
@@ -177,7 +174,7 @@ const EditorOutput = ({
                       <path
                         transform="translate(0 0)"
                         d={getIconPath(entity)}
-                        fill={orgName === ACTIVISION ? "#FFF" : (darkTags ? "#2c3e4f" : "#FFFFFF")} // eslint-disable-line no-nested-ternary
+                        fill={fontColor}
                       />
                     </svg>
                     <span style={tag}>

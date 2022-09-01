@@ -3,7 +3,7 @@ import { makePost } from "@culturehq/client";
 import styled from "styled-components";
 import LightboxStories from "./LightboxStories";
 
-import { font } from "../styles.json";
+import { backgroundColor, font } from "../styles.json";
 
 const getSlideLayout = (index, containerRef, sliderRef, stories) => {
   let percent = index * (100 / (stories.length + 1));
@@ -154,7 +154,7 @@ const chqTmb = {
 };
 
 const CreatorName = styled.p`
-  font-family: ${props => props.fontFamiliy || font};
+  font-family: ${font};
   font-size: 16px;
   font-weight: 600;
   margin: 0 0 3px 0;
@@ -166,7 +166,7 @@ const CreatorName = styled.p`
 `;
 
 const CreatorTitle = styled.p`
-  font-family: ${props => props.fontFamiliy || font};
+  font-family: ${font};
   margin: 0;
 `;
 
@@ -207,7 +207,7 @@ const CardTitle = styled.p`
   -webkit-line-clamp: 2;
   color: #FFFFFF;
   display: -webkit-box;
-  font-family: ${props => props.fontFamiliy || font};
+  font-family: ${font};
   font-size: 24px;
   font-weight: 600;
   line-height: normal;
@@ -217,9 +217,7 @@ const CardTitle = styled.p`
   white-space: initial;
 `;
 
-const ACTIVISION = "activisionblizzard";
-
-const StoriesSlider = ({ organizationId, orgName, stories = [] }) => {
+const StoriesSlider = ({ organizationId, stories = [] }) => {
   const [index, setIndex] = useState(0);
   const [activeStory, setActiveStory] = useState(undefined);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -308,10 +306,9 @@ const StoriesSlider = ({ organizationId, orgName, stories = [] }) => {
           onStoryChange={handleThumbnailClick}
           noActions
           landingPage
-          orgName={orgName}
         />
       )}
-      <SliderContainer backgroundColor={orgName === ACTIVISION && "#121212"}>
+      <SliderContainer backgroundColor={backgroundColor}>
         <LeftArrow
           aria-label="Previous"
           type="button"
@@ -379,16 +376,16 @@ const StoriesSlider = ({ organizationId, orgName, stories = [] }) => {
                       }}
                     />
                     <div>
-                      <CreatorName fontFamiliy={orgName === ACTIVISION && "'SourceSansPro'"}>
+                      <CreatorName>
                         {story.creator.name}
                       </CreatorName>
-                      <CreatorTitle fontFamiliy={orgName === ACTIVISION && "'SourceSansPro'"}>
+                      <CreatorTitle>
                         {story.creator.title}
                       </CreatorTitle>
                     </div>
                   </div>
                   <div style={cardTitleContainer}>
-                    <CardTitle fontFamiliy={orgName === ACTIVISION && "'SourceSansPro'"}>
+                    <CardTitle>
                       {story.question.question}
                     </CardTitle>
                   </div>
