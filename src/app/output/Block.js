@@ -2,18 +2,20 @@ import React, { Fragment } from "react";
 
 import BlockSegmentContent from "./BlockSegmentContent";
 
+import { font } from "../../styles.json";
+
 const PLATFORM_BASE = "https://platform.culturehq.com";
 const PLATFORM_NO_PREFIX = "platform.culturehq.com";
 const HTTPS_PREFIX = "https://";
 const HTTP_PREFIX = "http://";
-const ACTIVISION = "activisionblizzard";
 
 const blockStyle = {
   color: "#5c5f67",
+  fontFamily: font,
   fontSize: "16px",
   fontWeight: "200",
   lineHeight: "1.42857143",
-  WebkitFontSmoothing: "initial"
+  WebkitFontSmoothing: "initial",
 };
 
 const BlockSegment = ({ block, offset, length }) => {
@@ -26,8 +28,11 @@ const BlockSegment = ({ block, offset, length }) => {
     const index = innerIndex + offset;
     let styles = [];
 
-    block.inlineStyleRanges.forEach(styleRange => {
-      if (index >= styleRange.offset && index < styleRange.offset + styleRange.length) {
+    block.inlineStyleRanges.forEach((styleRange) => {
+      if (
+        index >= styleRange.offset &&
+        index < styleRange.offset + styleRange.length
+      ) {
         styles = [...styles, styleRange.style].sort();
       }
     });
@@ -54,11 +59,13 @@ const BlockSegment = ({ block, offset, length }) => {
 };
 
 const LinkEntity = ({
-  entity: { data: { url } },
+  entity: {
+    data: { url },
+  },
   tabIndex,
-  children
+  children,
 }) => {
-  const internalLink = base => {
+  const internalLink = (base) => {
     const to = url.replace(base, "");
     // return <Link to={to} className="chq-edi--lk" tabIndex={tabIndex || 0}>{children}</Link>;
     return (
@@ -74,7 +81,7 @@ const LinkEntity = ({
     );
   };
 
-  const externalLink = prefix => {
+  const externalLink = (prefix) => {
     const to = prefix.concat("", url);
     return (
       <a
@@ -152,32 +159,22 @@ const AtomicBlock = ({ block, _entityMap }) => {
   */
 };
 
-const Block = ({ block, Element, entityMap, orgName, tabIndex }) => {
+const Block = ({ block, Element, entityMap, tabIndex }) => {
   if (block.type === "atomic") {
     return (
-      <Element
-        style={{
-          ...blockStyle,
-          color: orgName === ACTIVISION ? "#FFF" : "#5c5f67"
-        }}
-      >
+      <Element style={blockStyle}>
         <AtomicBlock block={block} entityMap={entityMap} />
       </Element>
     );
   }
 
   if (block.text === "") {
-    return <Element style={{ ...blockStyle, color: orgName === ACTIVISION ? "#FFF" : "#5c5f67" }}>&nbsp;</Element>;
+    return <Element style={blockStyle}>&nbsp;</Element>;
   }
 
   if (block.entityRanges.length === 0) {
     return (
-      <Element
-        style={{
-          ...blockStyle,
-          color: orgName === ACTIVISION ? "#FFF" : "#5c5f67"
-        }}
-      >
+      <Element style={blockStyle}>
         <BlockSegment block={block} offset={0} length={block.text.length} />
       </Element>
     );
@@ -199,12 +196,7 @@ const Block = ({ block, Element, entityMap, orgName, tabIndex }) => {
   }
 
   return (
-    <Element
-      style={{
-        ...blockStyle,
-        color: orgName === ACTIVISION ? "#FFF" : "#5c5f67"
-      }}
-    >
+    <Element style={blockStyle}>
       {segments.map(({ offset, length, entity }) => {
         const segment = (
           <BlockSegment

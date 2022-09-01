@@ -3,30 +3,36 @@ import React from "react";
 import BlockGroup from "./output/BlockGroup";
 import getBlockGroups from "./output/getBlockGroups";
 
-const ACTIVISION = "activisionblizzard";
+import { font } from "../styles.json";
 
 const tagsContainer = {
   alignItems: "center",
   display: "flex",
   flexWrap: "wrap",
   marginTop: "10px",
-  overflow: "hidden"
+  overflow: "hidden",
 };
 
 const tag = {
   color: "#fff",
+  fontFamily: font,
   fontSize: "16px",
   fontWeight: "500",
   lineHeight: "22.8571px",
   marginLeft: "5px",
   marginTop: "0",
-  padding: "0"
+  padding: "0",
+};
+
+const darkTag = {
+  ...tag,
+  color: "#2c3e4f",
 };
 
 const badge = {
   alignItems: "center",
   display: "flex",
-  marginRight: "10px"
+  marginRight: "10px",
 };
 
 const darkBadge = {
@@ -42,15 +48,7 @@ const darkBadge = {
   textAlign: "left",
   outline: "none",
   textDecoration: "none",
-  transition: "border-color .3s"
-};
-
-const activisonBadge = {
-  ...darkBadge,
-  backgroundColor: "#121212",
-  border: "1px solid #FFF",
-  borderRadius: "0",
-  color: "#FFF"
+  transition: "border-color .3s",
 };
 
 export const SEGMENTED_VALUE = "SEGMENTED";
@@ -80,10 +78,10 @@ const tagsTypes = {
   USER: "user",
   ORG_VALUES: "organization values",
   ORG_VALUE: "organization_value",
-  ORG_VALUE_TYPE: "organizationvalue"
+  ORG_VALUE_TYPE: "organizationvalue",
 };
 
-const parseOutput = output => {
+const parseOutput = (output) => {
   if (!output) {
     return { type: "null" };
   }
@@ -96,13 +94,12 @@ const parseOutput = output => {
 };
 
 const EditorOutput = ({
-  orgName,
   output,
   showTags = true,
   showDefaultTag = false,
   tabIndex = 0,
   hideBody = false,
-  darkTags = false
+  darkTags = false,
 }) => {
   const { type, blocks, entityMap } = parseOutput(output);
 
@@ -141,30 +138,38 @@ const EditorOutput = ({
     }
   };
 
-  const tags = entityMap && Object.values(entityMap).filter(
-    entity => entity.type === MENTION_VALUE && entity.mutability === SEGMENTED_VALUE && entity.data.type && entity.data.type !== "organizations"
-  );
+  const tags =
+    entityMap &&
+    Object.values(entityMap).filter(
+      (entity) =>
+        entity.type === MENTION_VALUE &&
+        entity.mutability === SEGMENTED_VALUE &&
+        entity.data.type &&
+        entity.data.type !== "organizations"
+    );
 
   switch (type) {
     case "json":
       return (
-        <div>
-          {!hideBody && getBlockGroups(blocks).map(blockGroup => (
-            <BlockGroup
-              key={blockGroup.key}
-              blockGroup={blockGroup}
-              entityMap={entityMap}
-              orgName={orgName}
-              tabIndex={tabIndex}
-            />
-          ))}
-          <div style={tagsContainer}>
-            {showTags && tags && Object.values(tags).map((entity, index) => (
-              entity.type === MENTION_VALUE && entity.mutability === SEGMENTED_VALUE
-                && entity.data.type ? (
+        <div className="chq-edi-op">
+          {!hideBody &&
+            getBlockGroups(blocks).map((blockGroup) => (
+              <BlockGroup
+                key={blockGroup.key}
+                blockGroup={blockGroup}
+                entityMap={entityMap}
+                tabIndex={tabIndex}
+              />
+            ))}
+          <div className="chq-ffd-tags" style={tagsContainer}>
+            {showTags &&
+              tags &&
+              Object.values(tags).map((entity, index) =>
+                entity.type === MENTION_VALUE &&
+                entity.mutability === SEGMENTED_VALUE &&
+                entity.data.type ? (
                   <span
-                    style={orgName === ACTIVISION // eslint-disable-line no-nested-ternary
-                      ? activisonBadge : (darkTags ? darkBadge : badge)}
+                    style={darkTags ? darkBadge : badge}
                     key={`${entity.data.type}-${entity.data.entityId}`}
                   >
                     <svg
@@ -177,38 +182,43 @@ const EditorOutput = ({
                       <path
                         transform="translate(0 0)"
                         d={getIconPath(entity)}
-                        fill={orgName === ACTIVISION ? "#FFF" : (darkTags ? "#2c3e4f" : "#FFFFFF")} // eslint-disable-line no-nested-ternary
+                        fill={darkTags ? "#2c3e4f" : "#FFFFFF"}
                       />
                     </svg>
-                    <span style={tag}>
+                    <span style={darkTags ? darkTag : tag}>
                       {entity.data.name}
                     </span>
                   </span>
-                ) : (<div key={index} />) // eslint-disable-line react/no-array-index-key
-            ))}
-            {showDefaultTag && showTags && tags && Object.values(tags).length === 0 && (
-              <span style={darkTags ? darkBadge : badge}>
-                <svg
-                  aria-hidden="true"
-                  role="presentation"
-                  width="15px"
-                  height="15px"
-                  viewBox="0 0 512 512"
-                >
-                  <path
-                    fill={darkTags ? "#2c3e4f" : "#FFFFFF"}
-                    transform="translate(0 0)"
-                    d="M256,0C115.04,0,0,115.049,0,256c0,68.113,26.702,132.327,75.188,180.812C123.674,485.297,187.887,512,256,512c140.96,0,256-115.049,256-256C512,115.04,396.951,0,256,0z M256,30c24.848,0,48.766,4.042,71.147,11.484c-4.226,6.435-6.519,14.599-6.519,24.163c0,16.203,7.242,30.686,14.245,44.693c5.697,11.394,11.078,22.156,11.078,31.277c0,5.492-1.474,6.95-5.903,8.543c-8.447,3.038-23.782,2.803-33.67,2.772c-24.737-0.082-52.752-0.172-82.649,29.725c-4.131,4.131-6.367,4.342-20.67-2.81c-13.088-6.544-34.994-17.497-55.3,2.81c-11.877,11.877-16.567,28.603-13.284,45.566c-5.555-2.157-11.205-3.705-16.71-5.214c-8.949-2.452-19.092-5.231-20.744-9.421c-1.148-2.913-2.943-15.593,22.206-56.423c9.52-15.455,20.968-38.081,10.515-56.052c-4.917-8.453-13.124-13.031-22.092-15.463C147.374,51.01,199.278,30,256,30z M256,482C131.383,482,30,380.617,30,256c0-54.16,19.157-103.925,51.042-142.893c17.436-0.17,21.735,2.171,22.745,3.104c0.17,0.892,0.851,7.437-10.104,25.22c-24.516,39.8-31.863,64.671-24.571,83.162c7.158,18.15,25.77,23.25,40.725,27.348c6.198,1.698,12.053,3.303,16.832,5.546c26.651,12.508,43.242,20.877,53.797,27.136c10.451,6.198,12.997,9.227,13.546,10.042v25.212c0,18.795,17.746,28.946,32.006,37.102c5.776,3.305,17.798,10.181,18.641,13.544c0,59.843,5.788,92.781,13.246,111.45C257.269,481.981,256.637,482,256,482z M295.019,465.781c0.095,3.062-2.858,9.297-5.622,11.99c-3.788-5.117-14.739-26.875-14.739-107.245c0-20.282-18.711-30.985-33.745-39.585c-5.292-3.027-15.099-8.58-17.001-11.642v-24.743c0-4.041-0.652-7.646-1.948-10.889c24.929-2.291,37.073-11.073,46.283-17.733c6.468-4.677,9.714-7.024,16.734-7.024c0.202,0,0.307,0.015,0.303,0.012c1.577,0.772,4.93,6.378,6.935,9.729c1.671,2.792,3.563,5.956,5.753,9.119c19.059,27.533,43.925,32.979,60.379,36.583c4.361,0.955,10.846,2.375,12.771,3.657c0.065,0.306,0.152,0.896,0.152,1.868c0,30.97-23.736,53.397-44.679,73.184c-16.79,15.864-31.583,29.564-31.583,46.932l-0.002,1.677C294.988,464.758,295.005,465.325,295.019,465.781z M324.865,471.259c0.334-2.137,0.199-4.245,0.144-6.284c-0.009-0.809-0.016-5.567,0.002-23.274l0.002-1.703c0.001-0.021,0.404-2.172,4.92-7.669c4.217-5.131,10.556-11.12,17.266-17.46c22.821-21.562,54.076-51.092,54.076-94.99c0-15.037-7.585-23.037-13.948-27.1c-6.652-4.248-14.378-5.94-22.557-7.731c-14.646-3.208-29.79-6.525-42.131-24.353c-1.622-2.343-3.104-4.821-4.674-7.444c-6.145-10.273-14.561-24.342-32.983-24.342c-16.731,0-26.479,7.05-34.313,12.714c-8.967,6.485-17.438,12.609-41.656,12.609c-24.056,0-38.364-13.938-43.308-25.873c-1.869-4.512-5.292-15.93,3.268-24.49c4.132-4.131,6.367-4.342,20.67,2.81c13.088,6.544,34.994,17.497,55.3-2.81c21.07-21.07,38.85-21.01,61.338-20.939c14.308,0.047,30.752,0.195,43.922-4.542c16.604-5.972,25.75-19.032,25.75-36.773c0-16.203-7.242-30.686-14.245-44.693c-5.697-11.394-11.078-22.156-11.078-31.277c0-7.422,1.389-10.092,9.274-10.303C432.378,93.025,482,168.823,482,256C482,356.612,415.908,442.065,324.865,471.259z"
-                  />
-                </svg>
-                <span style={tag}>Everyone</span>
-              </span>
-            )}
+                ) : (
+                  <div key={index} />
+                ) // eslint-disable-line react/no-array-index-key
+              )}
+            {showDefaultTag &&
+              showTags &&
+              tags &&
+              Object.values(tags).length === 0 && (
+                <span style={darkTags ? darkBadge : badge}>
+                  <svg
+                    aria-hidden="true"
+                    role="presentation"
+                    width="15px"
+                    height="15px"
+                    viewBox="0 0 512 512"
+                  >
+                    <path
+                      fill={darkTags ? "#2c3e4f" : "#FFFFFF"}
+                      transform="translate(0 0)"
+                      d="M256,0C115.04,0,0,115.049,0,256c0,68.113,26.702,132.327,75.188,180.812C123.674,485.297,187.887,512,256,512c140.96,0,256-115.049,256-256C512,115.04,396.951,0,256,0z M256,30c24.848,0,48.766,4.042,71.147,11.484c-4.226,6.435-6.519,14.599-6.519,24.163c0,16.203,7.242,30.686,14.245,44.693c5.697,11.394,11.078,22.156,11.078,31.277c0,5.492-1.474,6.95-5.903,8.543c-8.447,3.038-23.782,2.803-33.67,2.772c-24.737-0.082-52.752-0.172-82.649,29.725c-4.131,4.131-6.367,4.342-20.67-2.81c-13.088-6.544-34.994-17.497-55.3,2.81c-11.877,11.877-16.567,28.603-13.284,45.566c-5.555-2.157-11.205-3.705-16.71-5.214c-8.949-2.452-19.092-5.231-20.744-9.421c-1.148-2.913-2.943-15.593,22.206-56.423c9.52-15.455,20.968-38.081,10.515-56.052c-4.917-8.453-13.124-13.031-22.092-15.463C147.374,51.01,199.278,30,256,30z M256,482C131.383,482,30,380.617,30,256c0-54.16,19.157-103.925,51.042-142.893c17.436-0.17,21.735,2.171,22.745,3.104c0.17,0.892,0.851,7.437-10.104,25.22c-24.516,39.8-31.863,64.671-24.571,83.162c7.158,18.15,25.77,23.25,40.725,27.348c6.198,1.698,12.053,3.303,16.832,5.546c26.651,12.508,43.242,20.877,53.797,27.136c10.451,6.198,12.997,9.227,13.546,10.042v25.212c0,18.795,17.746,28.946,32.006,37.102c5.776,3.305,17.798,10.181,18.641,13.544c0,59.843,5.788,92.781,13.246,111.45C257.269,481.981,256.637,482,256,482z M295.019,465.781c0.095,3.062-2.858,9.297-5.622,11.99c-3.788-5.117-14.739-26.875-14.739-107.245c0-20.282-18.711-30.985-33.745-39.585c-5.292-3.027-15.099-8.58-17.001-11.642v-24.743c0-4.041-0.652-7.646-1.948-10.889c24.929-2.291,37.073-11.073,46.283-17.733c6.468-4.677,9.714-7.024,16.734-7.024c0.202,0,0.307,0.015,0.303,0.012c1.577,0.772,4.93,6.378,6.935,9.729c1.671,2.792,3.563,5.956,5.753,9.119c19.059,27.533,43.925,32.979,60.379,36.583c4.361,0.955,10.846,2.375,12.771,3.657c0.065,0.306,0.152,0.896,0.152,1.868c0,30.97-23.736,53.397-44.679,73.184c-16.79,15.864-31.583,29.564-31.583,46.932l-0.002,1.677C294.988,464.758,295.005,465.325,295.019,465.781z M324.865,471.259c0.334-2.137,0.199-4.245,0.144-6.284c-0.009-0.809-0.016-5.567,0.002-23.274l0.002-1.703c0.001-0.021,0.404-2.172,4.92-7.669c4.217-5.131,10.556-11.12,17.266-17.46c22.821-21.562,54.076-51.092,54.076-94.99c0-15.037-7.585-23.037-13.948-27.1c-6.652-4.248-14.378-5.94-22.557-7.731c-14.646-3.208-29.79-6.525-42.131-24.353c-1.622-2.343-3.104-4.821-4.674-7.444c-6.145-10.273-14.561-24.342-32.983-24.342c-16.731,0-26.479,7.05-34.313,12.714c-8.967,6.485-17.438,12.609-41.656,12.609c-24.056,0-38.364-13.938-43.308-25.873c-1.869-4.512-5.292-15.93,3.268-24.49c4.132-4.131,6.367-4.342,20.67,2.81c13.088,6.544,34.994,17.497,55.3-2.81c21.07-21.07,38.85-21.01,61.338-20.939c14.308,0.047,30.752,0.195,43.922-4.542c16.604-5.972,25.75-19.032,25.75-36.773c0-16.203-7.242-30.686-14.245-44.693c-5.697-11.394-11.078-22.156-11.078-31.277c0-7.422,1.389-10.092,9.274-10.303C432.378,93.025,482,168.823,482,256C482,356.612,415.908,442.065,324.865,471.259z"
+                    />
+                  </svg>
+                  <span style={darkTags ? darkTag : tag}>Everyone</span>
+                </span>
+              )}
           </div>
         </div>
       );
     case "text":
-      return <div>{output}</div>;
+      return <div className="chq-edi-op">{output}</div>;
     default:
       return null;
   }

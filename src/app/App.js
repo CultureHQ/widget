@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { makePaginatedGet, setToken } from "@culturehq/client";
 import styled from "styled-components";
-import GlobalFonts from "../fonts/fonts";
 import NoStories from "./NoStories";
 
 import Failure from "./Failure";
@@ -50,7 +49,7 @@ const Container = styled.section`
   }
 `;
 
-const queryToOptions = queryString => {
+const queryToOptions = (queryString) => {
   const { i, d, l, s, co, cy, m, r, v, sp, t, u, org } = queryString;
 
   return {
@@ -66,7 +65,7 @@ const queryToOptions = queryString => {
     storyPromptIds: sp || null,
     trendIds: t || null,
     userIds: u || null,
-    orgId: org || null
+    orgId: org || null,
   };
 };
 
@@ -78,8 +77,7 @@ class App extends Component {
 
     this.state = {
       failure: false,
-      organization: null,
-      stories: null
+      stories: null,
     };
   }
 
@@ -91,14 +89,14 @@ class App extends Component {
       "stories",
       "/landing_pages/stories",
       queryToOptions(filters)
-    ).then(({ organization, stories }) => {
+    ).then(({ stories }) => {
       this.mountedSetState({
-        organization,
-        stories: stories.map(story => new CHQStory(story)),
-        failure: false
+        stories: stories.map((story) => new CHQStory(story)),
+        failure: false,
       });
-    }).catch(() => {
-      this.mountedSetState({ organization: null, stories: null, failure: true });
+    })
+    .catch(() => {
+      this.mountedSetState({ stories: null, failure: true });
     });
   }
 
@@ -107,7 +105,7 @@ class App extends Component {
   }
 
   componentDidCatch() {
-    this.mountedSetState({ organization: null, stories: null, failure: true });
+    this.mountedSetState({ stories: null, failure: true });
   }
 
   mountedSetState(newState) {
@@ -117,7 +115,7 @@ class App extends Component {
   }
 
   render() {
-    const { failure, organization, stories } = this.state;
+    const { failure, stories } = this.state;
     const { filters } = this.props;
 
     if (failure) {
@@ -126,16 +124,7 @@ class App extends Component {
 
     if (stories === null) {
       return (
-        <EmptySlider
-          orgName={
-            organization?.name
-              ?.replace(/\s+/g, "-")
-              ?.replaceAll("'", "")
-              ?.replaceAll("-+-", "and")
-              ?.replaceAll("Activision-Blizzard", "activisionblizzard")
-              ?.toLowerCase()
-          }
-        />
+        <EmptySlider />
       );
     }
 
@@ -145,19 +134,7 @@ class App extends Component {
 
     return (
       <Container>
-        <GlobalFonts />
-        <StoriesSlider
-          orgName={
-            organization.name
-              .replace(/\s+/g, "-")
-              .replaceAll("'", "")
-              .replaceAll("-+-", "and")
-              .replaceAll("Activision-Blizzard", "activisionblizzard")
-              .toLowerCase()
-          }
-          stories={stories}
-          organizationId={filters.org}
-        />
+        <StoriesSlider stories={stories} organizationId={filters.org} />
       </Container>
     );
   }

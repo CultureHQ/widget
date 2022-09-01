@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
-const ACTIVISION = "activisionblizzard";
+import { font } from "../styles.json";
+
 
 const SliderContainer = styled.section`
-  background-color: ${props => props.backgroundColor || "transparent"};
   position: relative;
 
   -ms-overflow-style: none; // IE 10+
@@ -31,19 +31,19 @@ const ScrollbarContainer = styled.div`
   }
 `;
 
-const Slider = styled.div`
-  background-color: transparent;
-  border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 15px;
-  min-width: 100%;
-  position: absolute;
-  transition: transform 300ms cubic-bezier(.455, .03, .515, .955);
-`;
+const slider = {
+  backgroundColor: "transparent",
+  borderRadius: "6px",
+  display: "flex",
+  justifyContent: "center",
+  marginBottom: "15px",
+  minWidth: "100%",
+  position: "absolute",
+  transition: "transform 300ms cubic-bezier(.455, .03, .515, .955)",
+};
 
 const Card = styled.button`
-  background-color: ${props => props.backgroundColor || "#f3f3f3"};
+  background-color: #f3f3f3;
   background-position: center;
   background-size: cover;
   border-radius: 6px;
@@ -61,14 +61,14 @@ const Card = styled.button`
 `;
 
 const UserPreview = styled.div`
-  background-color: ${props => props.backgroundColor || "rgba(0, 0, 0, .06)"};
+  background-color: rgba(0, 0, 0, .06);
   border-radius: 30px;
   height: 45px;
   width: 45px;
 `;
 
 const TextPreview = styled.p`
-  background-color: ${props => props.backgroundColor || "rgba(0, 0, 0, .06)"};
+  background-color: rgba(0, 0, 0, .06);
   height: 16px;
   margin-bottom: 9px;
   width: 80%;
@@ -82,7 +82,7 @@ const backgroundEffect = {
   padding: "15px"
 };
 
-const EmptySlider = ({ orgName, stories = [0, 1, 2, 3] }) => {
+const EmptySlider = ({ stories = [0, 1, 2, 3] }) => {
   const containerRef = useRef(null);
 
   const cardWidth = () => {
@@ -109,22 +109,21 @@ const EmptySlider = ({ orgName, stories = [0, 1, 2, 3] }) => {
     <>
       <SliderContainer>
         <ScrollbarContainer ref={containerRef}>
-          <Slider>
+          <div style={{ ...slider }}>
             {stories.map(index => (
               <Card
-                backgroundColor={orgName === ACTIVISION && "#2c2c2c"}
                 key={index}
                 style={{ width: cardWidth(), maxWidth: maxCardWidth() }}
                 type="button"
               >
                 <div style={{ ...backgroundEffect, height: "400px" }}>
-                  <UserPreview backgroundColor={orgName === ACTIVISION && "rgba(0, 0, 0, .2)"} />
-                  <TextPreview backgroundColor={orgName === ACTIVISION && "rgba(0, 0, 0, .2)"} />
-                  <TextPreview backgroundColor={orgName === ACTIVISION && "rgba(0, 0, 0, .2)"} />
+                  <UserPreview />
+                  <TextPreview />
+                  <TextPreview />
                 </div>
               </Card>
             ))}
-          </Slider>
+          </div>
         </ScrollbarContainer>
       </SliderContainer>
     </>

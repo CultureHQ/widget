@@ -8,7 +8,7 @@ const locales = {
       "Thursday",
       "Friday",
       "Saturday",
-      "Sunday"
+      "Sunday",
     ],
     monthAbbrs: [
       "Jan",
@@ -22,7 +22,7 @@ const locales = {
       "Sep",
       "Oct",
       "Nov",
-      "Dec"
+      "Dec",
     ],
     monthNames: [
       "January",
@@ -36,17 +36,17 @@ const locales = {
       "September",
       "October",
       "November",
-      "December"
-    ]
-  }
+      "December",
+    ],
+  },
 };
 
-const padLeft = value => `0${value}`.slice(-2);
+const padLeft = (value) => `0${value}`.slice(-2);
 
 const strftime = (timestamp, format) => {
   const date = new Date(timestamp);
 
-  const segments = format.split(/(%\w)/).map(segment => {
+  const segments = format.split(/(%\w)/).map((segment) => {
     switch (segment) {
       case "%b":
         return locales.en_US.monthAbbrs[date.getMonth()];

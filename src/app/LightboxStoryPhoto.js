@@ -9,13 +9,10 @@ import Loader from "./Loader";
 
 import { font } from "../styles.json";
 
-const ACTIVISION = "activisionblizzard";
-
 const GalleryLightboxWrapper = styled.div`
   border-radius: 0;
   display: flex;
   flex-direction: column;
-  font-family: ${props => props.fontFamiliy || font};
   height: 100%;
   margin: 0 auto;
   overflow: hidden;
@@ -54,7 +51,7 @@ const galleryLightboxVideoPlay = {
   right: "0",
   top: "0",
   width: "100%",
-  zIndex: "10"
+  zIndex: "10",
 };
 
 const Video = styled.video`
@@ -75,7 +72,7 @@ const Video = styled.video`
 `;
 
 const GalleryLightboxDetailsContainer = styled.div`
-  background-color: ${props => props.backgroundColor || "#fff"};
+  background-color: #fff;
   border-radius: 0 6px 6px 0;
   display: flex;
   flex: 1 1;
@@ -122,7 +119,7 @@ const GalleryLightboxParentTitleContainer = styled.div`
 
 const GalleryLightboxSubtitleContainer = styled.div`
   align-items: center;
-  color: ${props => props.color || "#888"};
+  color: #888;
   display: flex;
   font-size: 18px;
   font-weight: 400;
@@ -137,12 +134,12 @@ const SubArrow = styled.svg`
 `;
 
 const SubArrowPath = styled.path`
-  fill: ${props => props.fill || "rgba(140, 180, 214, 0.4)"};
+  fill: rgba(140, 180, 214, 0.4)
 `;
 
 const Title = styled.h1`
-  color: ${props => props.color || "#5c5f67"};
-  font-family: ${props => props.fontFamiliy || font};
+  color: #5c5f67;
+  font-family: ${font};
   font-size: 20px;
   font-weight: 500;
   line-height: 1.1;
@@ -163,7 +160,8 @@ const GalleryLightBoxCreatorContainer = styled.div`
 `;
 
 const GalleryLightboxUploaderDate = styled.div`
-  color: ${props => props.color || "#c9c9c9"};
+  color: #c9c9c9;
+  font-family: ${font};
   font-size: 16px;
   font-weight: 200;
   line-height: 1.42857143;
@@ -183,7 +181,7 @@ const Hr = styled.hr`
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
-  border-top: 1px solid ${props => props.color || "#eee"};
+  border-top: 1px solid #eee;
 `;
 
 const Thumbnail = styled.div`
@@ -197,7 +195,8 @@ const Thumbnail = styled.div`
 `;
 
 const GalleryLightboxUploaderName = styled.span`
-  color: ${props => props.color || "#6a89af"};
+  color: #6a89af;
+  font-family: ${font};
   font-size: 16px;
   font-weight: 600;
   line-height: 1.42857143;
@@ -244,7 +243,7 @@ const GalleryLightboxMainImage = styled.img`
 const BottomShadow = styled.div`
   background-image: linear-gradient(
     0deg,
-    ${props => props.color || "#fff"} 0%,
+    white 0%,
     rgba(255, 255, 255, 0) 100%
   );
   bottom: 0;
@@ -283,7 +282,7 @@ const PromptIconVideos = styled.div`
   margin-right: 10px;
   padding: 8px;
   width: 19px;
-`;
+`
 
 const PromptIconImages = styled.div`
   background: linear-gradient(90deg, #aa8c30 0%, #ffd24b 100%);
@@ -295,7 +294,7 @@ const PromptIconImages = styled.div`
   margin-right: 10px;
   padding: 8px;
   width: 19px;
-`;
+`
 
 const Icon = styled.svg`
   height: 22px;
@@ -343,9 +342,9 @@ const LightboxStoryPhoto = ({
   activeStory,
   containerRef,
   fullSize = true,
+  landingPage = false,
   changing,
   onChangedFinished,
-  orgName
 }) => {
   const mediaRef = React.createRef();
   const [state, setState] = useState({
@@ -353,7 +352,7 @@ const LightboxStoryPhoto = ({
     commentCount: activeStory.commentCount,
     hovering: false,
     imageLoaded: false,
-    showComments: false
+    showComments: false,
   });
   const [showVideoInfo, setShowVideoInfo] = useState(false);
 
@@ -376,8 +375,8 @@ const LightboxStoryPhoto = ({
         width: imageRect.width,
         height: imageRect.height,
         containerLeft: containerRect?.left || 0,
-        containerTop: containerRect?.top || 0
-      }
+        containerTop: containerRect?.top || 0,
+      },
     });
   };
 
@@ -402,28 +401,33 @@ const LightboxStoryPhoto = ({
     mediaRef.current.play();
   };
 
-  const { body, creator, question } = activeStory;
+  const { body, creator, createdAt, question } = activeStory;
   const { parentStoryQuestion } = question;
-  const imageUrl = activeStory.media.mediaType === "image"
-    ? imageFromStory(imagesSizes.FULL, activeStory)
-    : activeStory.media.thumbnail;
+  const imageUrl =
+    activeStory.media.mediaType === "image"
+      ? imageFromStory(imagesSizes.FULL, activeStory)
+      : activeStory.media.thumbnail;
   return (
     <GalleryLightboxWrapper
-      fontFamiliy={orgName === ACTIVISION ? "'SourceSansPro'" : undefined}
+      className="gallery-lightbox__wrapper"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <GalleryLightboxPhoto>
+      <GalleryLightboxPhoto className="gallery-lightbox__photo col-sm-7 col-xs-12">
         <GalleryLightboxImageContainer
+          className="gallery-lightbox__image-container"
           style={{ backgroundImage: `url(${imageUrl})` }}
         />
         {activeStory.media.mediaType === "image" && (
           <GalleryLightboxMainImage
+            className="gallery-lightbox__main-image"
             ref={mediaRef}
             src={imageUrl}
             onLoad={handleImageLoad}
             alt={
-              activeStory.imageAlt || parentStoryQuestion?.question || question.question
+              activeStory.imageAlt ||
+              parentStoryQuestion?.question ||
+              question.question
             }
           />
         )}
@@ -431,6 +435,7 @@ const LightboxStoryPhoto = ({
           <>
             {showVideoInfo && (
               <div
+                className="gallery-lightbox__video-play"
                 onClick={handlePlay}
                 onKeyPress={() => {}}
                 style={galleryLightboxVideoPlay}
@@ -455,6 +460,7 @@ const LightboxStoryPhoto = ({
             <Video
               autoPlay
               controls
+              className="gallery-lightbox__main-image"
               onPause={() => setShowVideoInfo(true)}
               onPlay={() => setShowVideoInfo(false)}
               onLoadedData={handleImageLoad}
@@ -467,10 +473,12 @@ const LightboxStoryPhoto = ({
         {!state.imageLoaded && <Loader />}
       </GalleryLightboxPhoto>
 
-      <GalleryLightboxDetailsContainer backgroundColor={orgName === ACTIVISION ? "#121212" : undefined}>
-        <ScrollableContainer>
+      <GalleryLightboxDetailsContainer className="gallery-lightbox__details-container col-sm-5 col-xs-12">
+        <ScrollableContainer
+          className={`scrollable-container ${landingPage ? "full-height" : ""}`}
+        >
           {parentStoryQuestion ? (
-            <GalleryLightboxTitleContainer>
+            <GalleryLightboxTitleContainer className="gallery-lightbox__title-container">
               <GalleryLightboxParentTitleContainer>
                 <QuoteIcon
                   ariaHidden="true"
@@ -480,31 +488,25 @@ const LightboxStoryPhoto = ({
                   viewBox="0 0 1024 1024"
                 >
                   <path
-                    fill={orgName === ACTIVISION ? "#ffc54e" : "#8cb4d6"}
+                    fill="#8cb4d6"
                     transform="translate(0 0)"
                     d="M925.036,57.197h-304c-27.6,0-50,22.4-50,50v304c0,27.601,22.4,50,50,50h145.5c-1.9,79.601-20.4,143.3-55.4,191.2 c-27.6,37.8-69.399,69.1-125.3,93.8c-25.7,11.3-36.8,41.7-24.8,67.101l36,76c11.6,24.399,40.3,35.1,65.1,24.399 c66.2-28.6,122.101-64.8,167.7-108.8c55.601-53.7,93.7-114.3,114.3-181.9c20.601-67.6,30.9-159.8,30.9-276.8v-239 C975.036,79.598,952.635,57.197,925.036,57.197z M106.036,913.497c65.4-28.5,121-64.699,166.9-108.6c56.1-53.7,94.4-114.1,115-181.2c20.6-67.1,30.899-159.6,30.899-277.5 v-239c0-27.6-22.399-50-50-50h-304c-27.6,0-50,22.4-50,50v304c0,27.601,22.4,50,50,50h145.5c-1.9,79.601-20.4,143.3-55.4,191.2 c-27.6,37.8-69.4,69.1-125.3,93.8c-25.7,11.3-36.8,41.7-24.8,67.101l35.9,75.8C52.336,913.497,81.236,924.298,106.036,913.497z"
                   />
                 </QuoteIcon>
-                <Title
-                  color={orgName === ACTIVISION ? "#FFF" : undefined}
-                  fontFamiliy={orgName === ACTIVISION ? "BebasNeue" : undefined}
-                >
+                <Title className="title">
                   {parentStoryQuestion?.question || question.question}
                 </Title>
               </GalleryLightboxParentTitleContainer>
-              <GalleryLightboxSubtitleContainer color={orgName === ACTIVISION ? "#FFF" : undefined}>
+              <GalleryLightboxSubtitleContainer>
                 <SubArrow width="22px" height="22px" viewBox="0 0 464 464">
-                  <SubArrowPath
-                    fill={orgName === ACTIVISION ? "rgba(255, 197, 78, 0.4)" : undefined}
-                    d="M464.000251,24 C464.110373,115.256418 427.850906,202.794842 363.245,267.245 C331.912503,298.659235 294.78011,323.692873 253.908,340.957 C212.358482,358.538885 167.738665,367.71911 122.623,367.968 L90.666,344 L122.71,319.967 C200.312749,319.475993 274.573891,288.322547 329.3,233.3 C384.992218,177.911837 416.211732,102.545699 416,24 C416,10.745166 426.745166,2.84217094e-14 440,2.84217094e-14 C453.254834,2.84217094e-14 464.000251,10.745166 464.000251,24 L464.000251,24 Z M171.2,454.4 C179.1529,443.796133 177.003867,428.7529 166.4,420.8 L64,344 L166.4,267.2 C173.259499,262.055376 176.853314,253.642047 175.827688,245.129234 C174.802062,236.616421 169.312813,229.297422 161.427688,225.929234 C153.542563,222.561046 144.459499,223.655375 137.6,228.8 L9.6,324.8 C3.55665978,329.332505 0,336.445825 0,344 C0,351.554175 3.55665978,358.667495 9.6,363.2 L137.6,459.2 C142.692157,463.019117 149.09289,464.658962 155.394113,463.758788 C161.695335,462.858613 167.380883,459.492157 171.2,454.4 L171.2,454.4 Z"
-                  />
+                  <SubArrowPath d="M464.000251,24 C464.110373,115.256418 427.850906,202.794842 363.245,267.245 C331.912503,298.659235 294.78011,323.692873 253.908,340.957 C212.358482,358.538885 167.738665,367.71911 122.623,367.968 L90.666,344 L122.71,319.967 C200.312749,319.475993 274.573891,288.322547 329.3,233.3 C384.992218,177.911837 416.211732,102.545699 416,24 C416,10.745166 426.745166,2.84217094e-14 440,2.84217094e-14 C453.254834,2.84217094e-14 464.000251,10.745166 464.000251,24 L464.000251,24 Z M171.2,454.4 C179.1529,443.796133 177.003867,428.7529 166.4,420.8 L64,344 L166.4,267.2 C173.259499,262.055376 176.853314,253.642047 175.827688,245.129234 C174.802062,236.616421 169.312813,229.297422 161.427688,225.929234 C153.542563,222.561046 144.459499,223.655375 137.6,228.8 L9.6,324.8 C3.55665978,329.332505 0,336.445825 0,344 C0,351.554175 3.55665978,358.667495 9.6,363.2 L137.6,459.2 C142.692157,463.019117 149.09289,464.658962 155.394113,463.758788 C161.695335,462.858613 167.380883,459.492157 171.2,454.4 L171.2,454.4 Z" />
                 </SubArrow>
                 <PromptIcon allowedTypes={question.allowedTypes} />
                 {question.question}
               </GalleryLightboxSubtitleContainer>
             </GalleryLightboxTitleContainer>
           ) : (
-            <GalleryLightboxTitleContainer>
+            <GalleryLightboxTitleContainer className="gallery-lightbox__title-container">
               <GalleryLightboxParentTitleContainer>
                 <QuoteIcon
                   ariaHidden="true"
@@ -514,40 +516,41 @@ const LightboxStoryPhoto = ({
                   viewBox="0 0 1024 1024"
                 >
                   <path
-                    fill={orgName === ACTIVISION ? "#ffc54e" : "#8cb4d6"}
+                    fill="#8cb4d6"
                     transform="translate(0 0)"
                     d="M925.036,57.197h-304c-27.6,0-50,22.4-50,50v304c0,27.601,22.4,50,50,50h145.5c-1.9,79.601-20.4,143.3-55.4,191.2 c-27.6,37.8-69.399,69.1-125.3,93.8c-25.7,11.3-36.8,41.7-24.8,67.101l36,76c11.6,24.399,40.3,35.1,65.1,24.399 c66.2-28.6,122.101-64.8,167.7-108.8c55.601-53.7,93.7-114.3,114.3-181.9c20.601-67.6,30.9-159.8,30.9-276.8v-239 C975.036,79.598,952.635,57.197,925.036,57.197z M106.036,913.497c65.4-28.5,121-64.699,166.9-108.6c56.1-53.7,94.4-114.1,115-181.2c20.6-67.1,30.899-159.6,30.899-277.5 v-239c0-27.6-22.399-50-50-50h-304c-27.6,0-50,22.4-50,50v304c0,27.601,22.4,50,50,50h145.5c-1.9,79.601-20.4,143.3-55.4,191.2 c-27.6,37.8-69.4,69.1-125.3,93.8c-25.7,11.3-36.8,41.7-24.8,67.101l35.9,75.8C52.336,913.497,81.236,924.298,106.036,913.497z"
                   />
                 </QuoteIcon>
-                <Title color={orgName === ACTIVISION ? "#FFF" : undefined}>
+                <Title className="title">
                   {parentStoryQuestion?.question || question.question}
                 </Title>
               </GalleryLightboxParentTitleContainer>
             </GalleryLightboxTitleContainer>
           )}
-          <Hr color={orgName === ACTIVISION ? "#373737" : undefined} />
+          <Hr />
 
           {creator && (
-            <GalleryLightBoxCreatorContainer>
+            <GalleryLightBoxCreatorContainer className="gallery-lightbox__creator-container">
               <Thumbnail
                 title={creator.name}
                 style={{ backgroundImage: `url("${creator.avatar.thumbUrl}")` }}
               />
               <div
+                className="gallery-lightbox__creator-information"
                 style={{ marginLeft: "10px" }}
               >
-                <GalleryLightboxUploaderName color={orgName === ACTIVISION ? "#FFF" : undefined}>
+                <GalleryLightboxUploaderName>
                   {creator.name}
                 </GalleryLightboxUploaderName>
-                <GalleryLightboxUploaderDate color={orgName === ACTIVISION ? "#FFF" : undefined}>
+                <GalleryLightboxUploaderDate className="gallery-lightbox__uploader-date">
                   {creator.title}
                 </GalleryLightboxUploaderDate>
               </div>
             </GalleryLightBoxCreatorContainer>
           )}
 
-          <EditorOutput orgName={orgName} output={body} showTags darkTags />
-          <BottomShadow color={orgName === ACTIVISION ? "#121212" : undefined} />
+          <EditorOutput output={body} showTags darkTags />
+          <BottomShadow />
         </ScrollableContainer>
       </GalleryLightboxDetailsContainer>
     </GalleryLightboxWrapper>

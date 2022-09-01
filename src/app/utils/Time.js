@@ -34,7 +34,8 @@ const formatYearsUnitDiff = (years, months) => {
   if (years < 0) {
     return `in ${years * -1} year${suffix}`;
   }
-  const monthsLabel = monthsCurrentYear > 0 ? `${monthsCurrentYear} month${monthSuffix}` : "";
+  const monthsLabel =
+    monthsCurrentYear > 0 ? `${monthsCurrentYear} month${monthSuffix}` : "";
 
   return `${years} year${suffix}${
     monthsCurrentYear > 0 ? `, ${monthsLabel}` : ""
@@ -73,7 +74,7 @@ const formatTimeDiff = (time, format) => {
   return formatTime(time, format);
 };
 
-export const getTimeDiff = time => {
+export const getTimeDiff = (time) => {
   if (!time) {
     return null;
   }

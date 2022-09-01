@@ -13,7 +13,10 @@ const getSlideLayout = (index, containerRef, sliderRef, stories) => {
   const container = containerRef.current;
   const slider = sliderRef.current;
 
-  if (!(container instanceof HTMLDivElement) || !(slider instanceof HTMLDivElement)) {
+  if (
+    !(container instanceof HTMLDivElement) ||
+    !(slider instanceof HTMLDivElement)
+  ) {
     return { percent, left, right };
   }
 
@@ -34,7 +37,6 @@ const playIcon = {
 };
 
 const SliderContainer = styled.section`
-  background-color: ${props => props.backgroundColor || "#FFF"};
   position: relative;
 
   -ms-overflow-style: none; // IE 10+
@@ -115,13 +117,13 @@ const slider = {
   marginBottom: "15px",
   minWidth: "100%",
   position: "absolute",
-  transition: "transform 300ms cubic-bezier(.455, .03, .515, .955)"
+  transition: "transform 300ms cubic-bezier(.455, .03, .515, .955)",
 };
 
 const sliderEmpty = {
   justifyContent: "center",
   left: "0",
-  right: "0"
+  right: "0",
 };
 
 const Card = styled.button`
@@ -153,22 +155,17 @@ const chqTmb = {
   width: "45px"
 };
 
-const CreatorName = styled.p`
-  font-family: ${props => props.fontFamiliy || font};
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0 0 3px 0;
-  overflow: hidden;
-  overflow-wrap: break-word;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  word-break: break-all;
-`;
-
-const CreatorTitle = styled.p`
-  font-family: ${props => props.fontFamiliy || font};
-  margin: 0;
-`;
+const creatorName = {
+  fontFamily: font,
+  fontSize: "16px",
+  fontWeight: "600",
+  marginBottom: "3px",
+  overflow: "hidden",
+  overflowWrap: "break-word",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+  wordBreak: "break-all"
+};
 
 const creatorContainer = {
   alignItems: "center",
@@ -182,6 +179,20 @@ const creatorContainer = {
   position: "absolute",
   right: 0,
   top: 0
+};
+
+const storyBadge = {
+  alignItems: "center",
+  backgroundColor: "hsla(0,0%,53.3%,.8)",
+  borderRadius: "6px",
+  bottom: "15px",
+  color: "#FFFFFF",
+  display: "flex",
+  fontFamily: font,
+  fontSize: "16px",
+  padding: "5px 10px",
+  position: "absolute",
+  right: "15px",
 };
 
 const backgroundEffect = {
@@ -202,44 +213,43 @@ const cardTitleContainer = {
   right: 0
 };
 
-const CardTitle = styled.p`
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  color: #FFFFFF;
-  display: -webkit-box;
-  font-family: ${props => props.fontFamiliy || font};
-  font-size: 24px;
-  font-weight: 600;
-  line-height: normal;
-  margin: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: initial;
-`;
+const cardTitle = {
+  WebkitBoxOrient: "vertical",
+  WebkitLineClamp: "2",
+  color: "#FFFFFF",
+  display: "-webkit-box",
+  fontFamily: font,
+  fontSize: "24px",
+  fontWeight: "600",
+  lineHeight: "normal",
+  margin: "0",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "initial"
+};
 
-const ACTIVISION = "activisionblizzard";
-
-const StoriesSlider = ({ organizationId, orgName, stories = [] }) => {
+const StoriesSlider = ({ organizationId, stories = [] }) => {
   const [index, setIndex] = useState(0);
   const [activeStory, setActiveStory] = useState(undefined);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const trackData = (eventAction, storyId = undefined) => (
+  const trackData = (eventAction, storyId = undefined) =>
     makePost("/stories/track", {
       organizationId,
       storyId,
       eventAction,
       url: window.location.href,
-      type: "carousel"
-    }).then(_ => {}).catch(_ => {})
-  );
+      type: "carousel",
+    })
+      .then((_) => {})
+      .catch((_) => {});
 
   const onNext = () => {
-    setIndex(value => value + 1);
+    setIndex((value) => value + 1);
     trackData("Viewing stories");
   };
   const onPrev = () => {
-    setIndex(value => value - 1);
+    setIndex((value) => value - 1);
     trackData("Viewing stories");
   };
 
@@ -247,7 +257,7 @@ const StoriesSlider = ({ organizationId, orgName, stories = [] }) => {
   const sliderRef = useRef(null);
   const slideLayout = getSlideLayout(index, containerRef, sliderRef, stories);
 
-  const handleThumbnailClick = goToIndex => {
+  const handleThumbnailClick = (goToIndex) => {
     let target = goToIndex;
 
     if (goToIndex === -1) {
@@ -308,10 +318,9 @@ const StoriesSlider = ({ organizationId, orgName, stories = [] }) => {
           onStoryChange={handleThumbnailClick}
           noActions
           landingPage
-          orgName={orgName}
         />
       )}
-      <SliderContainer backgroundColor={orgName === ACTIVISION && "#121212"}>
+      <SliderContainer>
         <LeftArrow
           aria-label="Previous"
           type="button"
@@ -356,7 +365,7 @@ const StoriesSlider = ({ organizationId, orgName, stories = [] }) => {
             style={{
               ...slider,
               ...(stories.length === 0 ? sliderEmpty : {}),
-              transform: `translateX(-${slideLayout.percent}%)`
+              transform: `translateX(-${slideLayout.percent}%)`,
             }}
           >
             {stories.map((story, storyIndex) => (
@@ -375,22 +384,20 @@ const StoriesSlider = ({ organizationId, orgName, stories = [] }) => {
                     <div
                       style={{
                         ...chqTmb,
-                        backgroundImage: `url(${story.creator.avatar.thumbUrl})`
+                        backgroundImage: `url(${story.creator.avatar.thumbUrl})`,
                       }}
                     />
                     <div>
-                      <CreatorName fontFamiliy={orgName === ACTIVISION && "'SourceSansPro'"}>
+                      <p style={{ margin: "0", ...creatorName }}>
                         {story.creator.name}
-                      </CreatorName>
-                      <CreatorTitle fontFamiliy={orgName === ACTIVISION && "'SourceSansPro'"}>
+                      </p>
+                      <p style={{ margin: "0", fontFamily: font }}>
                         {story.creator.title}
-                      </CreatorTitle>
+                      </p>
                     </div>
                   </div>
                   <div style={cardTitleContainer}>
-                    <CardTitle fontFamiliy={orgName === ACTIVISION && "'SourceSansPro'"}>
-                      {story.question.question}
-                    </CardTitle>
+                    <p style={cardTitle}>{story.question.question}</p>
                   </div>
                   {story.media.mediaType === "video" && (
                     <svg style={playIcon} aria-hidden="true" role="presentation" width="14px" height="14px" viewBox="0 0 264 264">
