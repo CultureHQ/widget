@@ -8,13 +8,15 @@ import ChqModal from "./ChqModal";
 import { font } from "../styles.json";
 import ModalDialog from "./ModalDialog";
 
+const ACTIVISION = "activisionblizzard";
+
 const mobileModal = {
   overlay: {
     backgroundColor: "rgba(0, 0, 0, 0.7)",
     opacity: "1",
     overflowX: "hidden",
     overflowY: "auto",
-    zIndex: "99000000000",
+    zIndex: "99000000000"
   },
   content: {
     animation: "chqMdlZoomIn 300ms ease-out forwards",
@@ -36,8 +38,8 @@ const mobileModal = {
     position: "initial",
     minHeight: "initial",
     width: "100%",
-    WebkitFontSmoothing: "initial",
-  },
+    WebkitFontSmoothing: "initial"
+  }
 };
 
 const modal = {
@@ -47,8 +49,18 @@ const modal = {
     height: "initial",
     margin: "5% auto",
     maxWidth: "90vw",
-    with: "90vw",
-  },
+    with: "90vw"
+  }
+};
+
+const activisionModal = {
+  overlay: modal.overlay,
+  content: {
+    ...modal.content,
+    border: "1px solid #373737",
+    boxShadow: "none",
+    fontFamily: "SourceSansPro"
+  }
 };
 
 const mobileModalBody = {
@@ -56,7 +68,7 @@ const mobileModalBody = {
   fontWeight: "200",
   overflow: "scroll",
   padding: "61px 0 0",
-  position: "relative",
+  position: "relative"
 };
 
 const modalBody = {
@@ -64,12 +76,17 @@ const modalBody = {
   backgroundColor: "#000",
   borderRadius: "6px",
   overflow: "initial",
-  padding: "0",
+  padding: "0"
+};
+
+const activisionMobileModalBody = {
+  ...mobileModalBody,
+  backgroundColor: "#121212"
 };
 
 const GalleryLightboxActions = styled.div`
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: ${props => props.backgroundColor || "rgba(255, 255, 255, 0.9)"};
   display: flex;
   justify-content: space-between;
   left: 0;
@@ -112,7 +129,7 @@ const chqPbn = {
   fontSize: "inherit",
   lineHeight: "inherit",
   margin: "0",
-  padding: "1px 1px 0",
+  padding: "1px 1px 0"
 };
 
 const CloseIcon = styled.svg`
@@ -153,7 +170,7 @@ const ChevronSvg = styled.svg`
 `;
 
 const Path = styled.path`
-  fill: #000;
+  fill: ${props => props.fill || "#000"};
 
   @media (min-width: 768px) {
     fill: #fff;
@@ -206,8 +223,8 @@ const LightboxArrows = ({ onSwipeLeft, onSwipeRight }) => (
   </>
 );
 
-const LightboxActions = ({ onClose, onSwipeLeft, onSwipeRight }) => (
-  <GalleryLightboxActions className="gallery-lightbox--actions">
+const LightboxActions = ({ onClose, orgName, onSwipeLeft, onSwipeRight }) => (
+  <GalleryLightboxActions backgroundColor={orgName === ACTIVISION ? "rgba(18, 18, 18, 0.9)" : undefined}>
     <Navigation className="navigation">
       <button
         className="left-arrow"
@@ -224,6 +241,7 @@ const LightboxActions = ({ onClose, onSwipeLeft, onSwipeRight }) => (
           viewBox="0 0 1024 1024"
         >
           <path
+            fill={orgName === ACTIVISION ? "#FFF" : undefined}
             transform="translate(0 0)"
             d="M427.4 512v0 0l334.4-348.2c8.4-8.6 8.2-22.8-0.4-31.6l-59.8-61.2c-8.6-8.8-22.6-9-31-0.4l-408.4 425.2c-4.4 4.4-6.4 10.4-6 16.2-0.2 6 1.8 11.8 6 16.2l408.4 425.4c8.4 8.6 22.4 8.4 31-0.4l59.8-61.2c8.6-8.8 8.8-23 0.4-31.6l-334.4-348.4z"
           />
@@ -244,6 +262,7 @@ const LightboxActions = ({ onClose, onSwipeLeft, onSwipeRight }) => (
           viewBox="0 0 1024 1024"
         >
           <path
+            fill={orgName === ACTIVISION ? "#FFF" : undefined}
             transform="translate(0 0)"
             d="M596.6 512v0 0l-334.4-348.2c-8.4-8.6-8.2-22.8 0.4-31.6l59.8-61.2c8.6-8.8 22.6-9 31-0.4l408.4 425.4c4.4 4.4 6.4 10.4 6 16.2 0.2 6-1.8 11.8-6 16.2l-408.4 425.2c-8.4 8.6-22.4 8.4-31-0.4l-59.8-61.2c-8.6-8.8-8.8-23-0.4-31.6l334.4-348.4z"
           />
@@ -260,7 +279,7 @@ const LightboxActions = ({ onClose, onSwipeLeft, onSwipeRight }) => (
           viewBox="0 0 1024 1024"
         >
           <Path
-            fill="#FFFFFF"
+            fill={orgName === ACTIVISION ? "#FFF" : undefined}
             transform="translate(0 0)"
             d="M887.2 774.2l-262.4-263.4 263-260c10.8-10.8 10.8-28.4 0-39.2l-74.8-75.2c-5.2-5.2-12.2-8-19.6-8s-14.4 3-19.6 8l-261.8 259.2-262.2-259c-5.2-5.2-12.2-8-19.6-8s-14.4 3-19.6 8l-74.6 75.2c-10.8 10.8-10.8 28.4 0 39.2l263 260-262.2 263.2c-5.2 5.2-8.2 12.2-8.2 19.6s2.8 14.4 8.2 19.6l74.8 75.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2l261.2-262.4 261.4 262.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2l74.8-75.2c5.2-5.2 8.2-12.2 8.2-19.6-0.2-7.2-3.2-14.2-8.4-19.4z"
           />
@@ -276,14 +295,21 @@ class LightboxStoriesWrapper extends PureComponent {
   timeout = 0;
 
   static defaultProps = {
-    onStoryChange: () => {},
+    onStoryChange: () => {}
   };
 
-  state = {
-    fullSize: false,
-    modalStyle: window.innerWidth >= 768 ? modal : mobileModal,
-    modalBodyStyle: window.innerWidth >= 768 ? modalBody : mobileModalBody,
-  };
+  constructor(props) {
+    super(props);
+    const { orgName } = props;
+
+    this.state = {
+      fullSize: false,
+      modalStyle: window.innerWidth >= 768 // eslint-disable-line no-nested-ternary
+        ? (orgName === ACTIVISION ? activisionModal : modal) : mobileModal,
+      modalBodyStyle: window.innerWidth >= 768 // eslint-disable-line no-nested-ternary
+        ? modalBody : (orgName === ACTIVISION ? activisionMobileModalBody : mobileModalBody)
+    };
+  }
 
   componentDidMount() {
     window.addEventListener("resize", this.updateModalStyle);
@@ -325,12 +351,15 @@ class LightboxStoriesWrapper extends PureComponent {
   }
 
   updateModalStyle = () => {
+    const { orgName } = this.props;
     if (window.innerWidth >= 768) {
-      this.setState({ modalStyle: modal, modalBodyStyle: modalBody });
+      this.setState({
+        modalStyle: orgName === ACTIVISION ? activisionModal : modal, modalBodyStyle: modalBody
+      });
     } else {
       this.setState({
         modalStyle: mobileModal,
-        modalBodyStyle: mobileModalBody,
+        modalBodyStyle: orgName === ACTIVISION ? activisionMobileModalBody : mobileModalBody
       });
     }
   };
@@ -345,7 +374,7 @@ class LightboxStoriesWrapper extends PureComponent {
     onClose();
   };
 
-  handleKeyDown = (event) => {
+  handleKeyDown = event => {
     const { handleSwipeLeft, handleSwipeRight } = this.props;
     switch (event.key) {
       case "ArrowLeft":
@@ -381,6 +410,7 @@ class LightboxStoriesWrapper extends PureComponent {
       setChanging,
       handleSwipeLeft,
       handleSwipeRight,
+      orgName
     } = this.props;
     const { fullSize, modalBodyStyle, modalStyle } = this.state;
 
@@ -418,6 +448,7 @@ class LightboxStoriesWrapper extends PureComponent {
                     onDelete={onDelete}
                     onStoryUpdate={onStoryUpdate}
                     isWelcomePage={isWelcomePage}
+                    orgName={orgName}
                   />
                 </div>
               )}
@@ -429,6 +460,7 @@ class LightboxStoriesWrapper extends PureComponent {
                   landingPage={landingPage}
                   organization={organization}
                   preview={preview}
+                  orgName={orgName}
                   onSwipeLeft={handleSwipeLeft}
                   onSwipeRight={handleSwipeRight}
                 />
@@ -454,14 +486,14 @@ const LightboxStories = ({ activeStory, onStoryChange, stories, ...props }) => {
   const handleSwipeLeft = () => {
     setChanging(true);
     onStoryChange(
-      stories.findIndex((story) => story.id === activeStory.id) - 1
+      stories.findIndex(story => story.id === activeStory.id) - 1
     );
   };
 
   const handleSwipeRight = () => {
     setChanging(true);
     onStoryChange(
-      stories.findIndex((story) => story.id === activeStory.id) + 1
+      stories.findIndex(story => story.id === activeStory.id) + 1
     );
   };
 
@@ -469,7 +501,7 @@ const LightboxStories = ({ activeStory, onStoryChange, stories, ...props }) => {
     onSwipedLeft: () => handleSwipeRight(),
     onSwipedRight: () => handleSwipeLeft(),
     preventDefaultTouchmoveEvent: true,
-    trackMouse: true,
+    trackMouse: true
   });
 
   return (

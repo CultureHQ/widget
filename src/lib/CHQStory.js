@@ -27,17 +27,13 @@ class CHQStory {
 
   get thumbUrl() {
     return (
-      this.story.media.smallUrl ||
-      this.story.media.thumbnail ||
-      this.story.media.url
+      this.story.media.smallUrl || this.story.media.thumbnail || this.story.media.url
     );
   }
 
   get thumbFullUrl() {
     return (
-      this.story.media.fullUrl ||
-      this.story.media.thumbnail ||
-      this.story.media.url
+      this.story.media.fullUrl || this.story.media.thumbnail || this.story.media.url
     );
   }
 

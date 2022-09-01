@@ -1,4 +1,4 @@
-const getBlockGroups = (blocks) => {
+const getBlockGroups = blocks => {
   let currentType = null;
 
   const currentDepth = blocks[0] ? blocks[0].depth : 0;
@@ -10,11 +10,7 @@ const getBlockGroups = (blocks) => {
 
     // This is just for display purposes, strip out the very last block if it's
     // blank. This is likely there because it was inserted after an image.
-    if (
-      idx === blocks.length - 1 &&
-      block.type === "unstyled" &&
-      block.text === ""
-    ) {
+    if (idx === blocks.length - 1 && block.type === "unstyled" && block.text === "") {
       break;
     }
 
@@ -24,8 +20,9 @@ const getBlockGroups = (blocks) => {
       );
       lastIndex = lastIndex === -1 ? blocks.length : lastIndex;
 
-      prevGroup.blocks[prevGroup.blocks.length - 1].childGroups =
-        getBlockGroups(blocks.slice(idx, lastIndex));
+      prevGroup.blocks[prevGroup.blocks.length - 1].childGroups = getBlockGroups(
+        blocks.slice(idx, lastIndex)
+      );
 
       idx = lastIndex - 1;
     } else if (block.type === currentType) {
@@ -35,7 +32,7 @@ const getBlockGroups = (blocks) => {
       groups.push({
         type: block.type,
         key: block.key,
-        blocks: [block],
+        blocks: [block]
       });
 
       currentType = block.type;

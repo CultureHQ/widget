@@ -9,7 +9,7 @@ test("renders a link if the user is active", () => {
     active: true,
     id: 1,
     name: "Kevin",
-    avatar: { thumbUrl: "https://example.com/avatar.png" },
+    avatar: { thumbUrl: "https://example.com/avatar.png" }
   };
 
   const component = mount(<UserLink user={user}>{message}</UserLink>);
@@ -24,7 +24,7 @@ test("renders just the name if the user is inactive", () => {
     active: false,
     id: 1,
     name: "Kevin",
-    avatar: { thumbUrl: "https://example.com/avatar.png" },
+    avatar: { thumbUrl: "https://example.com/avatar.png" }
   };
 
   const component = mount(<UserLink user={user}>{message}</UserLink>);

@@ -10,10 +10,10 @@ const MONTH_NAMES = [
   "September",
   "October",
   "November",
-  "December",
+  "December"
 ];
 
-const formatTimestamp = (timestamp) => {
+const formatTimestamp = timestamp => {
   const date = new Date(timestamp);
 
   const day = date.getDate();

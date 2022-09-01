@@ -13,10 +13,6 @@ const Container = styled.div`
   padding: 15px;
 `;
 
-const Link = styled.a`
-  color: #8a6d3b;
-`;
-
 const NoStories = () => (
   <Container>
     <strong>Uh oh!</strong> No stories to show.{" "}
