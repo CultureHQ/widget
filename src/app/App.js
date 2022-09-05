@@ -78,7 +78,6 @@ class App extends Component {
 
     this.state = {
       failure: false,
-      organization: null,
       stories: null
     };
   }
@@ -91,14 +90,13 @@ class App extends Component {
       "stories",
       "/landing_pages/stories",
       queryToOptions(filters)
-    ).then(({ organization, stories }) => {
+    ).then(({ stories }) => {
       this.mountedSetState({
-        organization,
         stories: stories.map(story => new CHQStory(story)),
         failure: false
       });
     }).catch(() => {
-      this.mountedSetState({ organization: null, stories: null, failure: true });
+      this.mountedSetState({ stories: null, failure: true });
     });
   }
 
@@ -107,7 +105,7 @@ class App extends Component {
   }
 
   componentDidCatch() {
-    this.mountedSetState({ organization: null, stories: null, failure: true });
+    this.mountedSetState({ stories: null, failure: true });
   }
 
   mountedSetState(newState) {
@@ -117,7 +115,7 @@ class App extends Component {
   }
 
   render() {
-    const { failure, organization, stories } = this.state;
+    const { failure, stories } = this.state;
     const { filters } = this.props;
 
     if (failure) {
