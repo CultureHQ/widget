@@ -34,7 +34,7 @@ const playIcon = {
 };
 
 const SliderContainer = styled.section`
-  background-color: ${props => props.backgroundColor || "#FFF"};
+  background-color: transparent;
   position: relative;
 
   -ms-overflow-style: none; // IE 10+
@@ -308,7 +308,7 @@ const StoriesSlider = ({ organizationId, stories = [] }) => {
           landingPage
         />
       )}
-      <SliderContainer backgroundColor={backgroundColor}>
+      <SliderContainer>
         <LeftArrow
           aria-label="Previous"
           type="button"
