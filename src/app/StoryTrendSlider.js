@@ -41,7 +41,7 @@ const getSlideLayout = (
 };
 
 const SliderContainer = styled.section`
-  background-color: ${props => props.backgroundColor || "#FFF"};
+  background-color: transparent;
   font-family: ${props => props.fontFamily || font};
   position: relative;
 
@@ -136,7 +136,7 @@ const sliderEmpty = {
 const Card = styled.button`
   appearance: none;
   background: transparent;
-  background-color: #fff;
+  background-color: transparent;
   background-size: cover;
   border-radius: 6px;
   border: 0;
@@ -177,7 +177,7 @@ const TrendsSliderStoriesImage = styled.div`
 
 const TrendsSliderStoriesImageOverlay = styled.div`
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(255, 197, 78, 0.6);
   border-bottom-right-radius: 6px;
   bottom: 0;
   color: #fff;
@@ -347,7 +347,7 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
           landingPage
         />
       )}
-      <SliderContainer fontFamily={font} backgroundColor={backgroundColor}>
+      <SliderContainer fontFamily={font}>
         <LeftArrow
           aria-label="Previous"
           type="button"
