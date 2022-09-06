@@ -8,6 +8,7 @@ import Failure from "./Failure";
 import StoryTrendSlider from "./StoryTrendSlider";
 import EmptySlider from "./EmptySlider";
 
+/*
 import { configure, skipPreflightChecks } from "@culturehq/client";
 
 switch (process.env.NODE_ENV) { // eslint-disable-line default-case
@@ -33,6 +34,7 @@ switch (process.env.NODE_ENV) { // eslint-disable-line default-case
     skipPreflightChecks();
     break;
 }
+*/
 
 const Container = styled.section`
   overflow: visible;
