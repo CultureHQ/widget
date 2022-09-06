@@ -4,7 +4,7 @@ import styled from "styled-components";
 import LightboxStories from "./LightboxStories";
 import getImageFromStory from "./utils/getImageFromStory";
 import imagesSizes from "./utils/imagesSizes";
-import { font } from "../styles.json";
+import { backgroundColor, font } from "../styles.json";
 
 const getSlideLayout = (
   index,
@@ -41,6 +41,8 @@ const getSlideLayout = (
 };
 
 const SliderContainer = styled.section`
+  background-color: ${props => props.backgroundColor || "#FFF"};
+  font-family: ${props => props.fontFamily || font};
   position: relative;
 
   -ms-overflow-style: none; // IE 10+
@@ -122,13 +124,13 @@ const slider = {
   marginBottom: "15px",
   minWidth: "100%",
   position: "absolute",
-  transition: "transform 300ms cubic-bezier(.455, .03, .515, .955)",
+  transition: "transform 300ms cubic-bezier(.455, .03, .515, .955)"
 };
 
 const sliderEmpty = {
   justifyContent: "center",
   left: "0",
-  right: "0",
+  right: "0"
 };
 
 const Card = styled.button`
@@ -213,7 +215,6 @@ const sublabel = {
   alignItems: "center",
   color: "#fff",
   display: "flex",
-  fontFamily: font,
   fontSize: "18px",
   fontWeight: ",400",
   margin: "0",
@@ -224,7 +225,6 @@ const sublabel = {
 };
 
 const sublabelIcon = {
-  fontFamily: font,
   height: "18px",
   width: "18px",
   marginRight: "5px"
@@ -232,7 +232,6 @@ const sublabelIcon = {
 
 const label = {
   color: "#fff",
-  fontFamily: font,
   fontSize: "26px",
   fontWeight: "600",
   marginBottom: "0",
@@ -272,17 +271,15 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
   const sliderRef = useRef(null);
   const slideLayout = getSlideLayout(index, containerRef, sliderRef, storyTrends.length);
 
-  const trackData = (eventAction, storyId = undefined) =>
+  const trackData = (eventAction, storyId = undefined) => (
     makePost("/stories/track", {
       organizationId,
       storyId,
       eventAction,
       url: window.location.href,
-      type: "carousel",
-    })
-      .then((_) => {})
-      .catch((_) => {});
-
+      type: "carousel"
+    }).then((_) => {}).catch((_) => {})
+  );
 
   useLayoutEffect(() => {
     const adjustCardSize = () => {
@@ -301,15 +298,15 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
   );
 
   const onNext = () => {
-    setIndex((value) => value + 1);
+    setIndex(value => value + 1);
     trackData("Viewing stories");
   };
   const onPrev = () => {
-    setIndex((value) => value - 1);
+    setIndex(value => value - 1);
     trackData("Viewing stories");
   };
 
-  const handleThumbnailClick = (goToIndex) => {
+  const handleThumbnailClick = goToIndex => {
     let target = goToIndex;
 
     if (goToIndex === -1) {
@@ -350,7 +347,7 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
           landingPage
         />
       )}
-      <SliderContainer style={{ position: "relative" }}>
+      <SliderContainer fontFamily={font} backgroundColor={backgroundColor}>
         <LeftArrow
           aria-label="Previous"
           type="button"
@@ -390,14 +387,14 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
           </svg>
         </RightArrow>
         <ScrollbarContainer ref={containerRef}>
-            <div
-              ref={sliderRef}
-              style={{
-                ...slider,
-                ...(storyTrends.length === 0 ? sliderEmpty : {}),
-                transform: `translateX(-${slideLayout.percent}%)`,
-              }}
-            >
+          <div
+            ref={sliderRef}
+            style={{
+              ...slider,
+              ...(storyTrends.length === 0 ? sliderEmpty : {}),
+              transform: `translateX(-${slideLayout.percent}%)`
+            }}
+          >
             {storyTrends.map(trend => (
               <Card
                 aria-labelledby={trend.id}

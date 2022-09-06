@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { makePaginatedGet, setToken } from "@culturehq/client";
+import GlobalFonts from "../fonts/fonts";
 import styled from "styled-components";
 import NoTrends from "./NoTrends";
 
@@ -74,7 +75,7 @@ class App extends Component {
 
     this.state = {
       failure: false,
-      stories: null,
+      stories: null
     };
   }
 
@@ -89,7 +90,7 @@ class App extends Component {
     ).then(({ storyTrends }) => {
       this.mountedSetState({
         storyTrends,
-        failure: false,
+        failure: false
       });
     })
     .catch(() => {
@@ -131,6 +132,7 @@ class App extends Component {
 
     return (
       <Container>
+        <GlobalFonts />
         <StoryTrendSlider storyTrends={storyTrends} organizationId={filters.org} />
       </Container>
     );
