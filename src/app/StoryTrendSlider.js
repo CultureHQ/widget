@@ -134,7 +134,7 @@ const sliderEmpty = {
 const Card = styled.button`
   appearance: none;
   background: transparent;
-  background-color: #fff;
+  background-color: transparent;
   background-size: cover;
   border-radius: 6px;
   border: 0;
