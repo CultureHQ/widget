@@ -26,11 +26,11 @@ class CHQStory {
   }
 
   get thumbUrl() {
-    return (
-      this.story.media.smallUrl ||
-      this.story.media.thumbnail ||
-      this.story.media.url
-    );
+    if (this.story.media.mediaType === "video") {
+      return this.story.media.thumbnail;
+    }
+
+    return this.story.media.url
   }
 
   get thumbFullUrl() {

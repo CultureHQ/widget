@@ -152,6 +152,7 @@ const chqTmb = {
   display: "inline-block",
   height: "45px",
   marginRight: "10px",
+  minWidth: "45px",
   width: "45px"
 };
 
@@ -299,6 +300,7 @@ const StoriesSlider = ({ organizationId, stories = [] }) => {
   };
 
   const backgroundImage = story => {
+    console.log(story.thumbUrl, story.thumbFullUrl);
     if (stories.length >= 2) {
       return story.thumbUrl;
     }
