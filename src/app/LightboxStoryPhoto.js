@@ -81,6 +81,7 @@ const GalleryLightboxDetailsContainer = styled.div`
   justify-content: space-between;
   min-height: initial;
   padding: 20px;
+  white-space: pre-wrap;
 
   @media (min-width: 768px) {
     border-radius: 0 6px 6px 0;
@@ -264,11 +265,9 @@ const PromptIconAll = styled.div`
   align-items: center;
   border-radius: 80px;
   display: flex;
-  height: 19px;
   justify-content: center;
   margin-right: 10px;
   padding: 8px;
-  width: 19px;
 `;
 
 const PromptIconVideos = styled.div`
@@ -276,11 +275,9 @@ const PromptIconVideos = styled.div`
   align-items: center;
   border-radius: 80px;
   display: flex;
-  height: 19px;
   justify-content: center;
   margin-right: 10px;
   padding: 8px;
-  width: 19px;
 `;
 
 const PromptIconImages = styled.div`
@@ -288,11 +285,9 @@ const PromptIconImages = styled.div`
   align-items: center;
   border-radius: 80px;
   display: flex;
-  height: 19px;
   justify-content: center;
   margin-right: 10px;
   padding: 8px;
-  width: 19px;
 `;
 
 const Icon = styled.svg`

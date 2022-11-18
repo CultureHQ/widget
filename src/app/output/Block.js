@@ -2,6 +2,8 @@ import React, { Fragment } from "react";
 
 import BlockSegmentContent from "./BlockSegmentContent";
 
+import { landingPageColor } from "../../styles.json";
+
 const PLATFORM_BASE = "https://platform.culturehq.com";
 const PLATFORM_NO_PREFIX = "platform.culturehq.com";
 const HTTPS_PREFIX = "https://";
@@ -67,6 +69,7 @@ const LinkEntity = ({
         tabIndex={tabIndex || 0}
         target="_blank"
         rel="noopener noreferrer"
+        style={{ color: landingPageColor }}
       >
         {children}
       </a>
@@ -82,6 +85,7 @@ const LinkEntity = ({
         tabIndex={tabIndex || 0}
         target="_blank"
         rel="noopener noreferrer"
+        style={{ color: landingPageColor }}
       >
         {children}
       </a>
@@ -107,6 +111,7 @@ const LinkEntity = ({
       tabIndex={tabIndex || 0}
       target="_blank"
       rel="noopener noreferrer"
+      style={{ color: landingPageColor }}
     >
       {children}
     </a>
