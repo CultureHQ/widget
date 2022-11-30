@@ -35,6 +35,8 @@ const playIcon = {
 
 const SliderContainer = styled.section`
   background-color: transparent;
+  margin: 0 auto;
+  max-width: 1220px;
   position: relative;
 
   -ms-overflow-style: none; // IE 10+
@@ -42,6 +44,15 @@ const SliderContainer = styled.section`
 
   &::-webkit-scrollbar {
     display: none; // Safari and Chrome
+  }
+
+  @media screen and (max-width: 1279px) {
+    max-width: 968px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    max-width: 96%;
+    padding: 0 12px;
   }
 `;
 
@@ -66,6 +77,10 @@ const LeftArrow = styled.button`
   &:hover {
     cursor: pointer;
   }
+
+  @media screen and (max-width: 1024px) {
+    left: 0;
+  }
 `;
 
 const RightArrow = styled.button`
@@ -88,6 +103,10 @@ const RightArrow = styled.button`
 
   &:hover {
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 1024px) {
+    right: 0;
   }
 `;
 
