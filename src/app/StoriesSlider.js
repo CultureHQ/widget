@@ -3,7 +3,7 @@ import { makePost } from "@culturehq/client";
 import styled from "styled-components";
 import LightboxStories from "./LightboxStories";
 
-import { backgroundColor, font } from "../styles.json";
+import { font } from "../styles.json";
 
 const getSlideLayout = (index, containerRef, sliderRef, stories) => {
   let percent = index * (100 / (stories.length + 1));
@@ -33,6 +33,7 @@ const playIcon = {
   width: "40px"
 };
 
+// max-width and paading specific to activision careers page
 const SliderContainer = styled.section`
   background-color: transparent;
   margin: 0 auto;
