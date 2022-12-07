@@ -7,7 +7,7 @@ import imagesSizes from "./utils/imagesSizes";
 import EditorOutput from "./EditorOutput";
 import Loader from "./Loader";
 
-import { backgroundColor, borderColor, font, fontColor, fontHeadings, landingPageColor } from "../styles.json";
+import { backgroundColor, borderColor, font, fontColor, landingPageColor } from "../styles.json";
 
 const GalleryLightboxWrapper = styled.div`
   border-radius: 0;
@@ -478,7 +478,7 @@ const LightboxStoryPhoto = ({
                 </QuoteIcon>
                 <Title
                   color={fontColor}
-                  fontFamiliy={fontHeadings}
+                  fontFamiliy={font}
                 >
                   {parentStoryQuestion?.question || question.question}
                 </Title>

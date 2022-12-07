@@ -17,6 +17,12 @@ const blockStyle = {
   WebkitFontSmoothing: "initial"
 };
 
+const linkStyle = {
+  color: landingPageColor,
+  fontFamily: 'inherit',
+  fontSize: 'inherit'
+};
+
 const BlockSegment = ({ block, offset, length }) => {
   const characters = block.text.slice(offset, offset + length).split("");
   const contents = [];
@@ -69,7 +75,7 @@ const LinkEntity = ({
         tabIndex={tabIndex || 0}
         target="_blank"
         rel="noopener noreferrer"
-        style={{ color: landingPageColor }}
+        style={linkStyle}
       >
         {children}
       </a>
@@ -85,7 +91,7 @@ const LinkEntity = ({
         tabIndex={tabIndex || 0}
         target="_blank"
         rel="noopener noreferrer"
-        style={{ color: landingPageColor }}
+        style={linkStyle}
       >
         {children}
       </a>
@@ -111,7 +117,7 @@ const LinkEntity = ({
       tabIndex={tabIndex || 0}
       target="_blank"
       rel="noopener noreferrer"
-      style={{ color: landingPageColor }}
+      style={linkStyle}
     >
       {children}
     </a>

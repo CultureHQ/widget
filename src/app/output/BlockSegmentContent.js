@@ -9,6 +9,12 @@ const INLINE_STYLES = {
   CODE: "code"
 };
 
+const linkStyle = {
+  color: landingPageColor,
+  fontFamily: 'inherit',
+  fontSize: 'inherit'
+};
+
 const linkifiedText = text => {
   // const links = linkify.match(text);
   const links = undefined;
@@ -25,7 +31,7 @@ const linkifiedText = text => {
     segments.push(text.slice(idx === 0 ? 0 : links[idx - 1].lastIndex, index));
 
     segments.push(
-      <a key={index} href={url} className="chq-edi--lk" style={{ color: landingPageColor }}>
+      <a key={index} href={url} className="chq-edi--lk" style={linkStyle}>
         {text.slice(index, lastIndex)}
       </a>
     );
