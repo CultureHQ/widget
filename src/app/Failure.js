@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-import { font, fontSize, maxWidth } from "../styles.json";
+import { fontSize, maxWidth } from "../styles.json";
 
 const Container = styled.div`
   background-color: #f2dede;
   border: ##ebccd1 solid 1px;
   color: #a94442;
-  font-family: ${font};
+  font-family: inherit;
   font-size: ${fontSize};
   max-width: ${maxWidth};
   padding: 15px;

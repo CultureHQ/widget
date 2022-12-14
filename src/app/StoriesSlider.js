@@ -3,8 +3,6 @@ import { makePost } from "@culturehq/client";
 import styled from "styled-components";
 import LightboxStories from "./LightboxStories";
 
-import { font } from "../styles.json";
-
 const getSlideLayout = (index, containerRef, sliderRef, stories) => {
   let percent = index * (100 / (stories.length + 1));
   const left = index !== 0;
@@ -174,7 +172,7 @@ const chqTmb = {
 };
 
 const CreatorName = styled.p`
-  font-family: ${font};
+  font-family: inherit;
   font-size: 16px;
   font-weight: 600;
   margin: 0 0 3px 0;
@@ -186,7 +184,7 @@ const CreatorName = styled.p`
 `;
 
 const CreatorTitle = styled.p`
-  font-family: ${font};
+  font-family: inherit;
   margin: 0;
 `;
 
@@ -227,7 +225,7 @@ const CardTitle = styled.p`
   -webkit-line-clamp: 2;
   color: #FFFFFF;
   display: -webkit-box;
-  font-family: ${font};
+  font-family: inherit;
   font-size: 24px;
   font-weight: 600;
   line-height: normal;

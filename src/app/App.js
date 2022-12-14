@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { makePaginatedGet, setToken } from "@culturehq/client";
 import styled from "styled-components";
-import GlobalFonts from "../fonts/fonts";
 import NoStories from "./NoStories";
 
 import Failure from "./Failure";
@@ -134,7 +133,6 @@ class App extends Component {
 
     return (
       <Container>
-        <GlobalFonts />
         <StoriesSlider stories={stories} organizationId={filters.org} />
       </Container>
     );

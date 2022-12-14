@@ -7,13 +7,13 @@ import imagesSizes from "./utils/imagesSizes";
 import EditorOutput from "./EditorOutput";
 import Loader from "./Loader";
 
-import { backgroundColor, borderColor, font, fontColor, landingPageColor } from "../styles.json";
+import { backgroundColor, borderColor, fontColor, landingPageColor } from "../styles.json";
 
 const GalleryLightboxWrapper = styled.div`
   border-radius: 0;
   display: flex;
   flex-direction: column;
-  font-family: ${font};
+  font-family: inherit;
   height: 100%;
   margin: 0 auto;
   overflow: hidden;
@@ -141,7 +141,7 @@ const SubArrowPath = styled.path`
 
 const Title = styled.h1`
   color: ${props => props.color || "#5c5f67"};
-  font-family: ${props => props.fontFamiliy || font};
+  font-family: inherit;
   font-size: 20px;
   font-weight: 500;
   line-height: 1.1;
@@ -476,10 +476,7 @@ const LightboxStoryPhoto = ({
                     d="M925.036,57.197h-304c-27.6,0-50,22.4-50,50v304c0,27.601,22.4,50,50,50h145.5c-1.9,79.601-20.4,143.3-55.4,191.2 c-27.6,37.8-69.399,69.1-125.3,93.8c-25.7,11.3-36.8,41.7-24.8,67.101l36,76c11.6,24.399,40.3,35.1,65.1,24.399 c66.2-28.6,122.101-64.8,167.7-108.8c55.601-53.7,93.7-114.3,114.3-181.9c20.601-67.6,30.9-159.8,30.9-276.8v-239 C975.036,79.598,952.635,57.197,925.036,57.197z M106.036,913.497c65.4-28.5,121-64.699,166.9-108.6c56.1-53.7,94.4-114.1,115-181.2c20.6-67.1,30.899-159.6,30.899-277.5 v-239c0-27.6-22.399-50-50-50h-304c-27.6,0-50,22.4-50,50v304c0,27.601,22.4,50,50,50h145.5c-1.9,79.601-20.4,143.3-55.4,191.2 c-27.6,37.8-69.4,69.1-125.3,93.8c-25.7,11.3-36.8,41.7-24.8,67.101l35.9,75.8C52.336,913.497,81.236,924.298,106.036,913.497z"
                   />
                 </QuoteIcon>
-                <Title
-                  color={fontColor}
-                  fontFamiliy={font}
-                >
+                <Title color={fontColor}>
                   {parentStoryQuestion?.question || question.question}
                 </Title>
               </GalleryLightboxParentTitleContainer>

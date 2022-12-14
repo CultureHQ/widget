@@ -5,7 +5,7 @@ import { useSwipeable } from "react-swipeable";
 import mobileAndTabletCheck from "./utils/mobileAndTabletCheck";
 import LightboxStoryPhoto from "./LightboxStoryPhoto";
 import ChqModal from "./ChqModal";
-import { backgroundColorRGBA, font } from "../styles.json";
+import { backgroundColorRGBA } from "../styles.json";
 import ModalDialog from "./ModalDialog";
 
 const mobileModal = {
@@ -23,7 +23,7 @@ const mobileModal = {
     borderRadius: "6px",
     boxShadow: "0 5px 15px rgb(0 0 0 / 50%)",
     display: "grid",
-    fontFamily: `${font}`,
+    fontFamily: "inherit",
     height: "100%",
     inset: "0",
     letterSpacing: "normal",
@@ -57,7 +57,7 @@ const activisionModal = {
     ...modal.content,
     border: "1px solid #373737",
     boxShadow: "none",
-    fontFamily: `${font}`
+    fontFamily: "inherit"
   }
 };
 
