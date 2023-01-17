@@ -168,6 +168,7 @@ const chqTmb = {
   display: "inline-block",
   height: "45px",
   marginRight: "10px",
+  minWidth: "45px",
   width: "45px"
 };
 
