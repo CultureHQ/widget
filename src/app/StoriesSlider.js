@@ -256,7 +256,6 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
     () => {
       if (!slideLayout.right && currentStories.length !== 0
         && currentPagination.currentPage !== currentPagination.totalPages) {
-        console.log("Get next page");
         makeGet("/landing_pages/stories", { ...filters, page: currentPagination.currentPage + 2 })
           .then(({ stories: newStories, pagination: newPagination }) => {
             setCurrentStories([...currentStories, ...newStories]);
@@ -279,7 +278,6 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
       .catch((_) => {});
 
   const onNext = () => {
-    console.log(index);
     setIndex((value) => value + 1);
     trackData("Viewing stories");
   };
