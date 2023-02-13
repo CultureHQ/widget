@@ -88,7 +88,7 @@ class App extends Component {
 
     return makeGet(
       "/landing_pages/stories",
-      queryToOptions(filters)
+      { ...queryToOptions(filters), pageSize: 10 }
     ).then(({ stories, pagination }) => {
       this.mountedSetState({
         stories: stories.map((story) => new CHQStory(story)),

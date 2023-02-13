@@ -4,6 +4,7 @@ import styled from "styled-components";
 import LightboxStories from "./LightboxStories";
 
 import { font } from "../styles.json";
+import CHQStory from "../lib/CHQStory";
 
 const getSlideLayout = (index, containerRef, sliderRef, stories) => {
   let percent = index * (100 / (stories.length + 1));
@@ -256,9 +257,9 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
     () => {
       if (!slideLayout.right && currentStories.length !== 0
         && currentPagination.currentPage !== currentPagination.totalPages) {
-        makeGet("/landing_pages/stories", { ...filters, page: currentPagination.currentPage + 2 })
+        makeGet("/landing_pages/stories", { ...filters, page: currentPagination.currentPage + 2, pageSize: 10 })
           .then(({ stories: newStories, pagination: newPagination }) => {
-            setCurrentStories([...currentStories, ...newStories]);
+            setCurrentStories([...currentStories, ...newStories.map((story) => new CHQStory(story))]);
             setCurrentPagination(newPagination);
           }).catch(() => {});
       }
