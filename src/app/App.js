@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { makePaginatedGet, setToken } from "@culturehq/client";
+import { makeGet, setToken } from "@culturehq/client";
 import styled from "styled-components";
 import NoStories from "./NoStories";
 
@@ -8,7 +8,6 @@ import CHQStory from "../lib/CHQStory";
 import StoriesSlider from "./StoriesSlider";
 import EmptySlider from "./EmptySlider";
 
-/*
 import { configure, skipPreflightChecks } from "@culturehq/client";
 
 switch (process.env.NODE_ENV) { // eslint-disable-line default-case
@@ -34,7 +33,6 @@ switch (process.env.NODE_ENV) { // eslint-disable-line default-case
     skipPreflightChecks();
     break;
 }
-*/
 
 const Container = styled.section`
   overflow: visible;
@@ -77,7 +75,8 @@ class App extends Component {
 
     this.state = {
       failure: false,
-      stories: null
+      stories: null,
+      pagination: undefined
     };
   }
 
@@ -85,14 +84,14 @@ class App extends Component {
     this.componentIsMounted = true;
     const { filters } = this.props;
 
-    return makePaginatedGet(
-      "stories",
+    return makeGet(
       "/landing_pages/stories",
-      queryToOptions(filters)
-    ).then(({ stories }) => {
+      { ...queryToOptions(filters), pageSize: 10 }
+    ).then(({ stories, pagination }) => {
       this.mountedSetState({
         stories: stories.map(story => new CHQStory(story)),
-        failure: false
+        failure: false,
+        pagination: pagination
       });
     }).catch(() => {
       this.mountedSetState({ stories: null, failure: true });
@@ -114,7 +113,7 @@ class App extends Component {
   }
 
   render() {
-    const { failure, stories } = this.state;
+    const { failure, pagination, stories } = this.state;
     const { filters } = this.props;
 
     if (failure) {
@@ -133,7 +132,12 @@ class App extends Component {
 
     return (
       <Container>
-        <StoriesSlider stories={stories} organizationId={filters.org} />
+        <StoriesSlider
+          stories={stories}
+          organizationId={filters.org}
+          pagination={pagination}
+          filters={queryToOptions(filters)}
+        />
       </Container>
     );
   }

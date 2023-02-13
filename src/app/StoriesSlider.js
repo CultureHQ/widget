@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { makePost } from "@culturehq/client";
+import React, { useEffect, useRef, useState } from "react";
+import { makePost, makeGet } from "@culturehq/client";
 import styled from "styled-components";
 import LightboxStories from "./LightboxStories";
 
@@ -236,10 +236,42 @@ const CardTitle = styled.p`
   white-space: initial;
 `;
 
-const StoriesSlider = ({ organizationId, stories = [] }) => {
+const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination }) => {
   const [index, setIndex] = useState(0);
+  const [currentStories, setCurrentStories] = useState([]);
+  const [currentPagination, setCurrentPagination] = useState();
   const [activeStory, setActiveStory] = useState(undefined);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const containerRef = useRef(null);
+  const sliderRef = useRef(null);
+  const slideLayout = getSlideLayout(index, containerRef, sliderRef, stories);
+
+  useEffect(
+    () => {
+      setCurrentStories(stories);
+    }, [stories]
+  );
+
+  useEffect(
+    () => {
+      setCurrentPagination(pagination);
+    }, [pagination]
+  );
+
+  useEffect(
+    () => {
+      if (!slideLayout.right && currentStories.length !== 0
+        && currentPagination.currentPage !== currentPagination.totalPages) {
+          makeGet("/landing_pages/stories", { ...filters, page: currentPagination.currentPage + 2, pageSize: 10 })
+            .then(({ stories: newStories, pagination: newPagination }) => {
+              setCurrentStories([...currentStories, ...newStories]);
+              setCurrentPagination(newPagination);
+          }).catch(() => {});
+      }
+    },
+    [slideLayout.right, currentPagination, currentStories]
+  );
 
   const trackData = (eventAction, storyId = undefined) => (
     makePost("/stories/track", {
@@ -260,24 +292,20 @@ const StoriesSlider = ({ organizationId, stories = [] }) => {
     trackData("Viewing stories");
   };
 
-  const containerRef = useRef(null);
-  const sliderRef = useRef(null);
-  const slideLayout = getSlideLayout(index, containerRef, sliderRef, stories);
-
   const handleThumbnailClick = goToIndex => {
     let target = goToIndex;
 
     if (goToIndex === -1) {
-      target = stories.length - 1;
+      target = currentStories.length - 1;
     }
 
-    if (goToIndex > stories.length - 1) {
+    if (goToIndex > currentStories.length - 1) {
       target = 0;
     }
 
-    trackData("Opening a story", stories[target].story.id);
+    trackData("Opening a story", currentStories[target].story.id);
 
-    setActiveStory(stories[target]);
+    setActiveStory(currentStories[target]);
     setModalIsOpen(true);
   };
 
@@ -286,11 +314,11 @@ const StoriesSlider = ({ organizationId, stories = [] }) => {
   };
 
   const cardWidth = () => {
-    if (stories.length >= 3) {
+    if (currentStories.length >= 3) {
       return "300px";
     }
 
-    if (stories.length === 2) {
+    if (currentStories.length === 2) {
       return "50%";
     }
 
@@ -298,7 +326,7 @@ const StoriesSlider = ({ organizationId, stories = [] }) => {
   };
 
   const maxCardWidth = () => {
-    if (stories.length === 1) {
+    if (currentStories.length === 1) {
       return "750px";
     }
 
@@ -306,7 +334,7 @@ const StoriesSlider = ({ organizationId, stories = [] }) => {
   };
 
   const backgroundImage = story => {
-    if (stories.length >= 2) {
+    if (currentStories.length >= 2) {
       return story.thumbUrl;
     }
 
@@ -320,7 +348,7 @@ const StoriesSlider = ({ organizationId, stories = [] }) => {
           modalIsOpen={modalIsOpen}
           activeStory={activeStory}
           currentUserAnswered
-          stories={stories}
+          stories={currentStories}
           onClose={handleClose}
           onStoryChange={handleThumbnailClick}
           noActions
@@ -371,11 +399,11 @@ const StoriesSlider = ({ organizationId, stories = [] }) => {
             ref={sliderRef}
             style={{
               ...slider,
-              ...(stories.length === 0 ? sliderEmpty : {}),
+              ...(currentStories.length === 0 ? sliderEmpty : {}),
               transform: `translateX(-${slideLayout.percent}%)`
             }}
           >
-            {stories.map((story, storyIndex) => (
+            {currentStories.map((story, storyIndex) => (
               <Card
                 aria-labelledby={story.id}
                 key={story.id}
