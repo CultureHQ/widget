@@ -239,6 +239,7 @@ const CardTitle = styled.p`
 
 const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination }) => {
   const [index, setIndex] = useState(0);
+  const [appending, setAppending] = useState(false);
   const [currentStories, setCurrentStories] = useState([]);
   const [currentPagination, setCurrentPagination] = useState();
   const [activeStory, setActiveStory] = useState(undefined);
@@ -264,14 +265,20 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
     () => {
       if (!slideLayout.right && currentStories.length !== 0
         && currentPagination.currentPage !== currentPagination.totalPages) {
-          makeGet("/landing_pages/stories", { ...filters, page: currentPagination.currentPage + 2, pageSize: 10 })
-            .then(({ stories: newStories, pagination: newPagination }) => {
-              setCurrentStories([...currentStories, ...newStories.map((story) => new CHQStory(story))]);
-              setCurrentPagination(newPagination);
-          }).catch(() => {});
+          if (!appending) {
+            setAppending(true);
+            makeGet("/landing_pages/stories", { ...filters, page: currentPagination.currentPage + 2, pageSize: 10 })
+              .then(({ stories: newStories, pagination: newPagination }) => {
+                setCurrentStories([...currentStories, ...newStories.map((story) => new CHQStory(story))]);
+                setCurrentPagination(newPagination);
+                setAppending(false);
+            }).catch(() => {
+              setAppending(false);
+            });
+          }
       }
     },
-    [slideLayout.right, currentPagination, currentStories]
+    [slideLayout.right, currentPagination, currentStories, appending]
   );
 
   const trackData = (eventAction, storyId = undefined) => (
