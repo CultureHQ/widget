@@ -265,11 +265,10 @@ const PromptIconAll = styled.div`
   align-items: center;
   border-radius: 80px;
   display: flex;
-  height: 19px;
+  height: 35px;
   justify-content: center;
   margin-right: 10px;
-  padding: 8px;
-  width: 19px;
+  width: 35px;
 `;
 
 const PromptIconVideos = styled.div`
@@ -277,11 +276,10 @@ const PromptIconVideos = styled.div`
   align-items: center;
   border-radius: 80px;
   display: flex;
-  height: 19px;
+  height: 35px;
   justify-content: center;
   margin-right: 10px;
-  padding: 8px;
-  width: 19px;
+  width: 35px;
 `
 
 const PromptIconImages = styled.div`
@@ -289,15 +287,15 @@ const PromptIconImages = styled.div`
   align-items: center;
   border-radius: 80px;
   display: flex;
-  height: 19px;
+  height: 35px;
   justify-content: center;
   margin-right: 10px;
-  padding: 8px;
-  width: 19px;
+  width: 35px;
 `
 
 const Icon = styled.svg`
   height: 22px;
+  min-width: 22px;
   width: 22px;
 `;
 
@@ -319,7 +317,7 @@ const PromptIcon = ({ allowedTypes }) => {
       case "just_videos":
         return (
           <PromptIconVideos>
-            <Icon aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 1024 1024">
+            <Icon aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 468 468">
               <IconPath transform="translate(0 0)" d="M264.704,96.512H51.2c-28.16,0-51.2,23.04-51.2,51.2v172.544c0,28.16,23.04,51.2,51.2,51.2h213.504 c28.16,0,51.2-23.04,51.2-51.2V147.712C315.904,119.04,292.864,96.512,264.704,96.512z M430.08,124.672c-3.072,0.512-6.144,2.048-8.704,3.584l-79.872,46.08V293.12l80.384,46.08 c14.848,8.704,33.28,3.584,41.984-11.264c2.56-4.608,4.096-9.728,4.096-15.36V154.368 C467.968,135.424,450.048,120.064,430.08,124.672z" />
             </Icon>
           </PromptIconVideos>
