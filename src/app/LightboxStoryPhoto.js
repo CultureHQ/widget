@@ -403,7 +403,7 @@ const LightboxStoryPhoto = ({
   const { parentStoryQuestion } = question;
   const imageUrl =
     activeStory.media.mediaType === "image"
-      ? imageFromStory(imagesSizes.FULL, activeStory)
+      ? imageFromStory(imagesSizes.NORMAL, activeStory)
       : activeStory.media.thumbnail;
   return (
     <GalleryLightboxWrapper
