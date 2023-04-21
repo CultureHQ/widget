@@ -56,9 +56,11 @@ export const MENTION_VALUE = "MENTION";
 
 const tagsTypes = {
   CONNECTION: "connection",
-  COMPANY: "all company",
+  ALL_ORGANIZATION: "all company",
   DEPARTMENTS: "departments",
   DEPARTMENT: "department",
+  COMPANIES: "companies",
+  COMPANY: "company",
   INTERESTS: "interests",
   INTEREST: "interest",
   LOCATIONS: "locations",
