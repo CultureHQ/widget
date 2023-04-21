@@ -50,17 +50,17 @@ const Container = styled.section`
 `;
 
 const queryToOptions = queryString => {
-  const { i, d, l, s, co, cy, m, r, v, sp, t, u, org } = queryString;
+  const { i, d, l, s, co, cy, p, de, v, sp, t, u, org } = queryString;
 
   return {
     interestIds: i || null,
     departmentIds: d || null,
     locationIds: l || null,
     skillIds: s || null,
-    courseIds: co || null,
+    companyIds: co || null,
     classYearIds: cy || null,
-    majorIds: m || null,
-    residentIds: r || null,
+    programIds: p || null,
+    degreeIds: de || null,
     organizationValueIds: v || null,
     storyPromptIds: sp || null,
     trendIds: t || null,
