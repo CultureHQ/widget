@@ -8,6 +8,7 @@ import EditorOutput from "./EditorOutput";
 import Loader from "./Loader";
 
 import { font } from "../styles.json";
+import Subtitles from "./Subtitles";
 
 const GalleryLightboxWrapper = styled.div`
   border-radius: 0;
@@ -465,7 +466,12 @@ const LightboxStoryPhoto = ({
               poster={activeStory.media.thumbnail}
               ref={mediaRef}
               src={activeStory.media.url}
-            />
+              disablePictureInPicture
+              crossOrigin="anonymous"
+              controlsList="nodownload"
+            >
+              <Subtitles media={activeStory.media} />
+            </Video>
           </>
         )}
         {!state.imageLoaded && <Loader />}
