@@ -407,19 +407,6 @@ const LightboxStoryPhoto = ({
             boxImages={activeStory.visuals}
             onImageLoad={handleImageLoad}
           />
-          /*
-          <GalleryLightboxMainImage
-            className="gallery-lightbox__main-image"
-            ref={mediaRef}
-            src={imageUrl}
-            onLoad={handleImageLoad}
-            alt={
-              activeStory.imageAlt ||
-              parentStoryQuestion?.question ||
-              question.question
-            }
-          />
-          */
         )}
         {activeStory.media.mediaType === "video" && (
           <>
