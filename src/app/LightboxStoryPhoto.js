@@ -9,6 +9,7 @@ import Loader from "./Loader";
 
 import { font } from "../styles.json";
 import Subtitles from "./Subtitles";
+import LightboxImageSlider from "./LightboxImageSlider";
 
 const GalleryLightboxWrapper = styled.div`
   border-radius: 0;
@@ -214,30 +215,13 @@ const GalleryLightboxImageContainer = styled.div`
   filter: blur(2px);
   left: 50%;
   opacity: 0.3;
-  position: relative;
+  position: absolute;
   top: 50%;
   transform: scale(11);
   width: 10%;
 
   @media (min-width: 768px) {
     height: 10%;
-  }
-`;
-
-const GalleryLightboxMainImage = styled.img`
-  display: block;
-  height: auto;
-  margin: 0 auto;
-  max-height: 100%;
-  max-width: 100%;
-  position: relative;
-  width: auto;
-
-  @media (min-width: 768px) {
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
   }
 `;
 
@@ -400,12 +384,13 @@ const LightboxStoryPhoto = ({
     mediaRef.current.play();
   };
 
-  const { body, creator, createdAt, question } = activeStory;
+  const { body, creator, question } = activeStory;
   const { parentStoryQuestion } = question;
   const imageUrl =
     activeStory.media.mediaType === "image"
       ? imageFromStory(imagesSizes.NORMAL, activeStory)
       : activeStory.media.thumbnail;
+
   return (
     <GalleryLightboxWrapper
       className="gallery-lightbox__wrapper"
@@ -418,6 +403,11 @@ const LightboxStoryPhoto = ({
           style={{ backgroundImage: `url(${imageUrl})` }}
         />
         {activeStory.media.mediaType === "image" && (
+          <LightboxImageSlider
+            boxImages={activeStory.visuals}
+            onImageLoad={handleImageLoad}
+          />
+          /*
           <GalleryLightboxMainImage
             className="gallery-lightbox__main-image"
             ref={mediaRef}
@@ -429,6 +419,7 @@ const LightboxStoryPhoto = ({
               question.question
             }
           />
+          */
         )}
         {activeStory.media.mediaType === "video" && (
           <>

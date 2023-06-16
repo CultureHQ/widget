@@ -21,6 +21,10 @@ class CHQStory {
     return this.story.media;
   }
 
+  get visuals() {
+    return this.story.visuals;
+  }
+
   get question() {
     return this.story.question;
   }
