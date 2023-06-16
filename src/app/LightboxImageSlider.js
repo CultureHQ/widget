@@ -32,6 +32,7 @@ const ContainerLightbox = styled.div`
   margin-bottom: 0;
   margin-top: 0;
   width: 100%;
+
   @media only screen and (min-width: 768px) {
     position: absolute;
   }
@@ -45,9 +46,11 @@ const ImageSliderItem = styled.div`
   overflow: hidden;
   position: relative;
   width: 100%;
+
   &.active {
     display: block;
   }
+
   @media only screen and (min-width: 768px) {
     border-radius: 6px;
   }
