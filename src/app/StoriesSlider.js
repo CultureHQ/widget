@@ -249,9 +249,7 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
         let clientId = "";
         if (gaClientCookie?.length > 0) {
           const gaCookie = gaClientCookie[0];
-          console.log(gaCookie);
-          const match = gaCookie.match(/GA[1-2]\.[0-9]\.(\d+)\.(\d+)/);
-          console.log(match);
+          const match = gaCookie.match(/GA[1-2]\.[0-9]+\.(\d+)\.(\d+)/);
           if (match) {
             clientId = `${match[1]}.${match[2]}`;
           }
