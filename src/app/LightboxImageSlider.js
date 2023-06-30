@@ -108,7 +108,7 @@ const LightboxImageSlider = ({
       <ContainerLightbox>
         {boxImages.map((image, index) => (
           <ImageSliderItem
-            key={index}
+            key={image.id}
             className={currentImage === index ? "active" : undefined}
           >
             <Image

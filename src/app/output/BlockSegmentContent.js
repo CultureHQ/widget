@@ -11,8 +11,8 @@ const INLINE_STYLES = {
 
 const linkStyle = {
   color: landingPageColor,
-  fontFamily: 'inherit',
-  fontSize: 'inherit'
+  fontFamily: "inherit",
+  fontSize: "inherit"
 };
 
 const linkifiedText = text => {

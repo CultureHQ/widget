@@ -19,8 +19,8 @@ const blockStyle = {
 
 const linkStyle = {
   color: landingPageColor,
-  fontFamily: 'inherit',
-  fontSize: 'inherit'
+  fontFamily: "inherit",
+  fontSize: "inherit"
 };
 
 const BlockSegment = ({ block, offset, length }) => {

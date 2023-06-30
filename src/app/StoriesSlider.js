@@ -244,10 +244,53 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
   const [currentPagination, setCurrentPagination] = useState();
   const [activeStory, setActiveStory] = useState(undefined);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [gaClientId, setGaClientId] = useState();
+  const [gaSessionId, setGaSessionId] = useState();
 
   const containerRef = useRef(null);
   const sliderRef = useRef(null);
   const slideLayout = getSlideLayout(index, containerRef, sliderRef, stories);
+
+  useEffect(
+    () => {
+      const getGaClientCookie = () => {
+        const gaClientCookie = document.cookie.match(/_ga=([^;]+)/g);
+        let clientId = "";
+        if (gaClientCookie?.length > 0) {
+          const gaCookie = gaClientCookie[0];
+          const match = gaCookie.match(/GA[1-2]\.[0-9]+\.(\d+)\.(\d+)/);
+          if (match) {
+            clientId = `${match[1]}.${match[2]}`;
+          }
+        }
+        return clientId;
+      };
+
+      const getGaSessionCookie = () => {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i += 1) {
+          const cookie = cookies[i].trim();
+
+          // Check if the cookie starts with the given cookieName
+          if (cookie.startsWith("_ga_")) {
+            // Extract the value from the cookie
+            const cookieParts = cookie.split("=");
+            const cookieValue = cookieParts[1];
+            // Split the value by periods and get the desired part
+            const valueParts = cookieValue.split(".");
+            const desiredValue = valueParts[2];
+
+            return desiredValue;
+          }
+        }
+
+        return "";
+      };
+
+      setGaClientId(getGaClientCookie());
+      setGaSessionId(getGaSessionCookie());
+    }, []
+  );
 
   useEffect(
     () => {
@@ -265,20 +308,22 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
     () => {
       if (!slideLayout.right && currentStories.length !== 0
         && currentPagination.currentPage !== currentPagination.totalPages) {
-          if (!appending) {
-            setAppending(true);
-            makeGet("/landing_pages/stories", { ...filters, page: currentPagination.currentPage + 2, pageSize: 10 })
-              .then(({ stories: newStories, pagination: newPagination }) => {
-                setCurrentStories([...currentStories, ...newStories.map((story) => new CHQStory(story))]);
-                setCurrentPagination(newPagination);
-                setAppending(false);
+        if (!appending) {
+          setAppending(true);
+          makeGet("/landing_pages/stories", { ...filters, page: currentPagination.currentPage + 2, pageSize: 10 })
+            .then(({ stories: newStories, pagination: newPagination }) => {
+              setCurrentStories([
+                ...currentStories, ...newStories.map(story => new CHQStory(story))
+              ]);
+              setCurrentPagination(newPagination);
+              setAppending(false);
             }).catch(() => {
               setAppending(false);
             });
-          }
+        }
       }
     },
-    [slideLayout.right, currentPagination, currentStories, appending]
+    [slideLayout.right, currentPagination, currentStories, appending, filters]
   );
 
   const trackData = (eventAction, storyId = undefined) => (
@@ -287,17 +332,19 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
       storyId,
       eventAction,
       url: window.location.href,
-      type: "carousel"
+      type: "carousel",
+      gaClientId,
+      gaSessionId
     }).then(_ => {}).catch(_ => {})
   );
 
   const onNext = () => {
     setIndex(value => value + 1);
-    trackData("Viewing stories");
+    trackData("view_stories");
   };
   const onPrev = () => {
     setIndex(value => value - 1);
-    trackData("Viewing stories");
+    trackData("view_stories");
   };
 
   const handleThumbnailClick = goToIndex => {
@@ -311,7 +358,7 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
       target = 0;
     }
 
-    trackData("Opening a story", currentStories[target].story.id);
+    trackData("open_story", currentStories[target].story.id);
 
     setActiveStory(currentStories[target]);
     setModalIsOpen(true);

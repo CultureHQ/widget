@@ -93,7 +93,7 @@ class App extends Component {
       this.mountedSetState({
         stories: stories.map(story => new CHQStory(story)),
         failure: false,
-        pagination: pagination
+        pagination
       });
     }).catch(() => {
       this.mountedSetState({ stories: null, failure: true });
