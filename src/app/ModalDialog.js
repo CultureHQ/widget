@@ -28,8 +28,8 @@ const ModalDialogHeading = ({ children, bigCloseIcon, onClose, ...props }) => (
 const modalStyle = {
   overlay: {
     backgroundColor: "rgba(0, 0, 0, .3)",
-    zIndex: 2147483647,
-  },
+    zIndex: 2147483647
+  }
 };
 
 const ModalDialog = ({
@@ -40,13 +40,13 @@ const ModalDialog = ({
   ariaLabelledBy,
   ariaDescribedby,
   onClose,
-  style = undefined,
+  style = undefined
 }) => (
   <ReactModal
     aria={{
       labelledby: ariaLabelledBy,
       describedby: ariaDescribedby,
-      modal: true,
+      modal: true
     }}
     appElement={appElement}
     bodyOpenClassName={bodyOpenClassName || ""}
@@ -56,11 +56,10 @@ const ModalDialog = ({
     style={
       style
         ? {
-            ...modalStyle,
-            overlay: { ...modalStyle.overlay, ...style.overlay },
-            content: style.content,
-          }
-        : modalStyle
+          ...modalStyle,
+          overlay: { ...modalStyle.overlay, ...style.overlay },
+          content: style.content
+        } : modalStyle
     }
   >
     {children}

@@ -49,7 +49,7 @@ const Container = styled.section`
   }
 `;
 
-const queryToOptions = (queryString) => {
+const queryToOptions = queryString => {
   const { i, d, l, s, co, cy, p, de, v, sp, t, u, org } = queryString;
 
   return {
@@ -65,7 +65,7 @@ const queryToOptions = (queryString) => {
     storyPromptIds: sp || null,
     trendIds: t || null,
     userIds: u || null,
-    orgId: org || null,
+    orgId: org || null
   };
 };
 
@@ -91,12 +91,11 @@ class App extends Component {
       { ...queryToOptions(filters), pageSize: 10 }
     ).then(({ stories, pagination }) => {
       this.mountedSetState({
-        stories: stories.map((story) => new CHQStory(story)),
+        stories: stories.map(story => new CHQStory(story)),
         failure: false,
-        pagination: pagination
+        pagination
       });
-    })
-    .catch(() => {
+    }).catch(() => {
       this.mountedSetState({ stories: null, failure: true });
     });
   }

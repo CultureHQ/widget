@@ -14,7 +14,7 @@ const mobileModal = {
     opacity: "1",
     overflowX: "hidden",
     overflowY: "auto",
-    zIndex: "99000000000",
+    zIndex: "99000000000"
   },
   content: {
     animation: "chqMdlZoomIn 300ms ease-out forwards",
@@ -36,8 +36,8 @@ const mobileModal = {
     position: "initial",
     minHeight: "initial",
     width: "100%",
-    WebkitFontSmoothing: "initial",
-  },
+    WebkitFontSmoothing: "initial"
+  }
 };
 
 const modal = {
@@ -47,8 +47,8 @@ const modal = {
     height: "initial",
     margin: "5% auto",
     maxWidth: "90vw",
-    with: "90vw",
-  },
+    with: "90vw"
+  }
 };
 
 const mobileModalBody = {
@@ -56,7 +56,7 @@ const mobileModalBody = {
   fontWeight: "200",
   overflow: "scroll",
   padding: "61px 0 0",
-  position: "relative",
+  position: "relative"
 };
 
 const modalBody = {
@@ -64,7 +64,7 @@ const modalBody = {
   backgroundColor: "#000",
   borderRadius: "6px",
   overflow: "initial",
-  padding: "0",
+  padding: "0"
 };
 
 const GalleryLightboxActions = styled.div`
@@ -112,7 +112,7 @@ const chqPbn = {
   fontSize: "inherit",
   lineHeight: "inherit",
   margin: "0",
-  padding: "1px 1px 0",
+  padding: "1px 1px 0"
 };
 
 const CloseIcon = styled.svg`
@@ -276,13 +276,13 @@ class LightboxStoriesWrapper extends PureComponent {
   timeout = 0;
 
   static defaultProps = {
-    onStoryChange: () => {},
+    onStoryChange: () => {}
   };
 
   state = {
     fullSize: false,
     modalStyle: window.innerWidth >= 768 ? modal : mobileModal,
-    modalBodyStyle: window.innerWidth >= 768 ? modalBody : mobileModalBody,
+    modalBodyStyle: window.innerWidth >= 768 ? modalBody : mobileModalBody
   };
 
   componentDidMount() {
@@ -330,7 +330,7 @@ class LightboxStoriesWrapper extends PureComponent {
     } else {
       this.setState({
         modalStyle: mobileModal,
-        modalBodyStyle: mobileModalBody,
+        modalBodyStyle: mobileModalBody
       });
     }
   };
@@ -345,7 +345,7 @@ class LightboxStoriesWrapper extends PureComponent {
     onClose();
   };
 
-  handleKeyDown = (event) => {
+  handleKeyDown = event => {
     const { handleSwipeLeft, handleSwipeRight } = this.props;
     switch (event.key) {
       case "ArrowLeft":
@@ -380,7 +380,7 @@ class LightboxStoriesWrapper extends PureComponent {
       changing,
       setChanging,
       handleSwipeLeft,
-      handleSwipeRight,
+      handleSwipeRight
     } = this.props;
     const { fullSize, modalBodyStyle, modalStyle } = this.state;
 
@@ -454,14 +454,14 @@ const LightboxStories = ({ activeStory, onStoryChange, stories, ...props }) => {
   const handleSwipeLeft = () => {
     setChanging(true);
     onStoryChange(
-      stories.findIndex((story) => story.id === activeStory.id) - 1
+      stories.findIndex(story => story.id === activeStory.id) - 1
     );
   };
 
   const handleSwipeRight = () => {
     setChanging(true);
     onStoryChange(
-      stories.findIndex((story) => story.id === activeStory.id) + 1
+      stories.findIndex(story => story.id === activeStory.id) + 1
     );
   };
 
@@ -469,7 +469,7 @@ const LightboxStories = ({ activeStory, onStoryChange, stories, ...props }) => {
     onSwipedLeft: () => handleSwipeRight(),
     onSwipedRight: () => handleSwipeLeft(),
     preventDefaultTouchmoveEvent: true,
-    trackMouse: true,
+    trackMouse: true
   });
 
   return (

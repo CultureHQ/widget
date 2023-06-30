@@ -14,10 +14,7 @@ const getSlideLayout = (index, containerRef, sliderRef, stories) => {
   const container = containerRef.current;
   const slider = sliderRef.current;
 
-  if (
-    !(container instanceof HTMLDivElement) ||
-    !(slider instanceof HTMLDivElement)
-  ) {
+  if (!(container instanceof HTMLDivElement) || !(slider instanceof HTMLDivElement)) {
     return { percent, left, right };
   }
 
@@ -118,13 +115,13 @@ const slider = {
   marginBottom: "15px",
   minWidth: "100%",
   position: "absolute",
-  transition: "transform 300ms cubic-bezier(.455, .03, .515, .955)",
+  transition: "transform 300ms cubic-bezier(.455, .03, .515, .955)"
 };
 
 const sliderEmpty = {
   justifyContent: "center",
   left: "0",
-  right: "0",
+  right: "0"
 };
 
 const Card = styled.button`
@@ -194,7 +191,7 @@ const storyBadge = {
   fontSize: "16px",
   padding: "5px 10px",
   position: "absolute",
-  right: "15px",
+  right: "15px"
 };
 
 const backgroundEffect = {
@@ -237,10 +234,56 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
   const [currentPagination, setCurrentPagination] = useState();
   const [activeStory, setActiveStory] = useState(undefined);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [gaClientId, setGaClientId] = useState();
+  const [gaSessionId, setGaSessionId] = useState();
 
   const containerRef = useRef(null);
   const sliderRef = useRef(null);
   const slideLayout = getSlideLayout(index, containerRef, sliderRef, currentStories);
+
+  useEffect(
+    () => {
+      const getGaClientCookie = () => {
+        console.log(document.cookie);
+        const gaClientCookie = document.cookie.match(/_ga=([^;]+)/g);
+        let clientId = "";
+        if (gaClientCookie?.length > 0) {
+          const gaCookie = gaClientCookie[0];
+          console.log(gaCookie);
+          const match = gaCookie.match(/GA[1-2]\.[0-9]\.(\d+)\.(\d+)/);
+          console.log(match);
+          if (match) {
+            clientId = `${match[1]}.${match[2]}`;
+          }
+        }
+        return clientId;
+      };
+      
+      const getGaSessionCookie = () => {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i = 1) {
+          const cookie = cookies[i].trim();
+
+          // Check if the cookie starts with the given cookieName
+          if (cookie.startsWith("_ga_")) {
+            // Extract the value from the cookie
+            const cookieParts = cookie.split("=");
+            const cookieValue = cookieParts[1];
+            // Split the value by periods and get the desired part
+            const valueParts = cookieValue.split(".");
+            const desiredValue = valueParts[2];
+
+            return desiredValue;
+          }
+        }
+
+        return "";
+      };
+
+      setGaClientId(getGaClientCookie());
+      setGaSessionId(getGaSessionCookie());
+    }, []
+  );
 
   useEffect(
     () => {
@@ -281,17 +324,19 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
       eventAction,
       url: window.location.href,
       type: "carousel",
+      gaClientId,
+      gaSessionId
     })
       .then((_) => {})
       .catch((_) => {});
 
   const onNext = () => {
     setIndex((value) => value + 1);
-    trackData("Viewing stories");
+    trackData("view_stories");
   };
   const onPrev = () => {
     setIndex((value) => value - 1);
-    trackData("Viewing stories");
+    trackData("view_stories");
   };
 
   const handleThumbnailClick = (goToIndex) => {
@@ -305,7 +350,7 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
       target = 0;
     }
 
-    trackData("Opening a story", currentStories[target].story.id);
+    trackData("open_story", currentStories[target].story.id);
 
     setActiveStory(currentStories[target]);
     setModalIsOpen(true);

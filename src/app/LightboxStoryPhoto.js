@@ -53,7 +53,7 @@ const galleryLightboxVideoPlay = {
   right: "0",
   top: "0",
   width: "100%",
-  zIndex: "10",
+  zIndex: "10"
 };
 
 const Video = styled.video`
@@ -265,7 +265,7 @@ const PromptIconVideos = styled.div`
   justify-content: center;
   margin-right: 10px;
   width: 35px;
-`
+`;
 
 const PromptIconImages = styled.div`
   background: linear-gradient(90deg, #aa8c30 0%, #ffd24b 100%);
@@ -276,7 +276,7 @@ const PromptIconImages = styled.div`
   justify-content: center;
   margin-right: 10px;
   width: 35px;
-`
+`;
 
 const Icon = styled.svg`
   height: 22px;
@@ -327,7 +327,7 @@ const LightboxStoryPhoto = ({
   fullSize = true,
   landingPage = false,
   changing,
-  onChangedFinished,
+  onChangedFinished
 }) => {
   const mediaRef = React.createRef();
   const [state, setState] = useState({
@@ -335,7 +335,7 @@ const LightboxStoryPhoto = ({
     commentCount: activeStory.commentCount,
     hovering: false,
     imageLoaded: false,
-    showComments: false,
+    showComments: false
   });
   const [showVideoInfo, setShowVideoInfo] = useState(false);
 
@@ -358,8 +358,8 @@ const LightboxStoryPhoto = ({
         width: imageRect.width,
         height: imageRect.height,
         containerLeft: containerRect?.left || 0,
-        containerTop: containerRect?.top || 0,
-      },
+        containerTop: containerRect?.top || 0
+      }
     });
   };
 
@@ -386,10 +386,9 @@ const LightboxStoryPhoto = ({
 
   const { body, creator, question } = activeStory;
   const { parentStoryQuestion } = question;
-  const imageUrl =
-    activeStory.media.mediaType === "image"
-      ? imageFromStory(imagesSizes.NORMAL, activeStory)
-      : activeStory.media.thumbnail;
+  const imageUrl = activeStory.media.mediaType === "image"
+    ? imageFromStory(imagesSizes.NORMAL, activeStory)
+    : activeStory.media.thumbnail;
 
   return (
     <GalleryLightboxWrapper

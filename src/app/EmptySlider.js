@@ -1,8 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
-
-import { font } from "../styles.json";
-
 
 const SliderContainer = styled.section`
   position: relative;
@@ -39,7 +36,7 @@ const slider = {
   marginBottom: "15px",
   minWidth: "100%",
   position: "absolute",
-  transition: "transform 300ms cubic-bezier(.455, .03, .515, .955)",
+  transition: "transform 300ms cubic-bezier(.455, .03, .515, .955)"
 };
 
 const Card = styled.button`
