@@ -258,7 +258,7 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
       
       const getGaSessionCookie = () => {
         const cookies = document.cookie.split(";");
-        for (let i = 0; i < cookies.length; i = 1) {
+        for (let i = 0; i < cookies.length; i += 1) {
           const cookie = cookies[i].trim();
 
           // Check if the cookie starts with the given cookieName
