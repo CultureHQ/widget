@@ -244,7 +244,6 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
   useEffect(
     () => {
       const getGaClientCookie = () => {
-        console.log(document.cookie);
         const gaClientCookie = document.cookie.match(/_ga=([^;]+)/g);
         let clientId = "";
         if (gaClientCookie?.length > 0) {
