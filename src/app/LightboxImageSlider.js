@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import IconsPagination from "./IconsPagination";
 
@@ -88,6 +88,12 @@ const LightboxImageSlider = ({
 }) => {
   const [currentImage, setCurrentImage] = useState(0);
   const quantity = boxImages?.length;
+
+  useEffect(
+    () => {
+      setCurrentImage(0);
+    }, [boxImages]
+  );
 
   if (!Array.isArray(boxImages) || quantity === 0) return <></>;
 

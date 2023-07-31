@@ -166,6 +166,12 @@ const creatorName = {
   wordBreak: "break-all"
 };
 
+const creatorTitle = {
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap"
+};
+
 const creatorContainer = {
   alignItems: "center",
   background: "linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0))",
@@ -227,6 +233,10 @@ const cardTitle = {
   whiteSpace: "initial"
 };
 
+const TopTextContainer = styled.div`
+  width: 85%;
+`;
+
 const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination }) => {
   const [index, setIndex] = useState(0);
   const [appending, setAppending] = useState(false);
@@ -255,7 +265,7 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
         }
         return clientId;
       };
-      
+
       const getGaSessionCookie = () => {
         const cookies = document.cookie.split(";");
         for (let i = 0; i < cookies.length; i += 1) {
@@ -466,14 +476,14 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
                         backgroundImage: `url(${story.creator.avatar.thumbUrl})`,
                       }}
                     />
-                    <div>
+                    <TopTextContainer>
                       <p style={{ margin: "0", ...creatorName }}>
                         {story.creator.name}
                       </p>
-                      <p style={{ margin: "0", fontFamily: font }}>
+                      <p style={{ margin: "0", fontFamily: font, ...creatorTitle }}>
                         {story.creator.title}
                       </p>
-                    </div>
+                    </TopTextContainer>
                   </div>
                   <div style={cardTitleContainer}>
                     <p style={cardTitle}>{story.question.question}</p>
