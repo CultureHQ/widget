@@ -234,7 +234,7 @@ const cardTitle = {
 };
 
 const TopTextContainer = styled.div`
-  width: 85%;
+  width: 80%;
 `;
 
 const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination }) => {
