@@ -188,6 +188,9 @@ const CreatorName = styled.p`
 const CreatorTitle = styled.p`
   font-family: inherit;
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const creatorContainer = {
@@ -235,6 +238,10 @@ const CardTitle = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: initial;
+`;
+
+const TopTextContainer = styled.div`
+  width: 80%;
 `;
 
 const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination }) => {
@@ -477,14 +484,14 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
                         backgroundImage: `url(${story.creator.avatar.thumbUrl})`
                       }}
                     />
-                    <div>
+                    <TopTextContainer>
                       <CreatorName>
                         {story.creator.name}
                       </CreatorName>
                       <CreatorTitle>
                         {story.creator.title}
                       </CreatorTitle>
-                    </div>
+                    </TopTextContainer>
                   </div>
                   <div style={cardTitleContainer}>
                     <CardTitle>
