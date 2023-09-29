@@ -23,6 +23,7 @@ body {
   </head>
   <body>
     <div id="main"></div>
+    <iframe id="iframe" src="http://hogwarts.localhost:4000" frameborder="0" style="width:100%; -ms-overflow-style: none; overflow: -moz-scrollbars-none; height:1000px" scrolling="yes" allowfullscreen></iframe>
     <script type="text/javascript">
       +function (c, h, q) {
         (q = document.createElement("script")).type = "text/javascript";
@@ -31,5 +32,47 @@ body {
         document.getElementsByTagName("head")[0].appendChild(q);
       }("#main", "chqbot-token")
     </script>
+     <script type="text/javascript">
+      +function (c, h, q, z, y) {
+        (y = document.createElement("script")).type = "text/javascript";
+        y.src = "main.js";
+        y.onload = function () { CHQ(c, h, q, z) };
+        document.getElementsByTagName("head")[0].appendChild(y);
+      }("#main", "null", {"i":[],"d":[],"l":[],"s":[],"co":[],"cy":[],"m":[],"r":[],"v":[],"u":[],"sp":[],"t":[],"org": 325184378 })
+      // local bot token "mP3nYfCozjfUBF6EWvHkLzMn"
+      // filters example:  {i: [948961931], s: [1004640656]}
+    </script>
+
+      <script>
+        // Escucha el evento 'message' del objeto 'window'
+        window.addEventListener('message', function(event) {
+          // Verifica que el mensaje provenga de la página hija
+          if (event.source === iframe.contentWindow) {
+            // Imprime el mensaje recibido en la consola
+            console.log('Mensaje recibido: ', event.data);
+            // Guarda el mensaje como una cookie
+            document.cookie = 'mensaje=' + event.data;
+          }
+        });
+      </script>
+
+      <script>
+      // Escucha el evento 'message' del objeto 'window'
+      window.addEventListener('message', function(event) {
+        // Verifica que el mensaje provenga de la página principal
+        if (event.source === parent) {
+          // Imprime el mensaje recibido en la consola
+          console.log('Mensaje recibido widget: ', event.data);
+          // Accede a las cookies de la página principal
+          var cookies = event.data.cookies;
+          // Haz algo con las cookies recibidas
+        }
+      });
+      // Envía un mensaje a la página principal con información sobre las cookies
+      var message = {
+        cookies: document.cookie
+      };
+      parent.postMessage(message, '*');
+      </script>
   </body>
 </html>
