@@ -2,20 +2,25 @@
 
 import React from "react";
 
-const Track = ({ subtitle }) => {
+const Track = ({ defaultLanguage, subtitle }) => {
   const { label, language, url } = subtitle;
+  const isDefaultLanguage = defaultLanguage ? defaultLanguage === language : subtitle.default;
 
   return (
-    <track label={label} kind="subtitles" srcLang={language} src={url} default={subtitle.default} />
+    <track label={label} kind="subtitles" srcLang={language} src={url} default={isDefaultLanguage} />
   );
 };
 
-const Subtitles = ({ media }) => (
-  <>
-    {media.subtitles?.map(subtitle => (
-      <Track key={subtitle.id} subtitle={subtitle} />
-    ))}
-  </>
-);
+const Subtitles = ({ language, media }) => {
+  const foundDefault = media.subtitles?.find(subtitle => language === subtitle.language);
+
+  return (
+    <>
+      {media.subtitles?.map(subtitle => (
+        <Track defaultLanguage={foundDefault?.language} key={subtitle.id} subtitle={subtitle} />
+      ))}
+    </>
+  );
+};
 
 export default Subtitles;

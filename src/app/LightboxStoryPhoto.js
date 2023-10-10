@@ -326,6 +326,7 @@ const LightboxStoryPhoto = ({
   containerRef,
   fullSize = true,
   landingPage = false,
+  language,
   changing,
   onChangedFinished
 }) => {
@@ -447,7 +448,7 @@ const LightboxStoryPhoto = ({
               crossOrigin="anonymous"
               controlsList="nodownload"
             >
-              <Subtitles media={activeStory.media} />
+              <Subtitles language={language} media={activeStory.media} />
             </Video>
           </>
         )}

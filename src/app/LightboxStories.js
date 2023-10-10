@@ -363,6 +363,7 @@ class LightboxStoriesWrapper extends PureComponent {
     const {
       hideLinks,
       isTrendsetter,
+      language,
       modalIsOpen,
       stories,
       onStoryCheerToggle,
@@ -403,6 +404,7 @@ class LightboxStoriesWrapper extends PureComponent {
                     activeStory={activeStory}
                     containerRef={this.containerRef}
                     fullSize={fullSize}
+                    language={language}
                     hideLinks={hideLinks}
                     isTrendsetter={isTrendsetter}
                     onCommentsChange={onCommentsChange}
@@ -448,7 +450,7 @@ class LightboxStoriesWrapper extends PureComponent {
   }
 }
 
-const LightboxStories = ({ activeStory, onStoryChange, stories, ...props }) => {
+const LightboxStories = ({ activeStory, language, onStoryChange, stories, ...props }) => {
   const [changing, setChanging] = useState(false);
 
   const handleSwipeLeft = () => {
@@ -477,6 +479,7 @@ const LightboxStories = ({ activeStory, onStoryChange, stories, ...props }) => {
       {...props}
       handlers={mobileAndTabletCheck() ? handlers : {}}
       activeStory={activeStory}
+      language={language}
       onStoryChange={onStoryChange}
       stories={stories}
       changing={changing}

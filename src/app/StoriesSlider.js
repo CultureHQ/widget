@@ -402,6 +402,7 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
           modalIsOpen={modalIsOpen}
           activeStory={activeStory}
           currentUserAnswered
+          language={filters.language}
           stories={currentStories}
           onClose={handleClose}
           onStoryChange={handleThumbnailClick}
