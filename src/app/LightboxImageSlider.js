@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import IconsPagination from "./IconsPagination";
+import IconsPaginationSimple from "./IconsPaginationSimple";
 
 const PlainButton = styled.button`
   appearance: none;
@@ -162,7 +162,7 @@ const LightboxImageSlider = ({
               </PlainButton>
             </div>
             <NavigationBox>
-              <IconsPagination
+              <IconsPaginationSimple
                 currentPage={currentImage + 1}
                 onClick={handleSliderChange}
                 totalPages={boxImages.length}
