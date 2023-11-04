@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import IconsPagination from "./IconsPagination";
 import IconsPaginationSimple from "./IconsPaginationSimple";
 
 const PlainButton = styled.button`
