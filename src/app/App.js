@@ -1,18 +1,74 @@
 import React, { Component } from "react";
-import { makePaginatedGet, setToken } from "@culturehq/client";
+import { makeGet, setToken } from "@culturehq/client";
 import styled from "styled-components";
+import NoStories from "./NoStories";
 
-import { LIST_OPTIONS } from "../config";
-import CHQEvent from "../lib/CHQEvent";
-
-import EventCard from "./EventCard";
-import EventPlaceholder from "./EventPlaceholder";
 import Failure from "./Failure";
-import NoEvents from "./NoEvents";
+import CHQStory from "../lib/CHQStory";
+import StoriesSlider from "./StoriesSlider";
+import EmptySlider from "./EmptySlider";
+
+/*
+import { configure, skipPreflightChecks } from "@culturehq/client";
+
+switch (process.env.NODE_ENV) { // eslint-disable-line default-case
+  case "development":
+    configure({
+      apiHost: "http://localhost:3000",
+      awsAccessKeyId: "access-key-id",
+      signerURL: "http://localhost:3001",
+      uploadBucket: "http://localhost:3001"
+    });
+
+    break;
+  case "test":
+    configure({
+      apiHost: "http://localhost:8080",
+      awsAccessKeyId: "access-key-id",
+      signerURL: "http://localhost:8081",
+      uploadBucket: "http://localhost:8082"
+    });
+
+    break;
+  case "production":
+    skipPreflightChecks();
+    break;
+}
+*/
 
 const Container = styled.section`
-  overflow: auto;
+  overflow: visible;
+  letter-spacing: normal;
+  line-height: normal;
+
+  -ms-overflow-style: none; // IE 10+
+  overflow: -moz-scrollbars-none; // Firefox
+
+  &::-webkit-scrollbar {
+    display: none; // Safari and Chrome
+  }
 `;
+
+const queryToOptions = queryString => {
+  const { i, d, l, s, co, cy, p, de, v, sp, t, u, lang, org } = queryString;
+
+  return {
+    interestIds: i || null,
+    departmentIds: d || null,
+    locationIds: l || null,
+    skillIds: s || null,
+    companyIds: co || null,
+    classYearIds: cy || null,
+    programIds: p || null,
+    degreeIds: de || null,
+    organizationValueIds: v || null,
+    storyPromptIds: sp || null,
+    trendIds: t || null,
+    userIds: u || null,
+    language: lang || null,
+    orgId: org || null
+  };
+};
 
 class App extends Component {
   constructor(props) {
@@ -20,22 +76,29 @@ class App extends Component {
 
     setToken(props.token);
 
-    this.state = { events: null, failure: false };
+    this.state = {
+      failure: false,
+      stories: null,
+      pagination: undefined
+    };
   }
 
   componentDidMount() {
     this.componentIsMounted = true;
+    const { filters } = this.props;
 
-    return makePaginatedGet("events", "/events", LIST_OPTIONS)
-      .then(({ events }) => {
-        this.mountedSetState({
-          events: events.map(event => new CHQEvent(event)),
-          failure: false
-        });
-      })
-      .catch(() => {
-        this.mountedSetState({ events: null, failure: true });
+    return makeGet(
+      "/landing_pages/stories",
+      { ...queryToOptions(filters), pageSize: 10 }
+    ).then(({ stories, pagination }) => {
+      this.mountedSetState({
+        stories: stories.map(story => new CHQStory(story)),
+        failure: false,
+        pagination
       });
+    }).catch(() => {
+      this.mountedSetState({ stories: null, failure: true });
+    });
   }
 
   componentWillUnmount() {
@@ -43,7 +106,7 @@ class App extends Component {
   }
 
   componentDidCatch() {
-    this.mountedSetState({ events: null, failure: true });
+    this.mountedSetState({ stories: null, failure: true });
   }
 
   mountedSetState(newState) {
@@ -53,31 +116,31 @@ class App extends Component {
   }
 
   render() {
-    const { events, failure } = this.state;
+    const { failure, pagination, stories } = this.state;
+    const { filters } = this.props;
 
     if (failure) {
       return <Failure />;
     }
 
-    if (events === null) {
+    if (stories === null) {
       return (
-        <section>
-          <EventPlaceholder />
-          <EventPlaceholder />
-          <EventPlaceholder />
-        </section>
+        <EmptySlider />
       );
     }
 
-    if (events.length === 0) {
-      return <NoEvents />;
+    if (stories.length === 0) {
+      return <NoStories />;
     }
 
     return (
       <Container>
-        {events.map(event => (
-          <EventCard key={event.id} event={event} />
-        ))}
+        <StoriesSlider
+          stories={stories}
+          organizationId={filters.org}
+          pagination={pagination}
+          filters={queryToOptions(filters)}
+        />
       </Container>
     );
   }

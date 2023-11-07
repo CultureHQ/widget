@@ -13,16 +13,10 @@ const Container = styled.div`
   padding: 15px;
 `;
 
-const Link = styled.a`
-  color: #8a6d3b;
-`;
-
-const NoEvents = () => (
+const NoStories = () => (
   <Container>
-    <strong>Uh oh!</strong> No events to show.{" "}
-    <Link href="https://platform.culturehq.com/events/create">Click here</Link>{" "}
-    to create an event.
+    <strong>Uh oh!</strong> No stories to show.{" "}
   </Container>
 );
 
-export default NoEvents;
+export default NoStories;
