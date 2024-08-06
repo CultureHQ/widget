@@ -155,6 +155,7 @@ const chqTmb = {
 };
 
 const creatorName = {
+  color: "#FFFFFF",
   fontFamily: font,
   fontSize: "16px",
   fontWeight: "600",
@@ -167,6 +168,7 @@ const creatorName = {
 };
 
 const creatorTitle = {
+  color: "#FFFFFF",
   overflow: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap"
