@@ -174,6 +174,7 @@ const chqTmb = {
 };
 
 const CreatorName = styled.p`
+  color: #FFFFFF;
   font-family: inherit;
   font-size: 16px;
   font-weight: 600;
@@ -186,6 +187,7 @@ const CreatorName = styled.p`
 `;
 
 const CreatorTitle = styled.p`
+  color: #FFFFFF;
   font-family: inherit;
   margin: 0;
   overflow: hidden;
