@@ -20,7 +20,7 @@ const BlockGroupWrapper = ({ blockGroup, children, Wrapper }) => {
   return <Wrapper className={classList}>{children}</Wrapper>;
 };
 
-const BlockGroup = ({ blockGroup, entityMap, tabIndex }) => {
+const BlockGroup = ({ blockGroup, entityMap, organizationName, tabIndex }) => {
   if (!Object.prototype.hasOwnProperty.call(BLOCK_TYPES, blockGroup.type)) {
     // In certain circumstances with pasted code we can get some really
     // confusing stuff here, so just ignoring it for now.
@@ -37,6 +37,7 @@ const BlockGroup = ({ blockGroup, entityMap, tabIndex }) => {
             block={block}
             Element={Element}
             entityMap={entityMap}
+            organizationName={organizationName}
             tabIndex={tabIndex}
           />
           {block.childGroups &&
@@ -45,6 +46,7 @@ const BlockGroup = ({ blockGroup, entityMap, tabIndex }) => {
                 key={childBlockGroup.key}
                 blockGroup={childBlockGroup}
                 entityMap={entityMap}
+                organizationName={organizationName}
               />
             ))}
         </Fragment>

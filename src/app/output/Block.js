@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 
 import BlockSegmentContent from "./BlockSegmentContent";
 
-import { font } from "../../styles.json";
+import defaultStyles from "../../styles.json";
 
 const PLATFORM_BASE = "https://platform.culturehq.com";
 const PLATFORM_NO_PREFIX = "platform.culturehq.com";
@@ -10,12 +10,20 @@ const HTTPS_PREFIX = "https://";
 const HTTP_PREFIX = "http://";
 
 const blockStyle = {
-  color: "#5c5f67",
-  fontFamily: font,
-  fontSize: "16px",
-  fontWeight: "200",
-  lineHeight: "1.42857143",
-  WebkitFontSmoothing: "initial",
+  Target: {
+    color: "#333333",
+    fontFamily: defaultStyles.Target.font,
+    fontSize: "18px",
+    fontWeight: "400"
+  },
+  common: {
+    color: "#5c5f67",
+    fontFamily: defaultStyles.default.font,
+    fontSize: "16px",
+    fontWeight: "200",
+    lineHeight: "1.42857143",
+    WebkitFontSmoothing: "initial"
+  }
 };
 
 const BlockSegment = ({ block, offset, length }) => {
@@ -159,22 +167,22 @@ const AtomicBlock = ({ block, _entityMap }) => {
   */
 };
 
-const Block = ({ block, Element, entityMap, tabIndex }) => {
+const Block = ({ block, Element, entityMap, organizationName, tabIndex }) => {
   if (block.type === "atomic") {
     return (
-      <Element style={blockStyle}>
+      <Element style={{ ...blockStyle.common, ...blockStyle[organizationName] }}>
         <AtomicBlock block={block} entityMap={entityMap} />
       </Element>
     );
   }
 
   if (block.text === "") {
-    return <Element style={blockStyle}>&nbsp;</Element>;
+    return <Element style={{ ...blockStyle.common, ...blockStyle[organizationName] }}>&nbsp;</Element>;
   }
 
   if (block.entityRanges.length === 0) {
     return (
-      <Element style={blockStyle}>
+      <Element style={{ ...blockStyle.common, ...blockStyle[organizationName] }}>
         <BlockSegment block={block} offset={0} length={block.text.length} />
       </Element>
     );
@@ -196,7 +204,7 @@ const Block = ({ block, Element, entityMap, tabIndex }) => {
   }
 
   return (
-    <Element style={blockStyle}>
+    <Element style={{ ...blockStyle.common, ...blockStyle[organizationName] }}>
       {segments.map(({ offset, length, entity }) => {
         const segment = (
           <BlockSegment

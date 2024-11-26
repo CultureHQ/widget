@@ -3,7 +3,7 @@ import { makePost, makeGet } from "@culturehq/client";
 import styled from "styled-components";
 import LightboxStories from "./LightboxStories";
 
-import { font } from "../styles.json";
+import defaultStyles from "../styles.json";
 import CHQStory from "../lib/CHQStory";
 
 const getSlideLayout = (index, containerRef, sliderRef, stories) => {
@@ -91,6 +91,13 @@ const RightArrow = styled.button`
   }
 `;
 
+const organizationScrollbarContainerStyles = {
+  Target: `
+    height: 534px;
+  `
+  // Add more organizations as needed
+}
+
 const ScrollbarContainer = styled.div`
   height: 400px;
   overflow-x: scroll;
@@ -105,6 +112,10 @@ const ScrollbarContainer = styled.div`
   &::-webkit-scrollbar {
     display: none; // Safari and Chrome
   }
+
+  ${props => organizationScrollbarContainerStyles[props.organizationName] || `
+    height: 400px;
+  `}
 `;
 
 const slider = {
@@ -124,6 +135,13 @@ const sliderEmpty = {
   right: "0"
 };
 
+const organizationCardStyles = {
+  Target: `
+    border-radius: 16px;
+    height: 534px;
+  `
+};
+
 const Card = styled.button`
   background-color: #f3f3f3;
   background-position: center;
@@ -140,6 +158,12 @@ const Card = styled.button`
   position: relative;
   text-align: left;
   width: 300px;
+
+  // Custom styles based on organizationName
+  ${props => organizationCardStyles[props.organizationName] || `
+    border-radius: 6px;
+    height: 400px;
+  `}
 `;
 
 const chqTmb = {
@@ -154,9 +178,19 @@ const chqTmb = {
   width: "45px"
 };
 
+const creatorNamePerOrg = (organizationName) => {
+  if (organizationName === "Target") {
+    return {
+      fontSize: "20px",
+      fontWeight: "600"
+    };
+  }
+
+  return {};
+};
+
 const creatorName = {
   color: "#FFFFFF",
-  fontFamily: font,
   fontSize: "16px",
   fontWeight: "600",
   marginBottom: "3px",
@@ -165,6 +199,16 @@ const creatorName = {
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
   wordBreak: "break-all"
+};
+
+const creatorTitlePerOrg = (organizationName) => {
+  if (organizationName === "Target") {
+    return {
+      fontSize: "18px"
+    };
+  }
+
+  return {};
 };
 
 const creatorTitle = {
@@ -195,7 +239,6 @@ const storyBadge = {
   bottom: "15px",
   color: "#FFFFFF",
   display: "flex",
-  fontFamily: font,
   fontSize: "16px",
   padding: "5px 10px",
   position: "absolute",
@@ -225,7 +268,6 @@ const cardTitle = {
   WebkitLineClamp: "2",
   color: "#FFFFFF",
   display: "-webkit-box",
-  fontFamily: font,
   fontSize: "24px",
   fontWeight: "600",
   lineHeight: "normal",
@@ -239,7 +281,39 @@ const TopTextContainer = styled.div`
   width: 80%;
 `;
 
-const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination }) => {
+const TargetPlayContainer = styled.div`
+  align-items: center;
+  background-color: #CC0000;
+  border-radius: 40px;
+  color: #FFFFFF;
+  display: flex;
+  height: 54px;
+  justify-content: center;
+  width: 157px;
+`;
+
+const PlayIcon = ({ organizationName }) => {
+  if (organizationName === "Target") {
+    return (
+      <TargetPlayContainer>
+        <span style={{ fontWeight: "600", fontSize: "20px" }}>Play</span>
+        <svg viewBox="0 0 30.065 30.065" style={{ height: "20px", marginLeft: "10px", width: "20px" }}>
+          <g>
+            <path style={{ fill: "#FFFFFF" }} d="M26.511,12.004L6.233,0.463c-2.151-1.228-4.344,0.115-4.344,2.53v24.093 c0,2.046,1.332,2.979,2.57,2.979c0.583,0,1.177-0.184,1.767-0.543l20.369-12.468c1.024-0.629,1.599-1.56,1.581-2.555 C28.159,13.503,27.553,12.593,26.511,12.004z M25.23,14.827L4.862,27.292c-0.137,0.084-0.245,0.126-0.319,0.147 c-0.02-0.074-0.04-0.188-0.04-0.353V2.994c0-0.248,0.045-0.373,0.045-0.404c0.08,0.005,0.22,0.046,0.396,0.146l20.275,11.541 c0.25,0.143,0.324,0.267,0.348,0.24C25.554,14.551,25.469,14.678,25.23,14.827z" />
+          </g>
+        </svg>
+      </TargetPlayContainer>
+    );
+  }
+
+  return (
+    <svg style={playIcon} aria-hidden="true" role="presentation" width="14px" height="14px" viewBox="0 0 264 264">
+      <path transform="translate(0 0)" style={{ fill: "#FFFFFF" }} d="M238.163,115.57l-68.127-39.741c-15.201-8.899-40.064-23.393-55.296-32.256L44.115,3.831 C28.919-5.067,13.974,2.07,13.974,19.698v224c0,17.567,14.945,24.735,30.147,15.872l69.376-39.741 c15.232-8.863,40.735-23.357,55.936-32.256l68.449-39.741C253.047,138.933,253.334,124.433,238.163,115.57z" />
+    </svg>
+  );
+};
+
+const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories = [], pagination }) => {
   const [index, setIndex] = useState(0);
   const [appending, setAppending] = useState(false);
   const [currentStories, setCurrentStories] = useState([]);
@@ -406,6 +480,7 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
           currentUserAnswered
           language={filters.language}
           stories={currentStories}
+          organizationName={organizationName}
           onClose={handleClose}
           onStoryChange={handleThumbnailClick}
           noActions
@@ -451,7 +526,7 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
             />
           </svg>
         </RightArrow>
-        <ScrollbarContainer ref={containerRef}>
+        <ScrollbarContainer ref={containerRef} organizationName={organizationName}>
           <div
             ref={sliderRef}
             style={{
@@ -466,6 +541,7 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
                 key={story.id}
                 style={{ backgroundImage: `url(${backgroundImage(story)})`, width: cardWidth(), maxWidth: maxCardWidth() }}
                 onClick={() => handleThumbnailClick(storyIndex)}
+                organizationName={organizationName}
                 type="button"
               >
                 <div id={story.id} style={{ display: "none" }}>
@@ -480,22 +556,39 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
                       }}
                     />
                     <TopTextContainer>
-                      <p style={{ margin: "0", ...creatorName }}>
+                      <p
+                        style={{
+                          margin: "0",
+                          fontFamily: defaultStyles[organizationName]?.font || defaultStyles.default.font,
+                          ...creatorName,
+                          ...creatorNamePerOrg(organizationName)
+                        }}
+                      >
                         {story.creator.name}
                       </p>
-                      <p style={{ margin: "0", fontFamily: font, ...creatorTitle }}>
+                      <p
+                        style={{
+                          margin: "0",
+                          fontFamily: defaultStyles[organizationName]?.font || defaultStyles.default.font,
+                          ...creatorTitle,
+                          ...creatorTitlePerOrg(organizationName)
+                        }}
+                      >
                         {story.creator.title}
                       </p>
                     </TopTextContainer>
                   </div>
                   <div style={cardTitleContainer}>
-                    <p style={cardTitle}>{story.question.question}</p>
+                    <p
+                      style={{
+                        fontFamily: defaultStyles[organizationName]?.font || defaultStyles.default.font,
+                        ...cardTitle
+                      }}
+                    >
+                      {story.question.question}
+                    </p>
                   </div>
-                  {story.media.mediaType === "video" && (
-                    <svg style={playIcon} aria-hidden="true" role="presentation" width="14px" height="14px" viewBox="0 0 264 264">
-                      <path transform="translate(0 0)" style={{ fill: "#FFFFFF" }} d="M238.163,115.57l-68.127-39.741c-15.201-8.899-40.064-23.393-55.296-32.256L44.115,3.831 C28.919-5.067,13.974,2.07,13.974,19.698v224c0,17.567,14.945,24.735,30.147,15.872l69.376-39.741 c15.232-8.863,40.735-23.357,55.936-32.256l68.449-39.741C253.047,138.933,253.334,124.433,238.163,115.57z" />
-                    </svg>
-                  )}
+                  {story.media.mediaType === "video" && <PlayIcon organizationName={organizationName} />}
                 </div>
               </Card>
             ))}
