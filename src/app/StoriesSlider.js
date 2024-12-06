@@ -45,6 +45,12 @@ const SliderContainer = styled.section`
   }
 `;
 
+const organizationArrowHoverStyles = {
+  Target: `
+    fill: #cc0000;
+  `
+}
+
 const LeftArrow = styled.button`
   background: #fff;
   border: 0;
@@ -55,7 +61,7 @@ const LeftArrow = styled.button`
   left: -25px;
   padding: 11px;
   position: absolute;
-  top: calc(50% - 15px);
+  top: calc(50% - 22.5px);
   width: 45px;
   z-index: 10;
 
@@ -64,7 +70,14 @@ const LeftArrow = styled.button`
   }
 
   &:hover {
+    background-color: #fff;
     cursor: pointer;
+
+    path {
+      ${props => organizationArrowHoverStyles[props.organizationName] || `
+        fill: #000000;
+      `}
+    }
   }
 `;
 
@@ -78,7 +91,7 @@ const RightArrow = styled.button`
   padding: 11px;
   position: absolute;
   right: -25px;
-  top: calc(50% - 15px);
+  top: calc(50% - 22.5px);
   width: 45px;
   z-index: 10;
 
@@ -87,7 +100,14 @@ const RightArrow = styled.button`
   }
 
   &:hover {
+    background-color: #fff;
     cursor: pointer;
+
+    path {
+      ${props => organizationArrowHoverStyles[props.organizationName] || `
+        fill: #000000;
+      `}
+    }
   }
 `;
 
@@ -492,6 +512,7 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
           aria-label="Previous"
           type="button"
           onClick={onPrev}
+          organizationName={organizationName}
           style={{ display: slideLayout.left ? "block" : "none" }}
         >
           <svg
@@ -511,6 +532,7 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
           aria-label="Next"
           type="button"
           onClick={onNext}
+          organizationName={organizationName}
           style={{ display: slideLayout.right ? "block" : "none" }}
         >
           <svg
