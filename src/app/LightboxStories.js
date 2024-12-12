@@ -328,6 +328,7 @@ class LightboxStoriesWrapper extends PureComponent {
   }
 
   updateModalStyle = () => {
+    const { organizationName } = this.props;
     if (window.innerWidth >= 768) {
       this.setState({ modalStyle: modal(organizationName), modalBodyStyle: modalBody });
     } else {
