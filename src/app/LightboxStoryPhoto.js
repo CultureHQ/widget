@@ -111,13 +111,27 @@ const ScrollableContainer = styled.div`
 const GalleryLightboxTitleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding-right: 20px;
 `;
+
+const galleryLightboxParentTitleContainerStyles = {
+  Target: `
+    align-items: flex-start;
+    flex-direction: column;
+  `
+};
 
 const GalleryLightboxParentTitleContainer = styled.div`
   align-items: center;
   display: flex;
+
+  ${props => galleryLightboxParentTitleContainerStyles[props.organizationName] || ``}
 `;
+
+const galleryLightboxSubtitleContainerStyles = {
+  Target: `
+    margin-left: 10px;
+  `
+};
 
 const GalleryLightboxSubtitleContainer = styled.div`
   align-items: center;
@@ -127,6 +141,8 @@ const GalleryLightboxSubtitleContainer = styled.div`
   font-weight: 400;
   margin-left: 25px;
   margin-top: 5px;
+
+  ${props => galleryLightboxSubtitleContainerStyles[props.organizationName] || ``}
 `;
 
 const SubArrow = styled.svg`
@@ -152,6 +168,7 @@ const organizationTitleStyles = {
     color: #333333;
     font-size: 24px;
     font-weight: 700;
+    margin: 10px 0 0;
   `
 };
 
@@ -204,9 +221,9 @@ const GalleryLightboxUploaderDate = styled.div`
 
 const organizationQuoteIconStyles = {
   Target: `
-    height: 45px;
-    min-width: 45px;
-    width: 45px;
+    height: 35px;
+    min-width: 35px;
+    width: 35px;
     transform: none;
 
     path {
@@ -559,7 +576,6 @@ const LightboxStoryPhoto = ({
             {showVideoInfo && (
               <div
                 onClick={handlePlay}
-                onKeyPress={() => {}}
                 style={galleryLightboxVideoPlay}
                 role="button"
                 tabIndex={0}
@@ -591,13 +607,13 @@ const LightboxStoryPhoto = ({
         <ScrollableContainer>
           {parentStoryQuestion ? (
             <GalleryLightboxTitleContainer>
-              <GalleryLightboxParentTitleContainer>
+              <GalleryLightboxParentTitleContainer organizationName={organizationName}>
                 <QuoteIcon organizationName={organizationName} />
                 <Title organizationName={organizationName}>
                   {parentStoryQuestion?.question || question.question}
                 </Title>
               </GalleryLightboxParentTitleContainer>
-              <GalleryLightboxSubtitleContainer>
+              <GalleryLightboxSubtitleContainer organizationName={organizationName}>
                 <SubArrow width="22px" height="22px" viewBox="0 0 464 464">
                   <SubArrowPath
                     organizationName={organizationName}
@@ -612,7 +628,7 @@ const LightboxStoryPhoto = ({
             </GalleryLightboxTitleContainer>
           ) : (
             <GalleryLightboxTitleContainer>
-              <GalleryLightboxParentTitleContainer>
+              <GalleryLightboxParentTitleContainer organizationName={organizationName}>
                 <QuoteIcon organizationName={organizationName} />
                 <Title organizationName={organizationName}>
                   {parentStoryQuestion?.question || question.question}
