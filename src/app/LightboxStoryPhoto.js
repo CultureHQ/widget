@@ -58,18 +58,26 @@ const galleryLightboxVideoPlay = {
 
 const Video = styled.video`
   display: block;
-  height: auto;
+  height: 100%;
+  left: 0;
   margin: 0 auto;
   max-height: 100%;
   max-width: 100%;
+  object-fit: cover;
   position: relative;
+  top: 0;
+  -webkit-transform: initial;
+  transform: initial;
   width: auto;
 
   @media (min-width: 768px) {
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    height: 100%;
+    left: 0;
+    max-height: 100%;
+    object-fit: contain;
+    position: relative;
+    top: 0;
+    transform: initial;
   }
 `;
 

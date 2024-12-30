@@ -123,7 +123,7 @@ class App extends Component {
     // Create a <style> tag dynamically
     const styleTag = document.createElement("style");
     styleTag.innerHTML = `
-      @font-face {
+    @font-face {
       font-family: "HelveticaForTarget";
       src: url("https://assets.culturehq.com/fonts/target/HelveticaforTarget.otf") format("opentype");
       font-weight: 400;
