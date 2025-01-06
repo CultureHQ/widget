@@ -310,7 +310,7 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
         && currentPagination.currentPage !== currentPagination.totalPages) {
           if (!appending) {
             setAppending(true);
-            makeGet("/landing_pages/stories", { ...filters, page: currentPagination.currentPage + 2, pageSize: 10 })
+            makeGet("/landing_pages/stories", { ...filters, page: currentPagination.currentPage + 1, pageSize: 10 })
               .then(({ stories: newStories, pagination: newPagination }) => {
                 setCurrentStories([...currentStories, ...newStories.map((story) => new CHQStory(story))]);
                 setCurrentPagination(newPagination);
@@ -395,6 +395,13 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
     return story.thumbFullUrl;
   };
 
+  const storyAriaLabel = (storyIndex) => {
+    const { question, media } = currentStories[storyIndex];
+    const baseLabel = `${question.question}, carousel item ${storyIndex + 1} of ${currentStories.length}`;
+    return media.mediaType === "video" ? `${baseLabel}. Play video. Opens in a modal` : baseLabel;
+  };
+  
+
   return (
     <>
       {activeStory && (
@@ -430,25 +437,6 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
             />
           </svg>
         </LeftArrow>
-        <RightArrow
-          aria-label="Next"
-          type="button"
-          onClick={onNext}
-          style={{ display: slideLayout.right ? "block" : "none" }}
-        >
-          <svg
-            aria-hidden="true"
-            role="presentation"
-            width="22px"
-            height="22px"
-            viewBox="0 0 1024 1024"
-          >
-            <path
-              transform="translate(0 0)"
-              d="M596.6 512v0 0l-334.4-348.2c-8.4-8.6-8.2-22.8 0.4-31.6l59.8-61.2c8.6-8.8 22.6-9 31-0.4l408.4 425.4c4.4 4.4 6.4 10.4 6 16.2 0.2 6-1.8 11.8-6 16.2l-408.4 425.2c-8.4 8.6-22.4 8.4-31-0.4l-59.8-61.2c-8.6-8.8-8.8-23-0.4-31.6l334.4-348.4z"
-            />
-          </svg>
-        </RightArrow>
         <ScrollbarContainer ref={containerRef}>
           <div
             ref={sliderRef}
@@ -460,7 +448,7 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
           >
             {currentStories.map((story, storyIndex) => (
               <Card
-                aria-labelledby={story.id}
+                aria-label={storyAriaLabel(storyIndex)}
                 key={story.id}
                 style={{ backgroundImage: `url(${backgroundImage(story)})`, width: cardWidth(), maxWidth: maxCardWidth() }}
                 onClick={() => handleThumbnailClick(storyIndex)}
@@ -499,6 +487,25 @@ const StoriesSlider = ({ filters = {}, organizationId, stories = [], pagination 
             ))}
           </div>
         </ScrollbarContainer>
+        <RightArrow
+          aria-label="Next"
+          type="button"
+          onClick={onNext}
+          style={{ display: slideLayout.right ? "block" : "none" }}
+        >
+          <svg
+            aria-hidden="true"
+            role="presentation"
+            width="22px"
+            height="22px"
+            viewBox="0 0 1024 1024"
+          >
+            <path
+              transform="translate(0 0)"
+              d="M596.6 512v0 0l-334.4-348.2c-8.4-8.6-8.2-22.8 0.4-31.6l59.8-61.2c8.6-8.8 22.6-9 31-0.4l408.4 425.4c4.4 4.4 6.4 10.4 6 16.2 0.2 6-1.8 11.8-6 16.2l-408.4 425.2c-8.4 8.6-22.4 8.4-31-0.4l-59.8-61.2c-8.6-8.8-8.8-23-0.4-31.6l334.4-348.4z"
+            />
+          </svg>
+        </RightArrow>
       </SliderContainer>
     </>
   );

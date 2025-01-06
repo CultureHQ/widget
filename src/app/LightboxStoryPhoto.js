@@ -139,7 +139,7 @@ const SubArrowPath = styled.path`
   fill: rgba(140, 180, 214, 0.4)
 `;
 
-const Title = styled.h1`
+const Title = styled.h2`
   color: #5c5f67;
   font-family: ${font};
   font-size: 20px;
@@ -509,7 +509,7 @@ const LightboxStoryPhoto = ({
               </GalleryLightboxParentTitleContainer>
             </GalleryLightboxTitleContainer>
           )}
-          <Hr />
+          <Hr aria-hidden="true" />
 
           {creator && (
             <GalleryLightBoxCreatorContainer className="gallery-lightbox__creator-container">
