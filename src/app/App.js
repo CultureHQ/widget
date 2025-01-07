@@ -90,12 +90,16 @@ class App extends Component {
     return makeGet(
       "/landing_pages/stories",
       { ...queryToOptions(filters), pageSize: 10 }
-    ).then(({ stories, pagination }) => {
+    ).then(({ stories, organization, pagination }) => {
       this.mountedSetState({
         stories: stories.map(story => new CHQStory(story)),
         failure: false,
+        organizationName: organization,
         pagination
       });
+      if (organization === "Target") {
+        this.loadTargetFonts();
+      }
     }).catch(() => {
       this.mountedSetState({ stories: null, failure: true });
     });
@@ -115,8 +119,115 @@ class App extends Component {
     }
   }
 
+  loadTargetFonts() {
+    // Create a <style> tag dynamically
+    const styleTag = document.createElement("style");
+    styleTag.innerHTML = `
+    @font-face {
+      font-family: "HelveticaForTarget";
+      src: url("https://assets.culturehq.com/fonts/target/HelveticaforTarget.otf") format("opentype");
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "HelveticaForTarget";
+      src: url("https://assets.culturehq.com/fonts/target/HelveticaforTarget-Bold.otf") format("opentype");
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "HelveticaForTarget";
+      src: url("https://assets.culturehq.com/fonts/target/HelveticaforTarget-BoldItalic.otf") format("opentype");
+      font-weight: 700;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: "HelveticaForTarget";
+      src: url("https://assets.culturehq.com/fonts/target/HelveticaforTarget-Heavy.otf") format("opentype");
+      font-weight: 800;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "HelveticaForTarget";
+      src: url("https://assets.culturehq.com/fonts/target/HelveticaforTarget-HeavyItalic.otf") format("opentype");
+      font-weight: 800;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: "HelveticaForTarget";
+      src: url("https://assets.culturehq.com/fonts/target/HelveticaforTarget-Italic.otf") format("opentype");
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: "HelveticaForTarget";
+      src: url("https://assets.culturehq.com/fonts/target/HelveticaforTarget-Light.otf") format("opentype");
+      font-weight: 300;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "HelveticaForTarget";
+      src: url("https://assets.culturehq.com/fonts/target/HelveticaforTarget-LightItalic.otf") format("opentype");
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: "HelveticaForTarget";
+      src: url("https://assets.culturehq.com/fonts/target/HelveticaforTarget-Medium.otf") format("opentype");
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "HelveticaForTarget";
+      src: url("https://assets.culturehq.com/fonts/target/HelveticaforTarget-MediumItalic.otf") format("opentype");
+      font-weight: 500;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: "HelveticaForTarget";
+      src: url("https://assets.culturehq.com/fonts/target/HelveticaforTarget-RmPl.otf") format("opentype");
+      font-weight: 600;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "HelveticaForTarget";
+      src: url("https://assets.culturehq.com/fonts/target/HelveticaforTarget-RmPlIt.otf") format("opentype");
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: "HelveticaForTarget";
+      src: url("https://assets.culturehq.com/fonts/target/HelveticaforTarget-Thin.otf") format("opentype");
+      font-weight: 200;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "HelveticaForTarget";
+      src: url("https://assets.culturehq.com/fonts/target/HelveticaforTarget-ThinItalic.otf") format("opentype");
+      font-weight: 200;
+      font-style: italic;
+    }
+    `;
+
+    // Append the <style> tag to the <head>
+    document.head.appendChild(styleTag);
+  }
+
   render() {
-    const { failure, pagination, stories } = this.state;
+    const { organizationName, failure, pagination, stories } = this.state;
     const { filters } = this.props;
 
     if (failure) {
@@ -138,6 +249,7 @@ class App extends Component {
         <StoriesSlider
           stories={stories}
           organizationId={filters.org}
+          organizationName={organizationName}
           pagination={pagination}
           filters={queryToOptions(filters)}
         />

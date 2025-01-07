@@ -5,50 +5,54 @@ import { useSwipeable } from "react-swipeable";
 import mobileAndTabletCheck from "./utils/mobileAndTabletCheck";
 import LightboxStoryPhoto from "./LightboxStoryPhoto";
 import ChqModal from "./ChqModal";
-import { font } from "../styles.json";
+import defaultStyles from "../styles.json";
 import ModalDialog from "./ModalDialog";
 
-const mobileModal = {
-  overlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.7)",
-    opacity: "1",
-    overflowX: "hidden",
-    overflowY: "auto",
-    zIndex: "99000000000"
-  },
-  content: {
-    animation: "chqMdlZoomIn 300ms ease-out forwards",
-    backgroundColor: "white",
-    border: "0",
-    borderRadius: "6px",
-    boxShadow: "0 5px 15px rgb(0 0 0 / 50%)",
-    display: "grid",
-    fontFamily: `${font}`,
-    height: "100%",
-    inset: "0",
-    letterSpacing: "normal",
-    lineHeight: "normal",
-    margin: "0",
-    maxWidth: "100%",
-    opacity: "1",
-    overflow: "visbile",
-    padding: "0",
-    position: "initial",
-    minHeight: "initial",
-    width: "100%",
-    WebkitFontSmoothing: "initial"
+const mobileModal = (organizationName) => {
+  return {
+    overlay: {
+      backgroundColor: "rgba(0, 0, 0, 0.7)",
+      opacity: "1",
+      overflowX: "hidden",
+      overflowY: "auto",
+      zIndex: "99000000000"
+    },
+    content: {
+      animation: "chqMdlZoomIn 300ms ease-out forwards",
+      backgroundColor: "white",
+      border: "0",
+      borderRadius: "6px",
+      boxShadow: "0 5px 15px rgb(0 0 0 / 50%)",
+      display: "grid",
+      fontFamily: `${defaultStyles[organizationName]?.font || defaultStyles.default.font}`,
+      height: "100%",
+      inset: "0",
+      letterSpacing: "normal",
+      lineHeight: "normal",
+      margin: "0",
+      maxWidth: "100%",
+      opacity: "1",
+      overflow: "visbile",
+      padding: "0",
+      position: "initial",
+      minHeight: "initial",
+      width: "100%",
+      WebkitFontSmoothing: "initial"
+    }
   }
 };
 
-const modal = {
-  overlay: mobileModal.overlay,
-  content: {
-    ...mobileModal.content,
-    height: "initial",
-    margin: "5% auto",
-    maxWidth: "90vw",
-    with: "90vw"
-  }
+const modal = (organizationName) => {
+  return {
+    overlay: mobileModal(organizationName).overlay,
+    content: {
+      ...mobileModal(organizationName).content,
+      height: "initial",
+      margin: "5% auto",
+      maxWidth: "90vw",
+      with: "90vw"
+    }
+  };
 };
 
 const mobileModalBody = {
@@ -281,7 +285,7 @@ class LightboxStoriesWrapper extends PureComponent {
 
   state = {
     fullSize: false,
-    modalStyle: window.innerWidth >= 768 ? modal : mobileModal,
+    modalStyle: window.innerWidth >= 768 ? modal("") : mobileModal(""),
     modalBodyStyle: window.innerWidth >= 768 ? modalBody : mobileModalBody
   };
 
@@ -298,7 +302,6 @@ class LightboxStoriesWrapper extends PureComponent {
 
   componentDidUpdate(prevProps) {
     window.addEventListener("resize", this.updateModalStyle);
-
     const { modalIsOpen } = this.props;
 
     if (modalIsOpen !== prevProps.modalIsOpen) {
@@ -325,11 +328,12 @@ class LightboxStoriesWrapper extends PureComponent {
   }
 
   updateModalStyle = () => {
+    const { organizationName } = this.props;
     if (window.innerWidth >= 768) {
-      this.setState({ modalStyle: modal, modalBodyStyle: modalBody });
+      this.setState({ modalStyle: modal(organizationName), modalBodyStyle: modalBody });
     } else {
       this.setState({
-        modalStyle: mobileModal,
+        modalStyle: mobileModal(organizationName),
         modalBodyStyle: mobileModalBody
       });
     }
@@ -381,7 +385,8 @@ class LightboxStoriesWrapper extends PureComponent {
       changing,
       setChanging,
       handleSwipeLeft,
-      handleSwipeRight
+      handleSwipeRight,
+      organizationName
     } = this.props;
     const { fullSize, modalBodyStyle, modalStyle } = this.state;
 
@@ -420,6 +425,7 @@ class LightboxStoriesWrapper extends PureComponent {
                     onDelete={onDelete}
                     onStoryUpdate={onStoryUpdate}
                     isWelcomePage={isWelcomePage}
+                    organizationName={organizationName}
                   />
                 </div>
               )}

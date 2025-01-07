@@ -62,8 +62,9 @@ const Image = styled.img`
   margin: 0 auto;
   max-height: 100%;
   max-width: 100%;
+  object-fit: contain;
   position: relative;
-  width: auto;
+  width: 100%;
 
   @media only screen and (min-width: 768px) {
     left: 50%;
