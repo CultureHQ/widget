@@ -404,7 +404,7 @@ class LightboxStoriesWrapper extends PureComponent {
           <ModalDialog.Body style={modalBodyStyle}>
             <div ref={this.containerRef} {...handlers}>
               {activeStory && (
-                <div className="Story-Image" style={{ height: "100%" }}>
+                <div className="Story-Image" style={{ height: "100%" }} tabIndex={activeStory.media.mediaType === "video" ? 0 : -1}>
                   <LightboxStoryPhoto
                     activeStory={activeStory}
                     containerRef={this.containerRef}

@@ -180,7 +180,11 @@ const organizationTitleStyles = {
   `
 };
 
-const Title = styled.h1`
+const Title = styled.h2`
+  color: #5c5f67;
+  font-family: ${font};
+  font-size: 20px;
+  font-weight: 500;
   line-height: 1.1;
   letter-spacing: 0;
   margin: 0 0 0 12px;
@@ -644,7 +648,7 @@ const LightboxStoryPhoto = ({
               </GalleryLightboxParentTitleContainer>
             </GalleryLightboxTitleContainer>
           )}
-          <Hr />
+          <Hr aria-hidden="true" />
 
           {creator && (
             <GalleryLightBoxCreatorContainer>
