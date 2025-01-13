@@ -10,6 +10,7 @@ import Loader from "./Loader";
 import defaultStyles from "../styles.json";
 import Subtitles from "./Subtitles";
 import LightboxImageSlider from "./LightboxImageSlider";
+import isTarget from "./utils/isTarget";
 
 const GalleryLightboxWrapper = styled.div`
   border-radius: 0;
@@ -405,36 +406,21 @@ const TargetPlayContainer = styled.div`
   width: 157px;
 `;
 
-const PlayIcon = ({ organizationName }) => {
-  if (organizationName === "Target") {
-    return (
-      <TargetPlayContainer>
-        <span style={{ fontWeight: "600", fontSize: "20px" }}>Play</span>
-        <svg viewBox="0 0 30.065 30.065" style={{ height: "20px", marginLeft: "10px", width: "20px" }}>
-          <g>
-            <path style={{ fill: "#FFFFFF" }} d="M26.511,12.004L6.233,0.463c-2.151-1.228-4.344,0.115-4.344,2.53v24.093 c0,2.046,1.332,2.979,2.57,2.979c0.583,0,1.177-0.184,1.767-0.543l20.369-12.468c1.024-0.629,1.599-1.56,1.581-2.555 C28.159,13.503,27.553,12.593,26.511,12.004z M25.23,14.827L4.862,27.292c-0.137,0.084-0.245,0.126-0.319,0.147 c-0.02-0.074-0.04-0.188-0.04-0.353V2.994c0-0.248,0.045-0.373,0.045-0.404c0.08,0.005,0.22,0.046,0.396,0.146l20.275,11.541 c0.25,0.143,0.324,0.267,0.348,0.24C25.554,14.551,25.469,14.678,25.23,14.827z" />
-          </g>
-        </svg>
-      </TargetPlayContainer>
-    );
-  }
-
-  return (
-    <VideoPlaySvg
-      aria-hidden="true"
-      role="presentation"
-      width="22px"
-      height="22px"
-      viewBox="0 0 512 512"
-    >
-      <path
-        fill="#FFFFFF"
-        transform="translate(0 0)"
-        d="M238.933,0C106.974,0,0,106.974,0,238.933s106.974,238.933,238.933,238.933s238.933-106.974,238.933-238.933 C477.726,107.033,370.834,0.141,238.933,0z M339.557,246.546c-1.654,3.318-4.343,6.008-7.662,7.662v0.085L195.362,322.56 c-8.432,4.213-18.682,0.794-22.896-7.638c-1.198-2.397-1.815-5.043-1.8-7.722V170.667c-0.004-9.426,7.633-17.07,17.059-17.075 c2.651-0.001,5.266,0.615,7.637,1.8l136.533,68.267C340.331,227.863,343.762,238.11,339.557,246.546z"
-      />
-    </VideoPlaySvg>
-  );
-};
+const PlayIcon = () => (
+  <VideoPlaySvg
+    aria-hidden="true"
+    role="presentation"
+    width="22px"
+    height="22px"
+    viewBox="0 0 512 512"
+  >
+    <path
+      fill="#FFFFFF"
+      transform="translate(0 0)"
+      d="M238.933,0C106.974,0,0,106.974,0,238.933s106.974,238.933,238.933,238.933s238.933-106.974,238.933-238.933 C477.726,107.033,370.834,0.141,238.933,0z M339.557,246.546c-1.654,3.318-4.343,6.008-7.662,7.662v0.085L195.362,322.56 c-8.432,4.213-18.682,0.794-22.896-7.638c-1.198-2.397-1.815-5.043-1.8-7.722V170.667c-0.004-9.426,7.633-17.07,17.059-17.075 c2.651-0.001,5.266,0.615,7.637,1.8l136.533,68.267C340.331,227.863,343.762,238.11,339.557,246.546z"
+    />
+  </VideoPlaySvg>
+);
 
 const QuoteIcon = ({ organizationName }) => (
   <QuoteIconDiv
@@ -581,14 +567,14 @@ const LightboxStoryPhoto = ({
         )}
         {activeStory.media.mediaType === "video" && (
           <>
-            {showVideoInfo && (
+            {showVideoInfo && !isTarget(organizationName) && (
               <div
                 onClick={handlePlay}
                 style={galleryLightboxVideoPlay}
                 role="button"
                 tabIndex={0}
               >
-                <PlayIcon organizationName={organizationName} />
+                <PlayIcon />
               </div>
             )}
             <Video
@@ -649,14 +635,14 @@ const LightboxStoryPhoto = ({
           {creator && (
             <GalleryLightBoxCreatorContainer>
               <Thumbnail
-                title={creator.name}
+                title={isTarget(organizationName) ? creator.firstName : creator.name}
                 style={{ backgroundImage: `url("${creator.avatar.thumbUrl}")` }}
               />
               <div
                 style={{ marginLeft: "10px" }}
               >
                 <GalleryLightboxUploaderName organizationName={organizationName} >
-                  {creator.name}
+                  {isTarget(organizationName) ? creator.firstName : creator.name}
                 </GalleryLightboxUploaderName>
                 <GalleryLightboxUploaderDate organizationName={organizationName} >
                   {creator.title}
