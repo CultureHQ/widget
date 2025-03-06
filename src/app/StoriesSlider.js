@@ -499,11 +499,11 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
           currentUserAnswered
           language={filters.language}
           stories={currentStories}
+          organizationId={organizationId}
           organizationName={organizationName}
           onClose={handleClose}
           onStoryChange={handleThumbnailClick}
           noActions
-          landingPage
         />
       )}
       <SliderContainer>
@@ -539,6 +539,7 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
             {currentStories.map((story, storyIndex) => (
               <Card
                 aria-label={storyAriaLabel(storyIndex)}
+                data-chq-container={story.id}
                 key={story.id}
                 style={{ backgroundImage: `url(${backgroundImage(story)})`, width: cardWidth(), maxWidth: maxCardWidth() }}
                 onClick={() => handleThumbnailClick(storyIndex)}

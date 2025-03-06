@@ -377,7 +377,6 @@ class LightboxStoriesWrapper extends PureComponent {
       onStoryUpdate,
       isWelcomePage,
       noActions,
-      landingPage,
       preview,
       showProfileLink,
       organization,
@@ -386,6 +385,7 @@ class LightboxStoriesWrapper extends PureComponent {
       setChanging,
       handleSwipeLeft,
       handleSwipeRight,
+      organizationId,
       organizationName
     } = this.props;
     const { fullSize, modalBodyStyle, modalStyle } = this.state;
@@ -417,7 +417,6 @@ class LightboxStoriesWrapper extends PureComponent {
                     onTagStart={this.handleTagStart}
                     onStoryCheerToggle={onStoryCheerToggle}
                     noActions={noActions}
-                    landingPage={landingPage}
                     preview={preview}
                     showProfileLink={showProfileLink}
                     changing={changing}
@@ -425,6 +424,7 @@ class LightboxStoriesWrapper extends PureComponent {
                     onDelete={onDelete}
                     onStoryUpdate={onStoryUpdate}
                     isWelcomePage={isWelcomePage}
+                    organizationId={organizationId}
                     organizationName={organizationName}
                   />
                 </div>
@@ -434,7 +434,6 @@ class LightboxStoriesWrapper extends PureComponent {
                 <LightboxActions
                   activeStory={activeStory}
                   onClose={this.handleClose}
-                  landingPage={landingPage}
                   organization={organization}
                   preview={preview}
                   onSwipeLeft={handleSwipeLeft}

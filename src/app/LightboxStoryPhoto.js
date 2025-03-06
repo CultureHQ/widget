@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import { makePost } from "@culturehq/client";
 
 import imageFromStory from "./utils/getImageFromStory";
 import imagesSizes from "./utils/imagesSizes";
@@ -483,10 +484,10 @@ const LightboxStoryPhoto = ({
   activeStory,
   containerRef,
   fullSize = true,
-  landingPage = false,
   language,
   changing,
   onChangedFinished,
+  organizationId,
   organizationName
 }) => {
   const mediaRef = React.createRef();
@@ -498,6 +499,78 @@ const LightboxStoryPhoto = ({
     showComments: false
   });
   const [showVideoInfo, setShowVideoInfo] = useState(false);
+  const [gaClientId, setGaClientId] = useState();
+  const [gaSessionId, setGaSessionId] = useState();
+
+  const videoStartTimeRef = useRef(null);
+  const isVideoPlayingRef = useRef(false);
+  const prevActiveStoryRef = useRef();
+
+  useEffect(
+    () => {
+      const getGaClientCookie = () => {
+        const gaClientCookie = document.cookie.match(/_ga=([^;]+)/g);
+        let clientId = "";
+        if (gaClientCookie?.length > 0) {
+          const gaCookie = gaClientCookie[0];
+          const match = gaCookie.match(/GA[1-2]\.[0-9]+\.(\d+)\.(\d+)/);
+          if (match) {
+            clientId = `${match[1]}.${match[2]}`;
+          }
+        }
+        return clientId;
+      };
+
+      const getGaSessionCookie = () => {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i += 1) {
+          const cookie = cookies[i].trim();
+
+          // Check if the cookie starts with the given cookieName
+          if (cookie.startsWith("_ga_")) {
+            // Extract the value from the cookie
+            const cookieParts = cookie.split("=");
+            const cookieValue = cookieParts[1];
+            // Split the value by periods and get the desired part
+            const valueParts = cookieValue.split(".");
+            const desiredValue = valueParts[2];
+
+            return desiredValue;
+          }
+        }
+
+        return "";
+      };
+
+      setGaClientId(getGaClientCookie());
+      setGaSessionId(getGaSessionCookie());
+    }, []
+  );
+
+  // Story is changing
+  useEffect(
+    () => {
+      if (isVideoPlayingRef.current && videoStartTimeRef.current && prevActiveStoryRef.current) {
+        const duration = (Date.now() - videoStartTimeRef.current) / 1000;
+        trackData("play_duration_story_video", prevActiveStoryRef.current.id, { time: duration });
+        isVideoPlayingRef.current = false;
+        videoStartTimeRef.current = null;
+      }
+      prevActiveStoryRef.current = activeStory;
+    }, [activeStory]
+  );
+
+  // Modal is being closed
+  useEffect(
+    () => {
+      return () => {
+        if (isVideoPlayingRef.current && videoStartTimeRef.current) {
+          const duration = (Date.now() - videoStartTimeRef.current) / 1000;
+          trackData("play_duration_story_video", activeStory.id, { time: duration });
+        }
+      };
+    }, []
+  );
 
   useEffect(() => {
     setState({ ...state, imageLoaded: !changing });
@@ -544,6 +617,36 @@ const LightboxStoryPhoto = ({
     mediaRef.current.play();
   };
 
+  const trackData = (eventAction, storyId = undefined, params = {}) => makePost("/stories/track", {
+    organizationId,
+    storyId,
+    eventAction,
+    url: window.location.href,
+    type: "carousel",
+    gaClientId,
+    gaSessionId,
+    ...params
+  })
+    .then(_ => {})
+    .catch(_ => {});
+
+  const handleVideoStoryPlay = () => {
+    isVideoPlayingRef.current = true;
+    setShowVideoInfo(false);
+    videoStartTimeRef.current = Date.now();
+    trackData("play_video_story", activeStory.id);
+  };
+
+  const handleVideoStoryPause = () => {
+    if (isVideoPlayingRef.current && videoStartTimeRef.current) {
+      const duration = (Date.now() - videoStartTimeRef.current) / 1000;
+      trackData("play_duration_story_video", activeStory.id, { time: duration });
+      setShowVideoInfo(true);
+      isVideoPlayingRef.current = false;
+      videoStartTimeRef.current = null;
+    }
+  };
+
   const { body, creator, question } = activeStory;
   const { parentStoryQuestion } = question;
   const imageUrl = activeStory.media.mediaType === "image"
@@ -580,8 +683,9 @@ const LightboxStoryPhoto = ({
             <Video
               autoPlay
               controls
-              onPause={() => setShowVideoInfo(true)}
-              onPlay={() => setShowVideoInfo(false)}
+              data-chq-video={activeStory.id}
+              onPause={handleVideoStoryPause}
+              onPlay={handleVideoStoryPlay}
               onLoadedData={handleImageLoad}
               poster={activeStory.media.thumbnail}
               ref={mediaRef}
@@ -590,7 +694,7 @@ const LightboxStoryPhoto = ({
               crossOrigin="anonymous"
               controlsList="nodownload"
             >
-              <Subtitles language={language} media={activeStory.media} />
+              <Subtitles language={language} media={activeStory.media} videoRef={mediaRef} />
             </Video>
           </>
         )}
