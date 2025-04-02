@@ -617,18 +617,27 @@ const LightboxStoryPhoto = ({
     mediaRef.current.play();
   };
 
-  const trackData = (eventAction, storyId = undefined, params = {}) => makePost("/stories/track", {
-    organizationId,
-    storyId,
-    eventAction,
-    url: window.location.href,
-    type: "carousel",
-    gaClientId,
-    gaSessionId,
-    ...params
-  })
-    .then(_ => {})
-    .catch(_ => {});
+  const trackData = (eventAction, storyId = undefined, params = {}) => {
+    const eventData = {
+      storyId,
+      eventAction,
+      origin: "carousel",
+      ...params
+    };
+    document.dispatchEvent(new CustomEvent(eventAction, { detail: eventData }));
+
+    return makePost("/stories/track", {
+      organizationId,
+      storyId,
+      eventAction,
+      url: window.location.href,
+      type: "carousel",
+      gaClientId,
+      gaSessionId
+    })
+      .then(_ => {})
+      .catch(_ => {});
+  };
 
   const handleVideoStoryPlay = () => {
     isVideoPlayingRef.current = true;
