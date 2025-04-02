@@ -183,7 +183,8 @@ const EditorOutput = ({
             {showTags && tags && Object.values(tags).map((entity, index) => (
               entity.type === MENTION_VALUE
               && entity.mutability === SEGMENTED_VALUE
-              && entity.data.type ? (
+              && entity.data.type
+              && entity.data.name ? (
                 <span
                   style={{
                     ...(darkTags ? darkBadge : badge),

@@ -22,6 +22,19 @@ body {
   <body>
     <div id="main"></div>
     <script type="text/javascript">
+      document.addEventListener("play_video_story", (event) => {
+        console.log("▶️ Video Started:", event.detail);
+      });
+
+      document.addEventListener("play_duration_story_video", (event) => {
+        console.log(`⏳ Video Watched Duration: ${event.detail.time} seconds for Story ID: ${event.detail.storyId}`);
+      });
+
+      document.addEventListener("open_story", (event) => {
+        console.log("📖 Story Opened:", event.detail);
+      });
+    </script>
+    <script type="text/javascript">
       +function (c, h, q, z, y) {
         (y = document.createElement("script")).type = "text/javascript";
         y.src = "main.js";

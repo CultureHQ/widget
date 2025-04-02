@@ -419,11 +419,8 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
       origin: "carousel",
       ...params
     };
-
-    // Dispatch a global event
     document.dispatchEvent(new CustomEvent(eventAction, { detail: eventData }));
 
-    // Send tracking data to the server
     return makePost("/stories/track", {
       organizationId,
       storyId,
