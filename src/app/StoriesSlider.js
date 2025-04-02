@@ -412,8 +412,19 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
     [slideLayout.right, currentPagination, currentStories, appending]
   );
 
-  const trackData = (eventAction, storyId = undefined) =>
-    makePost("/stories/track", {
+  const trackData = (eventAction, storyId = undefined, params = {}) => {
+    const eventData = {
+      storyId,
+      eventAction,
+      origin: "carousel",
+      ...params
+    };
+
+    // Dispatch a global event
+    document.dispatchEvent(new CustomEvent(eventAction, { detail: eventData }));
+
+    // Send tracking data to the server
+    return makePost("/stories/track", {
       organizationId,
       storyId,
       eventAction,
@@ -422,8 +433,9 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
       gaClientId,
       gaSessionId
     })
-      .then((_) => {})
-      .catch((_) => {});
+      .then(_ => {})
+      .catch(_ => {});
+  };
 
   const onNext = () => {
     setIndex((value) => value + 1);
@@ -488,7 +500,6 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
     const baseLabel = `${question.question}, carousel item ${storyIndex + 1} of ${currentStories.length}`;
     return media.mediaType === "video" ? `${baseLabel}. Play video. Opens in a modal` : baseLabel;
   };
-  
 
   return (
     <>
