@@ -156,6 +156,7 @@ const GalleryLightboxSubtitleContainer = styled.div`
 `;
 
 const SubArrow = styled.svg`
+  display: block;
   margin-bottom: 10px;
   margin-right: 9px;
   transform: scaleX(-1);
@@ -244,6 +245,7 @@ const organizationQuoteIconStyles = {
 
 const QuoteIconDiv = styled.svg`
   ${props => organizationQuoteIconStyles[props.organizationName] || `
+    display: block;
     height: 42px;
     min-width: 42px;
     width: 42px;
@@ -292,6 +294,7 @@ const GalleryLightboxUploaderName = styled.span`
 `;
 
 const VideoPlaySvg = styled.svg`
+  display: block;
   height: 80px;
   width: 80px;
 `;
@@ -387,6 +390,7 @@ const PromptIconImages = styled.div`
 `;
 
 const Icon = styled.svg`
+  display: block;
   height: 19px;
   min-width: 19px;
   width: 19px;
@@ -633,7 +637,8 @@ const LightboxStoryPhoto = ({
       url: window.location.href,
       type: "carousel",
       gaClientId,
-      gaSessionId
+      gaSessionId,
+      ...params
     })
       .then(_ => {})
       .catch(_ => {});

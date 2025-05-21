@@ -17,6 +17,7 @@ const ChqSpn = styled.div`
 
 const ChqCir = styled.svg`
   animation: chqChunkRotate 4s linear infinite;
+  display: block;
   height: 60px;
   margin: 4px 10px 0 0;
   width: 60px;

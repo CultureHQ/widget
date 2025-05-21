@@ -15,6 +15,7 @@ const ModalDialogHeading = ({ children, bigCloseIcon, onClose, ...props }) => (
         width="22px"
         height="22px"
         viewBox="0 0 1024 1024"
+        style={{ display: "block" }}
       >
         <path
           transform="translate(0 0)"

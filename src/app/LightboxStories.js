@@ -120,6 +120,7 @@ const chqPbn = {
 };
 
 const CloseIcon = styled.svg`
+  display: block;
   height: 25px;
   opacity: 0.9;
   transition: opacity 300ms ease-in-out;
@@ -150,6 +151,7 @@ const GalleryLighboxChevron = styled.button`
 `;
 
 const ChevronSvg = styled.svg`
+  display: block;
   fill: #fff;
   height: 40px;
   margin-top: 2px;
@@ -226,6 +228,7 @@ const LightboxActions = ({ onClose, onSwipeLeft, onSwipeRight }) => (
           width="22px"
           height="22px"
           viewBox="0 0 1024 1024"
+          style={{ display: "block" }}
         >
           <path
             transform="translate(0 0)"
@@ -246,6 +249,7 @@ const LightboxActions = ({ onClose, onSwipeLeft, onSwipeRight }) => (
           width="22px"
           height="22px"
           viewBox="0 0 1024 1024"
+          style={{ display: "block" }}
         >
           <path
             transform="translate(0 0)"

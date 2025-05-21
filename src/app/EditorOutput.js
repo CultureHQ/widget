@@ -199,6 +199,7 @@ const EditorOutput = ({
                       width="15px"
                       height="15px"
                       viewBox={getIconViewbox(entity)}
+                      style={{ display: "block" }}
                     >
                       <path
                         transform="translate(0 0)"
@@ -228,6 +229,7 @@ const EditorOutput = ({
                     width="15px"
                     height="15px"
                     viewBox="0 0 512 512"
+                    style={{ display: "block" }}
                   >
                     <path
                       fill={darkTags ? "#2c3e4f" : "#FFFFFF"}
