@@ -12,6 +12,7 @@ import defaultStyles from "../styles.json";
 import Subtitles from "./Subtitles";
 import LightboxImageSlider from "./LightboxImageSlider";
 import isTarget from "./utils/isTarget";
+import justFirstName from "./utils/justFirstName";
 
 const GalleryLightboxWrapper = styled.div`
   border-radius: 0;
@@ -753,14 +754,14 @@ const LightboxStoryPhoto = ({
           {creator && (
             <GalleryLightBoxCreatorContainer>
               <Thumbnail
-                title={isTarget(organizationName) ? creator.firstName : creator.name}
+                title={justFirstName(organizationName) ? creator.firstName : creator.name}
                 style={{ backgroundImage: `url("${creator.avatar.thumbUrl}")` }}
               />
               <div
                 style={{ marginLeft: "10px" }}
               >
                 <GalleryLightboxUploaderName organizationName={organizationName} >
-                  {isTarget(organizationName) ? creator.firstName : creator.name}
+                  {justFirstName(organizationName) ? creator.firstName : creator.name}
                 </GalleryLightboxUploaderName>
                 <GalleryLightboxUploaderDate organizationName={organizationName} >
                   {creator.title}

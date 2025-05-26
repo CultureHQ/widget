@@ -6,6 +6,7 @@ import LightboxStories from "./LightboxStories";
 import defaultStyles from "../styles.json";
 import CHQStory from "../lib/CHQStory";
 import isTarget from "./utils/isTarget";
+import justFirstName from "./utils/justFirstName";
 
 const getSlideLayout = (index, containerRef, sliderRef, stories) => {
   let percent = index * (100 / (stories.length + 1));
@@ -577,7 +578,7 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
                           ...creatorNamePerOrg(organizationName)
                         }}
                       >
-                        {isTarget(organizationName) ? story.creator.firstName : story.creator.name}
+                        {justFirstName(organizationName) ? story.creator.firstName : story.creator.name}
                       </p>
                       <p
                         style={{
