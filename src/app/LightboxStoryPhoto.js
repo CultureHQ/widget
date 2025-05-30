@@ -255,6 +255,7 @@ const QuoteIconDiv = styled.svg`
 `;
 
 const Hr = styled.hr`
+  display: block;
   height: 0;
   box-sizing: content-box;
   margin-top: 20px;
