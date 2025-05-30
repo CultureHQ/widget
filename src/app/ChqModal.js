@@ -1,9 +1,12 @@
 import React from "react";
 import ModalDialog from "./ModalDialog";
 
-const ChqModal = ({ children, customAppElement, ...props }) => {
-  // Try to find the root element, fall back to document.body if not found
-  const rootRef = customAppElement || document.getElementById("root") || document.body;
+const ChqModal = ({ children, ...props }) => {
+  const rootRef = document.getElementById("root");
+
+  if (!rootRef) {
+    console.warn('Modal: Could not find root element. Modal may not work as expected.');
+  }
 
   return (
     <ModalDialog {...props} appElement={rootRef}>
