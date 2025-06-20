@@ -697,7 +697,9 @@ const LightboxStoryPhoto = ({
               </div>
             )}
             <Video
+              playsInline
               autoPlay
+              loop
               controls
               data-chq-video={activeStory.id}
               onPause={handleVideoStoryPause}
