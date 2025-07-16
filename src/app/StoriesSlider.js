@@ -9,7 +9,7 @@ import isTarget from "./utils/isTarget";
 import justFirstName from "./utils/justFirstName";
 
 const getSlideLayout = (index, containerRef, sliderRef, stories) => {
-  let percent = index * (100 / (stories.length + 1));
+  let percent = index * (100 / (stories.length));
   const left = index !== 0;
   let right = index !== stories.length && stories.length > 4;
 
@@ -68,10 +68,6 @@ const LeftArrow = styled.button`
   width: 45px;
   z-index: 10;
 
-  @media screen and (max-width: 480px) {
-    display: none;
-  }
-
   &:hover {
     background-color: #fff;
     cursor: pointer;
@@ -97,10 +93,6 @@ const RightArrow = styled.button`
   top: calc(50% - 22.5px);
   width: 45px;
   z-index: 10;
-
-  @media screen and (max-width: 480px) {
-    display: none;
-  }
 
   &:hover {
     background-color: #fff;
@@ -336,10 +328,55 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [gaClientId, setGaClientId] = useState();
   const [gaSessionId, setGaSessionId] = useState();
+  const [fullWidth, setFullWidth] = useState(false);
+  const [cardHeight, setCardHeight] = useState("400px");
 
   const containerRef = useRef(null);
   const sliderRef = useRef(null);
   const slideLayout = getSlideLayout(index, containerRef, sliderRef, currentStories);
+
+  useEffect(() => {
+  if (containerRef.current) {
+    const containerWidth = containerRef.current.getBoundingClientRect().width;
+    const isFullWidth = containerWidth <= 500;
+    setFullWidth(isFullWidth);
+    
+    if (isFullWidth) {
+      const aspectRatio = 4/3;
+      const newHeight = aspectRatio * containerWidth;
+      setCardHeight(`${newHeight}px`);
+    } else {
+      setCardHeight("400px");
+    }
+  }
+}, [containerRef]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (containerRef.current) {
+        const containerWidth = containerRef.current.getBoundingClientRect().width;
+        const isFullWidth = containerWidth <= 500;
+        setFullWidth(isFullWidth);
+        
+        if (isFullWidth) {
+          const aspectRatio = 4/3;
+          const newHeight = aspectRatio * containerWidth;
+          setCardHeight(`${newHeight}px`);
+        } else {
+          setCardHeight("400px");
+        }
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    
+    // Initial calculation
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); // Remove fullWidth dependency to avoid circular dependency
 
   useEffect(
     () => {
@@ -468,6 +505,10 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
   };
 
   const cardWidth = () => {
+    if (fullWidth && containerRef.current) {
+      const containerWidth = containerRef.current.getBoundingClientRect().width;
+      return `${containerWidth}px`;
+    }
     if (currentStories.length >= 3) {
       return "300px";
     }
@@ -523,7 +564,7 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
           type="button"
           onClick={onPrev}
           organizationName={organizationName}
-          style={{ display: slideLayout.left ? "block" : "none" }}
+          style={{ display: slideLayout.left ? "flex" : "none" }}
         >
           <svg
             aria-hidden="true"
@@ -539,7 +580,7 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
             />
           </svg>
         </LeftArrow>
-        <ScrollbarContainer ref={containerRef} organizationName={organizationName}>
+        <ScrollbarContainer ref={containerRef} organizationName={organizationName} style={{ height: cardHeight }}>
           <div
             ref={sliderRef}
             style={{
@@ -553,7 +594,12 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
                 aria-label={storyAriaLabel(storyIndex)}
                 data-chq-container={story.id}
                 key={story.id}
-                style={{ backgroundImage: `url(${backgroundImage(story)})`, width: cardWidth(), maxWidth: maxCardWidth() }}
+                style={{
+                  backgroundImage: `url(${backgroundImage(story)})`,
+                  width: cardWidth(),
+                  maxWidth: maxCardWidth(),
+                  height: cardHeight
+                }}
                 onClick={() => handleThumbnailClick(storyIndex)}
                 organizationName={organizationName}
                 type="button"
@@ -561,7 +607,7 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
                 <div id={story.id} style={{ display: "none" }}>
                   {story.question.question}
                 </div>
-                <div style={{ ...backgroundEffect, height: "400px" }}>
+                <div style={{ ...backgroundEffect, height: cardHeight }}>
                   <div style={creatorContainer}>
                     <div
                       style={{
@@ -614,7 +660,7 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
           aria-label="Next"
           type="button"
           onClick={onNext}
-          style={{ display: slideLayout.right ? "block" : "none" }}
+          style={{ display: slideLayout.right ? "flex" : "none" }}
         >
           <svg
             aria-hidden="true"
