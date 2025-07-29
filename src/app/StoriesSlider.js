@@ -8,6 +8,9 @@ import CHQStory from "../lib/CHQStory";
 import isTarget from "./utils/isTarget";
 import justFirstName from "./utils/justFirstName";
 
+const TARGET_HEIGHT = "534px";
+const DEFAULT_HEIGHT = "400px";
+
 const getSlideLayout = (index, containerRef, sliderRef, stories) => {
   let percent = index * (100 / (stories.length));
   const left = index !== 0;
@@ -108,13 +111,13 @@ const RightArrow = styled.button`
 
 const organizationScrollbarContainerStyles = {
   Target: `
-    height: 534px;
+    height: ${TARGET_HEIGHT};
   `
   // Add more organizations as needed
 }
 
 const ScrollbarContainer = styled.div`
-  height: 400px;
+  height: ${DEFAULT_HEIGHT};
   overflow-x: scroll;
   overflow-y: hidden;
   position: relative;
@@ -129,7 +132,7 @@ const ScrollbarContainer = styled.div`
   }
 
   ${props => organizationScrollbarContainerStyles[props.organizationName] || `
-    height: 400px;
+    height: ${DEFAULT_HEIGHT};
   `}
 `;
 
@@ -153,7 +156,7 @@ const sliderEmpty = {
 const organizationCardStyles = {
   Target: `
     border-radius: 16px;
-    height: 534px;
+    height: ${TARGET_HEIGHT};
   `
 };
 
@@ -165,7 +168,7 @@ const Card = styled.button`
   border: 0;
   cursor: pointer;
   display: inline-block;
-  height: 400px;
+  height: ${DEFAULT_HEIGHT};
   margin-right: 15px;
   max-width: 750px;
   overflow: hidden;
@@ -177,7 +180,7 @@ const Card = styled.button`
   // Custom styles based on organizationName
   ${props => organizationCardStyles[props.organizationName] || `
     border-radius: 6px;
-    height: 400px;
+    height: ${DEFAULT_HEIGHT};
   `}
 `;
 
@@ -320,6 +323,7 @@ const TargetPlayIcon = () => (
 );
 
 const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories = [], pagination }) => {
+  const defaultHeight = organizationName === "Target" ? TARGET_HEIGHT : DEFAULT_HEIGHT;
   const [index, setIndex] = useState(0);
   const [appending, setAppending] = useState(false);
   const [currentStories, setCurrentStories] = useState([]);
@@ -329,7 +333,7 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
   const [gaClientId, setGaClientId] = useState();
   const [gaSessionId, setGaSessionId] = useState();
   const [fullWidth, setFullWidth] = useState(false);
-  const [cardHeight, setCardHeight] = useState("400px");
+  const [cardHeight, setCardHeight] = useState(defaultHeight);
 
   const containerRef = useRef(null);
   const sliderRef = useRef(null);
@@ -346,7 +350,7 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
       const newHeight = aspectRatio * containerWidth;
       setCardHeight(`${newHeight}px`);
     } else {
-      setCardHeight("400px");
+      setCardHeight(defaultHeight);
     }
   }
 }, [containerRef]);
@@ -363,7 +367,7 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
           const newHeight = aspectRatio * containerWidth;
           setCardHeight(`${newHeight}px`);
         } else {
-          setCardHeight("400px");
+          setCardHeight(defaultHeight);
         }
       }
     };
