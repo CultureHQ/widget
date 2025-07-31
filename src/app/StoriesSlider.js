@@ -11,10 +11,10 @@ import justFirstName from "./utils/justFirstName";
 const TARGET_HEIGHT = "534px";
 const DEFAULT_HEIGHT = "400px";
 
-const getSlideLayout = (index, containerRef, sliderRef, stories) => {
+const getSlideLayout = (index, containerRef, sliderRef, stories, displayArrows) => {
   let percent = index * (100 / (stories.length));
   const left = index !== 0;
-  let right = index !== stories.length && stories.length > 4;
+  let right = index !== stories.length && displayArrows;
 
   const container = containerRef.current;
   const slider = sliderRef.current;
@@ -334,10 +334,11 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
   const [gaSessionId, setGaSessionId] = useState();
   const [fullWidth, setFullWidth] = useState(false);
   const [cardHeight, setCardHeight] = useState(defaultHeight);
+  const [displayArrows, setDisplayArrows] = useState(false);
 
   const containerRef = useRef(null);
   const sliderRef = useRef(null);
-  const slideLayout = getSlideLayout(index, containerRef, sliderRef, currentStories);
+  const slideLayout = getSlideLayout(index, containerRef, sliderRef, currentStories, displayArrows);
 
   useEffect(() => {
   if (containerRef.current) {
@@ -428,6 +429,13 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
       setCurrentStories(stories)
     }, [stories]
   );
+
+  useEffect(() => {
+    const containerDiv = containerRef.current;
+    if (containerDiv) {
+      setDisplayArrows(containerDiv.scrollWidth > containerDiv.clientWidth);
+    }
+  }, [containerRef.current]);
 
   useEffect(
     () => {
