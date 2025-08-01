@@ -13,7 +13,7 @@ const DEFAULT_HEIGHT = "400px";
 
 const getSlideLayout = (index, containerRef, sliderRef, stories, displayArrows) => {
   let percent = index * (100 / (stories.length));
-  const left = index !== 0;
+  const left = index !== 0 && displayArrows;
   let right = index !== stories.length && displayArrows;
 
   const container = containerRef.current;
@@ -370,6 +370,8 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
         } else {
           setCardHeight(defaultHeight);
         }
+
+        setDisplayArrows(containerRef.current.scrollWidth > containerRef.current.clientWidth);
       }
     };
 
