@@ -640,6 +640,7 @@ const LightboxStoryPhoto = ({
       type: "carousel",
       gaClientId,
       gaSessionId,
+      customSessionId: gaSessionId,
       ...params
     })
       .then(_ => {})
