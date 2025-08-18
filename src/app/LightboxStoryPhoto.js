@@ -71,7 +71,7 @@ const Video = styled.video`
   top: 0;
   -webkit-transform: initial;
   transform: initial;
-  width: auto;
+  width: 100%;
 
   @media (min-width: 768px) {
     height: 100%;
