@@ -510,6 +510,7 @@ const LightboxStoryPhoto = ({
 
   const videoStartTimeRef = useRef(null);
   const isVideoPlayingRef = useRef(false);
+  const hasTrackedPlayEventRef = useRef(false);
   const prevActiveStoryRef = useRef();
 
   useEffect(
@@ -551,6 +552,12 @@ const LightboxStoryPhoto = ({
       setGaClientId(getGaClientCookie());
       setGaSessionId(getGaSessionCookie());
     }, []
+  );
+
+  useEffect(
+    () => {
+      hasTrackedPlayEventRef.current = false;
+    }, [activeStory.id]
   );
 
   // Story is changing
@@ -651,7 +658,10 @@ const LightboxStoryPhoto = ({
     isVideoPlayingRef.current = true;
     setShowVideoInfo(false);
     videoStartTimeRef.current = Date.now();
-    trackData("play_video_story", activeStory.id);
+    if (!hasTrackedPlayEventRef.current) {
+      trackData("play_video_story", activeStory.id);
+      hasTrackedPlayEventRef.current = true;
+    }
   };
 
   const handleVideoStoryPause = () => {
