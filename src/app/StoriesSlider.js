@@ -482,6 +482,7 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
       type: "carousel",
       gaClientId,
       gaSessionId,
+      customSessionId: gaSessionId,
       ...params
     })
       .then(_ => {})
