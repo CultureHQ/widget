@@ -11,10 +11,11 @@ import justFirstName from "./utils/justFirstName";
 const TARGET_HEIGHT = "534px";
 const DEFAULT_HEIGHT = "400px";
 
-const getSlideLayout = (index, containerRef, sliderRef, stories, displayArrows) => {
+const getSlideLayout = (index, containerRef, sliderRef, stories, displayArrows, pagination) => {
   let percent = index * (100 / (stories.length));
   const left = index !== 0 && displayArrows;
-  let right = index !== stories.length && displayArrows;
+  const isDispalyingLastStory = index + 1 === stories.length && pagination.currentPage === pagination.totalPages;
+  let right = !isDispalyingLastStory && displayArrows;
 
   const container = containerRef.current;
   const slider = sliderRef.current;
@@ -338,7 +339,7 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
 
   const containerRef = useRef(null);
   const sliderRef = useRef(null);
-  const slideLayout = getSlideLayout(index, containerRef, sliderRef, currentStories, displayArrows);
+  const slideLayout = getSlideLayout(index, containerRef, sliderRef, currentStories, displayArrows, currentPagination);
 
   useEffect(() => {
   if (containerRef.current) {
