@@ -158,9 +158,11 @@ const GalleryLightboxSubtitleContainer = styled.div`
 
 const SubArrow = styled.svg`
   display: block;
+  height: 22px !important;
   margin-bottom: 10px;
   margin-right: 9px;
   transform: scaleX(-1);
+  width: 22px !important;
 `;
 
 const organizationSubArrowPathStyles = {
@@ -247,9 +249,9 @@ const organizationQuoteIconStyles = {
 const QuoteIconDiv = styled.svg`
   ${props => organizationQuoteIconStyles[props.organizationName] || `
     display: block;
-    height: 42px;
+    height: 42px !important;
     min-width: 42px;
-    width: 42px;
+    width: 42px !important;
     transform: scaleX(-1);
   `}
 `;
@@ -297,8 +299,8 @@ const GalleryLightboxUploaderName = styled.span`
 
 const VideoPlaySvg = styled.svg`
   display: block;
-  height: 80px;
-  width: 80px;
+  height: 80px !important;
+  width: 80px !important;
 `;
 
 const GalleryLightboxImageContainer = styled.div`
@@ -393,9 +395,9 @@ const PromptIconImages = styled.div`
 
 const Icon = styled.svg`
   display: block;
-  height: 19px;
+  height: 19px !important;
   min-width: 19px;
-  width: 19px;
+  width: 19px !important;
 `;
 
 const IconPath = styled.path`
@@ -417,8 +419,6 @@ const PlayIcon = () => (
   <VideoPlaySvg
     aria-hidden="true"
     role="presentation"
-    width="22px"
-    height="22px"
     viewBox="0 0 512 512"
   >
     <path
@@ -459,7 +459,7 @@ const PromptIcon = ({ allowedTypes, organizationName }) => {
       case "just_images":
         return (
           <PromptIconImages  organizationName={organizationName}>
-            <Icon aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 1024 1024">
+            <Icon aria-hidden="true" role="presentation" viewBox="0 0 1024 1024">
               <IconPath transform="translate(0 0)" d="M736 448c53 0 96-43 96-96s-43-96-96-96c-53 0-96 43-96 96s43 96 96 96z M904 128h-784c-31 0-56 25-56 57v655c0 31 25 57 56 57h784c31 0 56-25 56-57v-655c0-31-25-57-56-57z M698 523c-6-7-15-12-26-12-10 0-17 5-26 11l-37 32c-8 6-14 9-23 9-9 0-16-3-22-8-2-2-6-5-9-8l-108-116c-8-9-20-15-33-15s-26 7-34 16l-253 305v-521c2-14 13-23 26-23h715c14 0 25 10 26 24l1 521-198-213z" />
             </Icon>
           </PromptIconImages>
@@ -467,7 +467,7 @@ const PromptIcon = ({ allowedTypes, organizationName }) => {
       case "just_videos":
         return (
           <PromptIconVideos  organizationName={organizationName}>
-            <Icon aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 468 468">
+            <Icon aria-hidden="true" role="presentation" viewBox="0 0 468 468">
               <IconPath transform="translate(0 0)" d="M264.704,96.512H51.2c-28.16,0-51.2,23.04-51.2,51.2v172.544c0,28.16,23.04,51.2,51.2,51.2h213.504 c28.16,0,51.2-23.04,51.2-51.2V147.712C315.904,119.04,292.864,96.512,264.704,96.512z M430.08,124.672c-3.072,0.512-6.144,2.048-8.704,3.584l-79.872,46.08V293.12l80.384,46.08 c14.848,8.704,33.28,3.584,41.984-11.264c2.56-4.608,4.096-9.728,4.096-15.36V154.368 C467.968,135.424,450.048,120.064,430.08,124.672z" />
             </Icon>
           </PromptIconVideos>
@@ -475,7 +475,7 @@ const PromptIcon = ({ allowedTypes, organizationName }) => {
       default:
         return (
           <PromptIconAll  organizationName={organizationName}>
-            <Icon aria-hidden="true" role="presentation" width="22px" height="22px" viewBox="0 0 1024 1024">
+            <Icon aria-hidden="true" role="presentation" viewBox="0 0 1024 1024">
               <IconPath transform="translate(0 0)" d="M915 280l-165-8-10-108c-2-23-22-38-46-37l-592 49c-24 2-41 21-39 43l42 472c2 23 22 38 46 37l30-2-5 92c-1 25 18 46 45 47l660 31c26 1 48-17 50-42l28-527c1-25-19-45-45-47z M205 291l-14 270-35 49-32-356c0 0 0-1 0-1s0-1 0-1c1-10 9-18 19-19l522-43c10-1 19 6 21 16 0 0 1 0 1 1 0 0 1 0 1 1l5 62-438-21c-26-1-48 18-50 43z M873 765l-93-111-55-65c-5-6-13-11-21-11s-15 3-22 8l-33 24c-7 4-12 7-20 7-7 0-14-3-18-8-2-2-5-4-7-7l-86-98c-6-8-16-13-28-13-11-1-22 4-30 11l-216 232 1-14 14-258 7-126c0 0 0-1 0-1 0 0 0-1 0-1 3-11 12-19 24-18l582 28c12 1 21 9 21 20 0 0 1 1 1 1s1 1 1 1l-21 397z M746 525c39 0 70-32 70-70s-31-70-70-70c-39 0-70 31-70 70s31 70 70 70z" />
             </Icon>
           </PromptIconAll>
@@ -741,7 +741,7 @@ const LightboxStoryPhoto = ({
                 </Title>
               </GalleryLightboxParentTitleContainer>
               <GalleryLightboxSubtitleContainer organizationName={organizationName}>
-                <SubArrow width="22px" height="22px" viewBox="0 0 464 464">
+                <SubArrow viewBox="0 0 464 464">
                   <SubArrowPath
                     organizationName={organizationName}
                     d="M464.000251,24 C464.110373,115.256418 427.850906,202.794842 363.245,267.245 C331.912503,298.659235 294.78011,323.692873 253.908,340.957 C212.358482,358.538885 167.738665,367.71911 122.623,367.968 L90.666,344 L122.71,319.967 C200.312749,319.475993 274.573891,288.322547 329.3,233.3 C384.992218,177.911837 416.211732,102.545699 416,24 C416,10.745166 426.745166,2.84217094e-14 440,2.84217094e-14 C453.254834,2.84217094e-14 464.000251,10.745166 464.000251,24 L464.000251,24 Z M171.2,454.4 C179.1529,443.796133 177.003867,428.7529 166.4,420.8 L64,344 L166.4,267.2 C173.259499,262.055376 176.853314,253.642047 175.827688,245.129234 C174.802062,236.616421 169.312813,229.297422 161.427688,225.929234 C153.542563,222.561046 144.459499,223.655375 137.6,228.8 L9.6,324.8 C3.55665978,329.332505 0,336.445825 0,344 C0,351.554175 3.55665978,358.667495 9.6,363.2 L137.6,459.2 C142.692157,463.019117 149.09289,464.658962 155.394113,463.758788 C161.695335,462.858613 167.380883,459.492157 171.2,454.4 L171.2,454.4 Z"

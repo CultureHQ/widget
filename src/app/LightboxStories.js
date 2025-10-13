@@ -71,6 +71,12 @@ const modalBody = {
   padding: "0"
 };
 
+const ArrowIcon = styled.svg`
+  display: block;
+  height: 22px !important;
+  width: 22px !important;
+`;
+
 const GalleryLightboxActions = styled.div`
   align-items: center;
   background-color: rgba(255, 255, 255, 0.9);
@@ -121,14 +127,14 @@ const chqPbn = {
 
 const CloseIcon = styled.svg`
   display: block;
-  height: 25px;
+  height: 25px !important;
   opacity: 0.9;
   transition: opacity 300ms ease-in-out;
-  width: 25px;
+  width: 25px !important;
 
   @media (min-width: 768px) {
-    height: 35px;
-    width: 35px;
+    height: 35px !important;
+    width: 35px !important;
   }
 `;
 
@@ -153,9 +159,9 @@ const GalleryLighboxChevron = styled.button`
 const ChevronSvg = styled.svg`
   display: block;
   fill: #fff;
-  height: 40px;
+  height: 40px !important;
   margin-top: 2px;
-  width: 40px;
+  width: 40px !important;
 `;
 
 const Path = styled.path`
@@ -178,8 +184,6 @@ const LightboxArrows = ({ onSwipeLeft, onSwipeRight }) => (
       <ChevronSvg
         aria-hidden="true"
         role="presentation"
-        width="22px"
-        height="22px"
         viewBox="0 0 1024 1024"
       >
         <path
@@ -199,8 +203,6 @@ const LightboxArrows = ({ onSwipeLeft, onSwipeRight }) => (
       <ChevronSvg
         aria-hidden="true"
         role="presentation"
-        width="22px"
-        height="22px"
         viewBox="0 0 1024 1024"
       >
         <path
@@ -222,19 +224,16 @@ const LightboxActions = ({ onClose, onSwipeLeft, onSwipeRight }) => (
         style={{ ...chqPbn, marginRight: "20p" }}
         type="button"
       >
-        <svg
+        <ArrowIcon
           aria-hidden="true"
           role="presentation"
-          width="22px"
-          height="22px"
           viewBox="0 0 1024 1024"
-          style={{ display: "block" }}
         >
           <path
             transform="translate(0 0)"
             d="M427.4 512v0 0l334.4-348.2c8.4-8.6 8.2-22.8-0.4-31.6l-59.8-61.2c-8.6-8.8-22.6-9-31-0.4l-408.4 425.2c-4.4 4.4-6.4 10.4-6 16.2-0.2 6 1.8 11.8 6 16.2l408.4 425.4c8.4 8.6 22.4 8.4 31-0.4l59.8-61.2c8.6-8.8 8.8-23 0.4-31.6l-334.4-348.4z"
           />
-        </svg>
+        </ArrowIcon>
       </button>
       <button
         className="right-arrow"
@@ -243,19 +242,16 @@ const LightboxActions = ({ onClose, onSwipeLeft, onSwipeRight }) => (
         style={{ ...chqPbn, marginRight: "20p" }}
         type="button"
       >
-        <svg
+        <ArrowIcon
           aria-hidden="true"
           role="presentation"
-          width="22px"
-          height="22px"
           viewBox="0 0 1024 1024"
-          style={{ display: "block" }}
         >
           <path
             transform="translate(0 0)"
             d="M596.6 512v0 0l-334.4-348.2c-8.4-8.6-8.2-22.8 0.4-31.6l59.8-61.2c8.6-8.8 22.6-9 31-0.4l408.4 425.4c4.4 4.4 6.4 10.4 6 16.2 0.2 6-1.8 11.8-6 16.2l-408.4 425.2c-8.4 8.6-22.4 8.4-31-0.4l-59.8-61.2c-8.6-8.8-8.8-23-0.4-31.6l334.4-348.4z"
           />
-        </svg>
+        </ArrowIcon>
       </button>
     </Navigation>
     <div className="actions">
@@ -263,8 +259,6 @@ const LightboxActions = ({ onClose, onSwipeLeft, onSwipeRight }) => (
         <CloseIcon
           aria-hidden="true"
           role="presentation"
-          width="35px"
-          height="35px"
           viewBox="0 0 1024 1024"
         >
           <Path

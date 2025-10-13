@@ -35,12 +35,6 @@ const getSlideLayout = (index, containerRef, sliderRef, stories, displayArrows, 
   return { percent, left, right };
 };
 
-const playIcon = {
-  display: "block",
-  height: "40px",
-  width: "40px"
-};
-
 const SliderContainer = styled.section`
   position: relative;
 
@@ -57,6 +51,25 @@ const organizationArrowHoverStyles = {
     fill: #cc0000;
   `
 }
+
+const DefaultIcon = styled.svg`
+  display: block;
+  height: 40px !important;
+  width: 40px !important;
+`;
+
+const TargetIcon = styled.svg`
+  display: block;
+  height: 16px !important;
+  margin-left: 10px;
+  width: 16px !important;
+`;
+
+const ArrowIcon = styled.svg`
+  display: block;
+  height: 22px !important;
+  width: 22px !important;
+`;
 
 const LeftArrow = styled.button`
   background: #fff;
@@ -307,19 +320,27 @@ const TargetPlayContainer = styled.div`
 `;
 
 const DefaultPlayIcon = () => (
-  <svg style={playIcon} aria-hidden="true" role="presentation" width="14px" height="14px" viewBox="0 0 264 264">
+  <DefaultIcon
+    aria-hidden="true"
+    role="presentation"
+    viewBox="0 0 264 264"
+  >
     <path transform="translate(0 0)" style={{ fill: "#FFFFFF" }} d="M238.163,115.57l-68.127-39.741c-15.201-8.899-40.064-23.393-55.296-32.256L44.115,3.831 C28.919-5.067,13.974,2.07,13.974,19.698v224c0,17.567,14.945,24.735,30.147,15.872l69.376-39.741 c15.232-8.863,40.735-23.357,55.936-32.256l68.449-39.741C253.047,138.933,253.334,124.433,238.163,115.57z" />
-  </svg>
+  </DefaultIcon>
 );
 
 const TargetPlayIcon = () => (
   <TargetPlayContainer>
     <span style={{ fontWeight: "600", fontSize: "16px" }}>Play</span>
-    <svg viewBox="0 0 30.065 30.065" style={{ display: "block", height: "16px", marginLeft: "10px", width: "16px" }}>
+    <TargetIcon
+      aria-hidden="true"
+      role="presentation"
+      viewBox="0 0 30.065 30.065"
+    >
       <g>
         <path style={{ fill: "#FFFFFF" }} d="M26.511,12.004L6.233,0.463c-2.151-1.228-4.344,0.115-4.344,2.53v24.093 c0,2.046,1.332,2.979,2.57,2.979c0.583,0,1.177-0.184,1.767-0.543l20.369-12.468c1.024-0.629,1.599-1.56,1.581-2.555 C28.159,13.503,27.553,12.593,26.511,12.004z M25.23,14.827L4.862,27.292c-0.137,0.084-0.245,0.126-0.319,0.147 c-0.02-0.074-0.04-0.188-0.04-0.353V2.994c0-0.248,0.045-0.373,0.045-0.404c0.08,0.005,0.22,0.046,0.396,0.146l20.275,11.541 c0.25,0.143,0.324,0.267,0.348,0.24C25.554,14.551,25.469,14.678,25.23,14.827z" />
       </g>
-    </svg>
+    </TargetIcon>
   </TargetPlayContainer>
 );
 
@@ -582,19 +603,16 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
           organizationName={organizationName}
           style={{ display: slideLayout.left ? "flex" : "none" }}
         >
-          <svg
+          <ArrowIcon
             aria-hidden="true"
             role="presentation"
-            width="22px"
-            height="22px"
             viewBox="0 0 1024 1024"
-            style={{ display: "block" }}
           >
             <path
               transform="translate(0 0)"
               d="M427.4 512v0 0l334.4-348.2c8.4-8.6 8.2-22.8-0.4-31.6l-59.8-61.2c-8.6-8.8-22.6-9-31-0.4l-408.4 425.2c-4.4 4.4-6.4 10.4-6 16.2-0.2 6 1.8 11.8 6 16.2l408.4 425.4c8.4 8.6 22.4 8.4 31-0.4l59.8-61.2c8.6-8.8 8.8-23 0.4-31.6l-334.4-348.4z"
             />
-          </svg>
+          </ArrowIcon>
         </LeftArrow>
         <ScrollbarContainer ref={containerRef} organizationName={organizationName} style={{ height: cardHeight }}>
           <div
@@ -678,19 +696,16 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
           onClick={onNext}
           style={{ display: slideLayout.right ? "flex" : "none" }}
         >
-          <svg
+          <ArrowIcon
             aria-hidden="true"
             role="presentation"
-            width="22px"
-            height="22px"
             viewBox="0 0 1024 1024"
-            style={{ display: "block" }}
           >
             <path
               transform="translate(0 0)"
               d="M596.6 512v0 0l-334.4-348.2c-8.4-8.6-8.2-22.8 0.4-31.6l59.8-61.2c8.6-8.8 22.6-9 31-0.4l408.4 425.4c4.4 4.4 6.4 10.4 6 16.2 0.2 6-1.8 11.8-6 16.2l-408.4 425.2c-8.4 8.6-22.4 8.4-31-0.4l-59.8-61.2c-8.6-8.8-8.8-23-0.4-31.6l334.4-348.4z"
             />
-          </svg>
+          </ArrowIcon>
         </RightArrow>
       </SliderContainer>
     </>
