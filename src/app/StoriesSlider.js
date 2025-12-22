@@ -6,10 +6,10 @@ import LightboxStories from "./LightboxStories";
 import defaultStyles from "../styles.json";
 import CHQStory from "../lib/CHQStory";
 import isTarget from "./utils/isTarget";
-import justFirstName from "./utils/justFirstName";
-
-const TARGET_HEIGHT = "534px";
-const DEFAULT_HEIGHT = "400px";
+import getHeightPerOrg from "./utils/getHeightPerOrg";
+import displayCreatorName from "./utils/displayCreatorName";
+import usesDefaultPlayButton from "./utils/usesDefaultPlayButton";
+import orgVideoPlayButton from "./utils/orgVideoPlayButton";
 
 const getSlideLayout = (index, containerRef, sliderRef, stories, displayArrows, pagination) => {
   let percent = index * (100 / (stories.length));
@@ -51,19 +51,6 @@ const organizationArrowHoverStyles = {
     fill: #cc0000;
   `
 }
-
-const DefaultIcon = styled.svg`
-  display: block;
-  height: 40px !important;
-  width: 40px !important;
-`;
-
-const TargetIcon = styled.svg`
-  display: block;
-  height: 16px !important;
-  margin-left: 10px;
-  width: 16px !important;
-`;
 
 const ArrowIcon = styled.svg`
   display: block;
@@ -123,15 +110,10 @@ const RightArrow = styled.button`
   }
 `;
 
-const organizationScrollbarContainerStyles = {
-  Target: `
-    height: ${TARGET_HEIGHT};
-  `
-  // Add more organizations as needed
-}
-
 const ScrollbarContainer = styled.div`
-  height: ${DEFAULT_HEIGHT};
+  ${props => `
+    height: ${getHeightPerOrg(props.organizationName)};
+    `}
   overflow-x: scroll;
   overflow-y: hidden;
   position: relative;
@@ -144,10 +126,6 @@ const ScrollbarContainer = styled.div`
   &::-webkit-scrollbar {
     display: none; // Safari and Chrome
   }
-
-  ${props => organizationScrollbarContainerStyles[props.organizationName] || `
-    height: ${DEFAULT_HEIGHT};
-  `}
 `;
 
 const slider = {
@@ -170,7 +148,6 @@ const sliderEmpty = {
 const organizationCardStyles = {
   Target: `
     border-radius: 16px;
-    height: ${TARGET_HEIGHT};
   `
 };
 
@@ -182,7 +159,9 @@ const Card = styled.button`
   border: 0;
   cursor: pointer;
   display: inline-block;
-  height: ${DEFAULT_HEIGHT};
+  ${props => `
+    height: ${getHeightPerOrg(props.organizationName)};
+  `}
   margin-right: 15px;
   max-width: 750px;
   overflow: hidden;
@@ -194,7 +173,7 @@ const Card = styled.button`
   // Custom styles based on organizationName
   ${props => organizationCardStyles[props.organizationName] || `
     border-radius: 6px;
-    height: ${DEFAULT_HEIGHT};
+    height: ${getHeightPerOrg(props.organizationName)};
   `}
 `;
 
@@ -307,45 +286,8 @@ const TopTextContainer = styled.div`
   width: 80%;
 `;
 
-const TargetPlayContainer = styled.div`
-  align-items: center;
-  background-color: #CC0000;
-  border-radius: 40px;
-  color: #FFFFFF;
-  display: flex;
-  height: 44px;
-  justify-content: center;
-  margin-top: 15px;
-  width: 117px;
-`;
-
-const DefaultPlayIcon = () => (
-  <DefaultIcon
-    aria-hidden="true"
-    role="presentation"
-    viewBox="0 0 264 264"
-  >
-    <path transform="translate(0 0)" style={{ fill: "#FFFFFF" }} d="M238.163,115.57l-68.127-39.741c-15.201-8.899-40.064-23.393-55.296-32.256L44.115,3.831 C28.919-5.067,13.974,2.07,13.974,19.698v224c0,17.567,14.945,24.735,30.147,15.872l69.376-39.741 c15.232-8.863,40.735-23.357,55.936-32.256l68.449-39.741C253.047,138.933,253.334,124.433,238.163,115.57z" />
-  </DefaultIcon>
-);
-
-const TargetPlayIcon = () => (
-  <TargetPlayContainer>
-    <span style={{ fontWeight: "600", fontSize: "16px" }}>Play</span>
-    <TargetIcon
-      aria-hidden="true"
-      role="presentation"
-      viewBox="0 0 30.065 30.065"
-    >
-      <g>
-        <path style={{ fill: "#FFFFFF" }} d="M26.511,12.004L6.233,0.463c-2.151-1.228-4.344,0.115-4.344,2.53v24.093 c0,2.046,1.332,2.979,2.57,2.979c0.583,0,1.177-0.184,1.767-0.543l20.369-12.468c1.024-0.629,1.599-1.56,1.581-2.555 C28.159,13.503,27.553,12.593,26.511,12.004z M25.23,14.827L4.862,27.292c-0.137,0.084-0.245,0.126-0.319,0.147 c-0.02-0.074-0.04-0.188-0.04-0.353V2.994c0-0.248,0.045-0.373,0.045-0.404c0.08,0.005,0.22,0.046,0.396,0.146l20.275,11.541 c0.25,0.143,0.324,0.267,0.348,0.24C25.554,14.551,25.469,14.678,25.23,14.827z" />
-      </g>
-    </TargetIcon>
-  </TargetPlayContainer>
-);
-
 const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories = [], pagination }) => {
-  const defaultHeight = organizationName === "Target" ? TARGET_HEIGHT : DEFAULT_HEIGHT;
+  const defaultHeight = getHeightPerOrg(organizationName);
   const [index, setIndex] = useState(0);
   const [appending, setAppending] = useState(false);
   const [currentStories, setCurrentStories] = useState([]);
@@ -658,7 +600,7 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
                           ...creatorNamePerOrg(organizationName)
                         }}
                       >
-                        {justFirstName(organizationName) ? story.creator.firstName : story.creator.name}
+                        {displayCreatorName(story.creator, organizationName)}
                       </p>
                       <p
                         style={{
@@ -682,9 +624,9 @@ const StoriesSlider = ({ filters = {}, organizationId, organizationName, stories
                     >
                       {story.question.question}
                     </p>
-                    {story.media.mediaType === "video" && isTarget(organizationName) && <TargetPlayIcon />}
+                    {story.media.mediaType === "video" && !usesDefaultPlayButton(organizationName) && orgVideoPlayButton(organizationName)}
                   </div>
-                  {story.media.mediaType === "video" && !isTarget(organizationName) && <DefaultPlayIcon />}
+                  {story.media.mediaType === "video" && usesDefaultPlayButton(organizationName) && orgVideoPlayButton(organizationName)}
                 </div>
               </Card>
             ))}
