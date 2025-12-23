@@ -100,6 +100,10 @@ class App extends Component {
       if (organization === "Target") {
         this.loadTargetFonts();
       }
+
+      if (organization === "RTX") this.loadRtxFonts();
+
+
     }).catch(() => {
       this.mountedSetState({ stories: null, failure: true });
     });
@@ -219,6 +223,43 @@ class App extends Component {
       src: url("https://assets.culturehq.com/fonts/target/HelveticaforTarget-ThinItalic.otf") format("opentype");
       font-weight: 200;
       font-style: italic;
+    }
+    `;
+
+    // Append the <style> tag to the <head>
+    document.head.appendChild(styleTag);
+  }
+
+  loadRtxFonts() {
+    // Create a <style> tag dynamically
+    const styleTag = document.createElement("style");
+    styleTag.innerHTML = `
+    @font-face {
+      font-family: "Objektiv Mk2";
+      src: url("https://culturehq-assets.s3.us-west-2.amazonaws.com/fonts/rtx/objektiv-mk2-light.otf") format("opentype");
+      font-weight: 300;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Objektiv Mk2";
+      src: url("https://culturehq-assets.s3.us-west-2.amazonaws.com/fonts/rtx/objektiv-mk2.otf") format("opentype");
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Objektiv Mk2";
+      src: url("https://culturehq-assets.s3.us-west-2.amazonaws.com/fonts/rtx/objektiv-mk2-medium.otf") format("opentype");
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Objektiv Mk2";
+      src: url("https://culturehq-assets.s3.us-west-2.amazonaws.com/fonts/rtx/objektiv-mk2-bold.otf") format("opentype");
+      font-weight: 700;
+      font-style: normal;
     }
     `;
 
