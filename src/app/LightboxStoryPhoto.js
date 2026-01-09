@@ -345,6 +345,7 @@ const LightboxStoryPhoto = ({
   landingPage = false,
   changing,
   onChangedFinished,
+  trackData,
 }) => {
   const mediaRef = React.createRef();
   const [state, setState] = useState({
@@ -355,6 +356,9 @@ const LightboxStoryPhoto = ({
     showComments: false,
   });
   const [showVideoInfo, setShowVideoInfo] = useState(false);
+
+  const videoStartTimeRef = React.useRef(null);
+  const isVideoPlayingRef = React.useRef(false);
 
   useEffect(() => {
     setState({ ...state, imageLoaded: !changing });
@@ -401,6 +405,41 @@ const LightboxStoryPhoto = ({
     mediaRef.current.play();
   };
 
+  const handleVideoStoryPlay = () => {
+    if (trackData && activeStory.media.mediaType === "video") {
+      isVideoPlayingRef.current = true;
+      setShowVideoInfo(false);
+      videoStartTimeRef.current = Date.now();
+      trackData("play_video_story", activeStory.id);
+    }
+    mediaRef.current.play();
+  };
+
+  const handleVideoStoryPause = () => {
+    if (isVideoPlayingRef.current && videoStartTimeRef.current) {
+      const duration = (Date.now() - videoStartTimeRef.current) / 1000;
+      if (trackData) {
+        trackData("play_duration_story_video", activeStory.id, { time: duration });
+      }
+      setShowVideoInfo(true);
+      isVideoPlayingRef.current = false;
+      videoStartTimeRef.current = null;
+    }
+  };
+
+  useEffect(() => {
+    if (!trackData || !activeStory || activeStory.media.mediaType !== "video") {
+      return;
+    }
+
+    return () => {
+      if (isVideoPlayingRef.current && videoStartTimeRef.current) {
+        const duration = (Date.now() - videoStartTimeRef.current) / 1000;
+        trackData("play_duration_story_video", activeStory.id, { time: duration });
+      }
+    };
+  }, []);
+
   const { body, creator, createdAt, question } = activeStory;
   const { parentStoryQuestion } = question;
   const imageUrl =
@@ -436,7 +475,7 @@ const LightboxStoryPhoto = ({
             {showVideoInfo && (
               <div
                 className="gallery-lightbox__video-play"
-                onClick={handlePlay}
+                onClick={handleVideoStoryPlay}
                 onKeyPress={() => {}}
                 style={galleryLightboxVideoPlay}
                 role="button"
@@ -461,8 +500,8 @@ const LightboxStoryPhoto = ({
               autoPlay
               controls
               className="gallery-lightbox__main-image"
-              onPause={() => setShowVideoInfo(true)}
-              onPlay={() => setShowVideoInfo(false)}
+              onPause={handleVideoStoryPause}
+              onPlay={handleVideoStoryPlay}
               onLoadedData={handleImageLoad}
               poster={activeStory.media.thumbnail}
               ref={mediaRef}

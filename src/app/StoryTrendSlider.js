@@ -272,16 +272,62 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
   const sliderRef = useRef(null);
   const slideLayout = getSlideLayout(index, containerRef, sliderRef, storyTrends.length);
 
-  const trackData = (eventAction, storyId = undefined) =>
-    makePost("/stories/track", {
+  const getGaClientCookie = () => {
+    const gaClientCookie = document.cookie.match(/_ga=([^;]+)/g);
+    let clientId;
+    if (gaClientCookie?.length > 0) {
+      const gaCookie = gaClientCookie[0];
+      const match = gaCookie.match(/GA[1-2]\.[0-9]+\.(\d+)\.(\d+)/);
+      if (match) {
+        clientId = `${match[1]}.${match[2]}`;
+      }
+    }
+    return clientId;
+  };
+
+  const getGaSessionCookie = () => {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i += 1) {
+      const cookie = cookies[i].trim();
+
+      if (cookie.startsWith("_ga_")) {
+        const cookieParts = cookie.split("=");
+        const cookieValue = cookieParts[1];
+        const valueParts = cookieValue.split(".");
+        const desiredValue = valueParts[2];
+
+        return desiredValue;
+      }
+    }
+
+    return;
+  };
+
+  const trackData = (eventAction, storyId = undefined, params = {}) => {
+    const gaClientId = getGaClientCookie();
+    const gaSessionId = getGaSessionCookie();
+    
+    const eventData = {
+      storyId,
+      eventAction,
+      origin: "trend_carousel",
+      ...params
+    };
+    document.dispatchEvent(new CustomEvent(eventAction, { detail: eventData }));
+    return makePost("/stories/track", {
       organizationId,
       storyId,
       eventAction,
       url: window.location.href,
-      type: "carousel",
+      type: "trend_carousel",
+      gaClientId,
+      gaSessionId,
+      customSessionId: gaSessionId,
+      ...params
     })
       .then((_) => {})
       .catch((_) => {});
+  };
 
 
   useLayoutEffect(() => {
@@ -302,11 +348,11 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
 
   const onNext = () => {
     setIndex((value) => value + 1);
-    trackData("Viewing stories");
+    trackData("view_stories");
   };
   const onPrev = () => {
     setIndex((value) => value - 1);
-    trackData("Viewing stories");
+    trackData("view_stories");
   };
 
   const handleThumbnailClick = (goToIndex) => {
@@ -320,7 +366,7 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
       target = 0;
     }
 
-    trackData("Opening a story", stories[target].id);
+    trackData("open_story", stories[target].id);
     setActiveStory(stories[target]);
     setModalIsOpen(true);
   };
@@ -331,7 +377,7 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
 
   const handleTrendClick = trend => {
     setStories(trend.childApprovedAnswers);
-    trackData("Opening a story", trend.childApprovedAnswers[0].id);
+    trackData("open_story", trend.childApprovedAnswers[0].id);
     setActiveStory(trend.childApprovedAnswers[0]);
     setModalIsOpen(true);
   };
@@ -348,6 +394,7 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
           onStoryChange={handleThumbnailClick}
           noActions
           landingPage
+          trackData={trackData}
         />
       )}
       <SliderContainer style={{ position: "relative" }}>

@@ -418,6 +418,7 @@ class LightboxStoriesWrapper extends PureComponent {
                     onDelete={onDelete}
                     onStoryUpdate={onStoryUpdate}
                     isWelcomePage={isWelcomePage}
+                    trackData={this.props.trackData}
                   />
                 </div>
               )}
