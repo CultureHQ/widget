@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { makePaginatedGet, setToken } from "@culturehq/client";
 import styled from "styled-components";
-import NoTrends from "./NoTrends";
 
 import Failure from "./Failure";
 import StoryTrendSlider from "./StoryTrendSlider";
@@ -117,19 +116,9 @@ class App extends Component {
     const { failure, storyTrends } = this.state;
     const { filters } = this.props;
 
-    if (failure) {
-      return <Failure />;
-    }
-
-    if (!storyTrends) {
-      return (
-        <EmptySlider />
-      );
-    }
-
-    if (storyTrends.length === 0) {
-      return <NoTrends />;
-    }
+    if (failure) return <Failure />;
+    if (!storyTrends) return <EmptySlider />;
+    if (storyTrends.length === 0) return <></>;
 
     return (
       <Container>

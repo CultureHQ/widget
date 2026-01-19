@@ -345,7 +345,7 @@ const LightboxStoryPhoto = ({
   landingPage = false,
   changing,
   onChangedFinished,
-  trackData,
+  trackData
 }) => {
   const mediaRef = React.createRef();
   const [state, setState] = useState({
