@@ -373,6 +373,7 @@ class LightboxStoriesWrapper extends PureComponent {
       isWelcomePage,
       noActions,
       landingPage,
+      organizationId,
       preview,
       showProfileLink,
       organization,
@@ -417,8 +418,8 @@ class LightboxStoriesWrapper extends PureComponent {
                     onChangedFinished={() => setChanging(false)}
                     onDelete={onDelete}
                     onStoryUpdate={onStoryUpdate}
+                    organizationId={organizationId}
                     isWelcomePage={isWelcomePage}
-                    trackData={this.props.trackData}
                   />
                 </div>
               )}

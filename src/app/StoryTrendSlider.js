@@ -267,46 +267,55 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
   const [activeStory, setActiveStory] = useState(undefined);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [stories, setStories] = useState([]);
+  const [gaClientId, setGaClientId] = useState();
+  const [gaSessionId, setGaSessionId] = useState();
 
   const containerRef = useRef(null);
   const sliderRef = useRef(null);
   const slideLayout = getSlideLayout(index, containerRef, sliderRef, storyTrends.length);
 
-  const getGaClientCookie = () => {
-    const gaClientCookie = document.cookie.match(/_ga=([^;]+)/g);
-    let clientId;
-    if (gaClientCookie?.length > 0) {
-      const gaCookie = gaClientCookie[0];
-      const match = gaCookie.match(/GA[1-2]\.[0-9]+\.(\d+)\.(\d+)/);
-      if (match) {
-        clientId = `${match[1]}.${match[2]}`;
-      }
-    }
-    return clientId;
-  };
+  useEffect(
+    () => {
+      const getGaClientCookie = () => {
+        const gaClientCookie = document.cookie.match(/_ga=([^;]+)/g);
+        let clientId = "";
+        if (gaClientCookie?.length > 0) {
+          const gaCookie = gaClientCookie[0];
+          const match = gaCookie.match(/GA[1-2]\.[0-9]+\.(\d+)\.(\d+)/);
+          if (match) {
+            clientId = `${match[1]}.${match[2]}`;
+          }
+        }
+        return clientId;
+      };
 
-  const getGaSessionCookie = () => {
-    const cookies = document.cookie.split(";");
-    for (let i = 0; i < cookies.length; i += 1) {
-      const cookie = cookies[i].trim();
+      const getGaSessionCookie = () => {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i += 1) {
+          const cookie = cookies[i].trim();
 
-      if (cookie.startsWith("_ga_")) {
-        const cookieParts = cookie.split("=");
-        const cookieValue = cookieParts[1];
-        const valueParts = cookieValue.split(".");
-        const desiredValue = valueParts[2];
+          // Check if the cookie starts with the given cookieName
+          if (cookie.startsWith("_ga_")) {
+            // Extract the value from the cookie
+            const cookieParts = cookie.split("=");
+            const cookieValue = cookieParts[1];
+            // Split the value by periods and get the desired part
+            const valueParts = cookieValue.split(".");
+            const desiredValue = valueParts[2];
 
-        return desiredValue;
-      }
-    }
+            return desiredValue;
+          }
+        }
 
-    return;
-  };
+        return "";
+      };
+
+      setGaClientId(getGaClientCookie());
+      setGaSessionId(getGaSessionCookie());
+    }, []
+  );
 
   const trackData = (eventAction, storyId = undefined, params = {}) => {
-    const gaClientId = getGaClientCookie();
-    const gaSessionId = getGaSessionCookie();
-    
     const eventData = {
       storyId,
       eventAction,
@@ -328,7 +337,6 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
       .then((_) => {})
       .catch((_) => {});
   };
-
 
   useLayoutEffect(() => {
     const adjustCardSize = () => {
@@ -392,6 +400,7 @@ const StoryTrendSlider = ({ organizationId, storyTrends = [] }) => {
           stories={stories}
           onClose={handleClose}
           onStoryChange={handleThumbnailClick}
+          organizationId={organizationId}
           noActions
           landingPage
           trackData={trackData}

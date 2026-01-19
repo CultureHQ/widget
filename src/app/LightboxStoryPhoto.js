@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useState, useEffect } from "react";
+import { makePost } from "@culturehq/client";
 import styled from "styled-components";
 
 import imageFromStory from "./utils/getImageFromStory";
 import imagesSizes from "./utils/imagesSizes";
 import EditorOutput from "./EditorOutput";
 import Loader from "./Loader";
+import Subtitles from "./Subtitles";
 
 import { font } from "../styles.json";
 
@@ -345,7 +347,7 @@ const LightboxStoryPhoto = ({
   landingPage = false,
   changing,
   onChangedFinished,
-  trackData
+  organizationId
 }) => {
   const mediaRef = React.createRef();
   const [state, setState] = useState({
@@ -356,14 +358,89 @@ const LightboxStoryPhoto = ({
     showComments: false,
   });
   const [showVideoInfo, setShowVideoInfo] = useState(false);
+  const [gaClientId, setGaClientId] = useState();
+  const [gaSessionId, setGaSessionId] = useState();
 
   const videoStartTimeRef = React.useRef(null);
   const isVideoPlayingRef = React.useRef(false);
+  const hasTrackedPlayEventRef = React.useRef(false);
+  const prevActiveStoryRef = React.useRef();
+
+  useEffect(
+    () => {
+      const getGaClientCookie = () => {
+        const gaClientCookie = document.cookie.match(/_ga=([^;]+)/g);
+        let clientId = "";
+        if (gaClientCookie?.length > 0) {
+          const gaCookie = gaClientCookie[0];
+          const match = gaCookie.match(/GA[1-2]\.[0-9]+\.(\d+)\.(\d+)/);
+          if (match) {
+            clientId = `${match[1]}.${match[2]}`;
+          }
+        }
+        return clientId;
+      };
+
+      const getGaSessionCookie = () => {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i += 1) {
+          const cookie = cookies[i].trim();
+
+          // Check if the cookie starts with the given cookieName
+          if (cookie.startsWith("_ga_")) {
+            // Extract the value from the cookie
+            const cookieParts = cookie.split("=");
+            const cookieValue = cookieParts[1];
+            // Split the value by periods and get the desired part
+            const valueParts = cookieValue.split(".");
+            const desiredValue = valueParts[2];
+
+            return desiredValue;
+          }
+        }
+
+        return "";
+      };
+
+      setGaClientId(getGaClientCookie());
+      setGaSessionId(getGaSessionCookie());
+    }, []
+  );
 
   useEffect(() => {
     setState({ ...state, imageLoaded: !changing });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [changing]);
+
+  useEffect(
+    () => {
+      hasTrackedPlayEventRef.current = false;
+    }, [activeStory.id]
+  );
+
+  // Story is changing
+  useEffect(
+    () => {
+      if (isVideoPlayingRef.current && videoStartTimeRef.current && prevActiveStoryRef.current) {
+        const duration = (Date.now() - videoStartTimeRef.current) / 1000;
+        trackData("play_duration_story_video", prevActiveStoryRef.current.id, { time: duration });
+        isVideoPlayingRef.current = false;
+        videoStartTimeRef.current = null;
+      }
+      prevActiveStoryRef.current = activeStory;
+    }, [activeStory]
+  );
+
+  useEffect(
+    () => {
+      return () => {
+        if (isVideoPlayingRef.current && videoStartTimeRef.current) {
+          const duration = (Date.now() - videoStartTimeRef.current) / 1000;
+          trackData("play_duration_story_video", activeStory.id, { time: duration });
+        }
+      };
+    }, []
+  );
 
   const computeBoundingBox = () => {
     const image = mediaRef.current;
@@ -401,44 +478,53 @@ const LightboxStoryPhoto = ({
     setState({ ...state, hovering: false });
   };
 
-  const handlePlay = () => {
-    mediaRef.current.play();
+  const trackData = (eventAction, storyId = undefined, params = {}) => {
+    const eventData = {
+      storyId,
+      eventAction,
+      origin: "trend_carousel",
+      ...params
+    };
+    document.dispatchEvent(new CustomEvent(eventAction, { detail: eventData }));
+
+    return makePost("/stories/track", {
+      organizationId,
+      storyId,
+      eventAction,
+      url: window.location.href,
+      type: "trend_carousel",
+      gaClientId,
+      gaSessionId,
+      customSessionId: gaSessionId,
+      ...params
+    })
+      .then(_ => {})
+      .catch(_ => {});
   };
 
   const handleVideoStoryPlay = () => {
-    if (trackData && activeStory.media.mediaType === "video") {
-      isVideoPlayingRef.current = true;
-      setShowVideoInfo(false);
-      videoStartTimeRef.current = Date.now();
+    isVideoPlayingRef.current = true;
+    setShowVideoInfo(false);
+    videoStartTimeRef.current = Date.now();
+    if (!hasTrackedPlayEventRef.current) {
       trackData("play_video_story", activeStory.id);
+      hasTrackedPlayEventRef.current = true;
     }
-    mediaRef.current.play();
   };
 
   const handleVideoStoryPause = () => {
     if (isVideoPlayingRef.current && videoStartTimeRef.current) {
       const duration = (Date.now() - videoStartTimeRef.current) / 1000;
-      if (trackData) {
-        trackData("play_duration_story_video", activeStory.id, { time: duration });
-      }
+      trackData("play_duration_story_video", activeStory.id, { time: duration });
       setShowVideoInfo(true);
       isVideoPlayingRef.current = false;
       videoStartTimeRef.current = null;
     }
   };
 
-  useEffect(() => {
-    if (!trackData || !activeStory || activeStory.media.mediaType !== "video") {
-      return;
-    }
-
-    return () => {
-      if (isVideoPlayingRef.current && videoStartTimeRef.current) {
-        const duration = (Date.now() - videoStartTimeRef.current) / 1000;
-        trackData("play_duration_story_video", activeStory.id, { time: duration });
-      }
-    };
-  }, []);
+  const handlePlay = () => {
+    mediaRef.current.play();
+  };
 
   const { body, creator, createdAt, question } = activeStory;
   const { parentStoryQuestion } = question;
@@ -475,8 +561,7 @@ const LightboxStoryPhoto = ({
             {showVideoInfo && (
               <div
                 className="gallery-lightbox__video-play"
-                onClick={handleVideoStoryPlay}
-                onKeyPress={() => {}}
+                onClick={handlePlay}
                 style={galleryLightboxVideoPlay}
                 role="button"
                 tabIndex={0}
@@ -497,16 +582,23 @@ const LightboxStoryPhoto = ({
               </div>
             )}
             <Video
+              playsInline
               autoPlay
+              loop
               controls
-              className="gallery-lightbox__main-image"
+              data-chq-video={activeStory.id}
               onPause={handleVideoStoryPause}
               onPlay={handleVideoStoryPlay}
               onLoadedData={handleImageLoad}
               poster={activeStory.media.thumbnail}
               ref={mediaRef}
               src={activeStory.media.url}
-            />
+              disablePictureInPicture
+              crossOrigin="anonymous"
+              controlsList="nodownload"
+            >
+              <Subtitles media={activeStory.media} videoRef={mediaRef} />
+            </Video>
           </>
         )}
         {!state.imageLoaded && <Loader />}
