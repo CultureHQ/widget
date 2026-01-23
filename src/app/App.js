@@ -7,6 +7,7 @@ import Failure from "./Failure";
 import CHQStory from "../lib/CHQStory";
 import StoriesSlider from "./StoriesSlider";
 import EmptySlider from "./EmptySlider";
+import { configure } from "@culturehq/client";
 
 /*
 import { configure, skipPreflightChecks } from "@culturehq/client";
@@ -70,6 +71,18 @@ const queryToOptions = queryString => {
   };
 };
 
+const configureEnv = env => {
+  if (env === "test") {
+    configure(
+      {
+        apiHost: "https://api-staging.culturehq.com",
+        awsAccessKeyId: "AKIA2OD42LXEEQNIKOWR",
+        signerURL: "https://0f8wfhpcb9.execute-api.us-west-2.amazonaws.com/production/signature",
+        uploadBucket: "https://culturehq-direct-uploads-staging.s3-us-west-2.amazonaws.com"
+      });
+  }
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -86,6 +99,9 @@ class App extends Component {
   componentDidMount() {
     this.componentIsMounted = true;
     const { filters } = this.props;
+    const { env } = filters;
+
+    configureEnv(env);
 
     return makeGet(
       "/landing_pages/stories",
