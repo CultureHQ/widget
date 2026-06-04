@@ -16,8 +16,8 @@ const Container = styled.div`
 
 const LiveSVG = styled.svg`
   margin: -2px 1px 1px 0;
-  width: 8px;
-  height: 8px;
+  width: 8px !important;
+  height: 8px !important;
 `;
 
 const LivePath = styled.path`

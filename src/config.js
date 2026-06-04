@@ -5,5 +5,5 @@ export const PREVIEW_LIMIT = 5;
 export const LIST_OPTIONS = {
   sort: "+starts_at",
   when: "future",
-  allLocations: true
+  allLocations: true,
 };

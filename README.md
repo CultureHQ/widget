@@ -37,6 +37,36 @@ img-src https://uploads.culturehq.com;
 
 Ensure you have `node` and `yarn` installed. Run `yarn install` in the root of the repository to get the dependencies. Edit [`index.html`](index.html) and [`src/config.js`](src/config.js) as appropriate to get it to point to your local API using a valid bot token. Then, run `yarn start` to start the local server. You can view the widget at `http://localhost:8081`.
 
+To run this against the local server, you need to add this snippet in the `App.js` file, before the `class App extends...`
+
+```
+import { configure, skipPreflightChecks } from "@culturehq/client";
+
+switch (process.env.NODE_ENV) { // eslint-disable-line default-case
+  case "development":
+    configure({
+      apiHost: "http://localhost:3000",
+      awsAccessKeyId: "access-key-id",
+      signerURL: "http://localhost:3001",
+      uploadBucket: "http://localhost:3001"
+    });
+
+    break;
+  case "test":
+    configure({
+      apiHost: "http://localhost:8080",
+      awsAccessKeyId: "access-key-id",
+      signerURL: "http://localhost:8081",
+      uploadBucket: "http://localhost:8082"
+    });
+
+    break;
+  case "production":
+    skipPreflightChecks();
+    break;
+}
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/CultureHQ/widget.

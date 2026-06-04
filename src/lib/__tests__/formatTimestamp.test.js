@@ -1,6 +1,6 @@
 import formatTimestamp from "../formatTimestamp";
 
-const format = delta => formatTimestamp(Date.UTC(0) + delta);
+const format = (delta) => formatTimestamp(Date.UTC(0) + delta);
 
 test("displays month correctly", () => {
   const formatted = format(6 * 30 * 24 * 60 * 60 * 1000);

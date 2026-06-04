@@ -12,24 +12,123 @@ body {
 }
 
 #main {
-  border: #aaa solid 1px;
   margin: 20px auto;
   max-width: 90%;
   min-width: 10%;
-  overflow: auto;
   resize: both;
+}
+
+#partner-iframe-container {
+  width: 100%;
+  max-width: 1200px;
+  height: 600px;
+  margin: 20px auto;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#partner-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
     </style>
   </head>
   <body>
     <div id="main"></div>
+    
+    <!-- Partner iframe for testing -->
+    <!--
+    <div id="partner-iframe-container">
+      <iframe id="partner-iframe" src="about:blank"></iframe>
+    </div>
+    -->
     <script type="text/javascript">
-      +function (c, h, q) {
-        (q = document.createElement("script")).type = "text/javascript";
-        q.src = "main.js";
-        q.onload = function () { CHQ(c, h) };
-        document.getElementsByTagName("head")[0].appendChild(q);
-      }("#main", "chqbot-token")
+      document.addEventListener("play_video_story", (event) => {
+        console.log("▶️ Video Started:", event.detail);
+      });
+
+      document.addEventListener("play_duration_story_video", (event) => {
+        console.log(`⏳ Video Watched Duration: ${event.detail.time} seconds for Story ID: ${event.detail.storyId}`);
+      });
+
+      document.addEventListener("open_story", (event) => {
+        console.log("📖 Story Opened:", event.detail);
+      });
+    </script>
+    <!--
+    <script type="text/javascript">
+      // ⚠️ FOR TESTING ONLY - Don't use in production (exposes secret key)
+      async function generatePartnerToken(email, partnerId, secretKey, organization = null) {
+        const payload = {
+          email,
+          partner_id: partnerId,
+          timestamp: Date.now(),
+          nonce: crypto.randomUUID()
+        };
+
+        if (organization) {
+          payload.organization = organization;
+        }
+
+        const payloadB64 = btoa(JSON.stringify(payload))
+          .replace(/\+/g, '-')
+          .replace(/\//g, '_')
+          .replace(/=+$/, '');
+
+        const encoder = new TextEncoder();
+        const keyData = encoder.encode(secretKey);
+        const messageData = encoder.encode(payloadB64);
+
+        const cryptoKey = await crypto.subtle.importKey(
+          'raw', keyData,
+          { name: 'HMAC', hash: 'SHA-256' },
+          false, ['sign']
+        );
+
+        const signatureBuffer = await crypto.subtle.sign('HMAC', cryptoKey, messageData);
+        const signature = Array.from(new Uint8Array(signatureBuffer))
+          .map(b => b.toString(16).padStart(2, '0'))
+          .join('');
+
+        return `${payloadB64}.${signature}`;
+      }
+
+      // Example usage - generates token and loads iframe:
+      const PARTNER_CONFIG = {
+        email: 'headmaster@hogwarts.edu',
+        partnerId: 'partner_433395086179f60b04822ff8',
+        secretKey: '1hJr8oQLQ8b6dmzhHcSzCyXG',
+        // organization: 'your-org-slug', // optional
+        baseUrl: 'http://localhost:4000' // change to your CultureHQ URL
+      };
+
+      generatePartnerToken(
+        PARTNER_CONFIG.email,
+        PARTNER_CONFIG.partnerId,
+        PARTNER_CONFIG.secretKey,
+        PARTNER_CONFIG.organization
+      ).then(token => {
+        console.log('Generated token:', token);
+        
+        const iframeSrc = `${PARTNER_CONFIG.baseUrl}?partner_token=${encodeURIComponent(token)}`;
+        console.log('Iframe URL:', iframeSrc);
+        
+        document.getElementById('partner-iframe').src = iframeSrc;
+      });
+    </script>
+    -->
+
+    <script type="text/javascript">
+      +function (c, h, q, z, y) {
+        (y = document.createElement("script")).type = "text/javascript";
+        y.src = "main.js";
+        y.onload = function () { CHQ(c, h, q, z) };
+        document.getElementsByTagName("head")[0].appendChild(y);
+      }("#main", "null", {"i":[],"d":[],"l":[],"s":[],"co":[],"cy":[],"m":[],"r":[],"v":[],"u":[],"sp":[],"t":[],"lang":"pt","org": 325184378 })
+      // local bot token "mP3nYfCozjfUBF6EWvHkLzMn"
+      // filters example:  {i: [948961931], s: [1004640656]}
     </script>
   </body>
 </html>

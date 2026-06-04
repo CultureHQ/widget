@@ -3,10 +3,13 @@
     "@babel/env",
     "@babel/react"
   ],
+  "plugins": [
+    "babel-plugin-styled-components"
+  ],
   "env": {
     "test": {
       "presets": [
-        ["@babel/preset-env", { "targets": { "node": "current" } }],
+        ["@babel/preset-env", { "targets": { "node": "current" } }]
       ]
     }
   }
