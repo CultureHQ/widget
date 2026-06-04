@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { makeGet, setToken } from "@culturehq/client";
 import styled from "styled-components";
-import NoStories from "./NoStories";
 
 import Failure from "./Failure";
 import CHQStory from "../lib/CHQStory";
@@ -282,7 +281,7 @@ class App extends Component {
     }
 
     if (stories.length === 0) {
-      return <NoStories />;
+      return <></>;
     }
 
     return (
