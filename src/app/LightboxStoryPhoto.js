@@ -512,6 +512,11 @@ const LightboxStoryPhoto = ({
   const isVideoPlayingRef = useRef(false);
   const hasTrackedPlayEventRef = useRef(false);
   const prevActiveStoryRef = useRef();
+  // Read by the unmount cleanup below, which would otherwise only see the
+  // story and GA ids from the first render.
+  const activeStoryRef = useRef(activeStory);
+  const trackDataRef = useRef();
+  activeStoryRef.current = activeStory;
 
   useEffect(
     () => {
@@ -579,7 +584,7 @@ const LightboxStoryPhoto = ({
       return () => {
         if (isVideoPlayingRef.current && videoStartTimeRef.current) {
           const duration = (Date.now() - videoStartTimeRef.current) / 1000;
-          trackData("play_duration_story_video", activeStory.id, { time: duration });
+          trackDataRef.current("play_duration_story_video", activeStoryRef.current.id, { time: duration });
         }
       };
     }, []
@@ -653,6 +658,7 @@ const LightboxStoryPhoto = ({
       .then(_ => {})
       .catch(_ => {});
   };
+  trackDataRef.current = trackData;
 
   const handleVideoStoryPlay = () => {
     isVideoPlayingRef.current = true;
